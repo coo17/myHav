@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/item_home"
+        android:icon="@drawable/icon_sun"
+        android:title=""
+        android:actionLayout="@layout/fragment_home"/>
+
+    <item
+        android:id="@+id/item_habits"
+        android:icon="@drawable/icon_collection"
+        android:title=""
+        android:actionLayout="@layout/fragment_habit"/>
+
+    <item
+        android:id="@+id/item_discover"
+        android:icon="@drawable/icon_discover"
+        android:title=""
+        android:actionLayout="@layout/fragment_discover"/>
+
+    <item
+        android:id="@+id/item_profile"
+        android:icon="@drawable/icon_profile"
+        android:title=""
+        android:actionLayout="@layout/fragment_profile"/>
+
+</menu>
