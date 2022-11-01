@@ -33,21 +33,20 @@ class HomeTaskViewModel : ViewModel() {
 
                 for (i in result) {
 //
-//                    val members = i.get("members") as Array<*>
-//                    var result: String = i.get("members").toString()
-//                    val repeatedDays = i.get("repeatedDays") as Array<*>
+                    val members = i.get("members") as List<String>
+                    val repeatedDays = i.get("repeatedDays") as List<Boolean>
 
                     val todayTaskData = Habits(
                         i.get("id").toString(),
                         i.get("ownerID").toString(),
-                        i.get("members").toString(),
+                        members,
                         i.get("category").toString(),
                         i.get("task").toString(),
-                        i.get("repeatedDays").toString(),
+                        repeatedDays,
                         i.get("duration").toString(),
                         i.get("reminder").toString().toLong(),
                     )
-                    Log.d("Cleooo", "$todayTaskData")
+                    Log.d("Cleooo", "$repeatedDays")
 
 //                    Log.d("Cleooo", "${document.id} => ${document.data}")
 //                    Log.d("Cleooo", "$newHa")
