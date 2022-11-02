@@ -9,7 +9,6 @@ import com.cleo.myha.R
 import com.cleo.myha.data.Habits
 import com.cleo.myha.databinding.ItemTodayTasksBinding
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -17,10 +16,7 @@ class HomeAdapter(): ListAdapter<Habits, HomeAdapter.TaskViewHolder>(HomeDiffCal
 
     class TaskViewHolder(private var binding:ItemTodayTasksBinding): RecyclerView.ViewHolder(binding.root) {
 
-
         fun bind(data: Habits){
-
-
 
             val time = data.reminder
 
@@ -31,11 +27,16 @@ class HomeAdapter(): ListAdapter<Habits, HomeAdapter.TaskViewHolder>(HomeDiffCal
             binding.textTaskReminder.text = getStringFromLong(time)
             binding.imageHabit.setImageResource(
                 when(data.category){
-                    "health" -> R.drawable.icon_discover
-                    else -> { R.drawable.icon_sun}
+                    "health" -> R.drawable.icon_health
+                    "workout" -> R.drawable.icon_workout
+                    "reading" -> R.drawable.icon_reading
+                    "learning" -> R.drawable.icon_learning
+                    "general" -> R.drawable.icon_smilingface
+                    else -> { R.drawable.icon_heart}
                 })
 
         }
+
         fun getStringFromLong(millis: Long): String? {
             val sdf = SimpleDateFormat("hh:mm a")
             val dt: Date = Date(millis)
@@ -62,7 +63,4 @@ class HomeAdapter(): ListAdapter<Habits, HomeAdapter.TaskViewHolder>(HomeDiffCal
         val todayTaskData = getItem(position)
         holder.bind(todayTaskData)
     }
-
-
-
 }

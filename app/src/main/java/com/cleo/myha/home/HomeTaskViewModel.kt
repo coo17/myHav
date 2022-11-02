@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cleo.myha.data.Habits
-import com.cleo.myha.data.PomodoroData
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 
@@ -32,7 +31,8 @@ class HomeTaskViewModel : ViewModel() {
                 val list = mutableListOf<Habits>()
 
                 for (i in result) {
-//
+
+//                    val todayTaskData = i.toObject(Habits::class.java)
                     val members = i.get("members") as List<String>
                     val repeatedDays = i.get("repeatedDays") as List<Boolean>
 
@@ -46,8 +46,7 @@ class HomeTaskViewModel : ViewModel() {
                         i.get("duration").toString(),
                         i.get("reminder").toString().toLong(),
                     )
-                    Log.d("Cleooo", "$repeatedDays")
-
+//                    Log.d("Cleooo", "$repeatedDays")
 //                    Log.d("Cleooo", "${document.id} => ${document.data}")
 //                    Log.d("Cleooo", "$newHa")
                     list.add(todayTaskData)

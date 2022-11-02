@@ -8,7 +8,7 @@ data class Habits(
     var task: String,
     var repeatedDays: List<Boolean>,
     var duration: String,
-    var reminder: Long,
+    var reminder: Long
 //    var pomodoro: List<PomodoroData>
 )
 
