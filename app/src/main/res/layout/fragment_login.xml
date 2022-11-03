@@ -1,14 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".login.LoginFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+<!--    &lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
 
-</FrameLayout>
+<!--    &lt;!&ndash;    <TextView&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:id="@+id/textView3"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_width="match_parent"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_height="match_parent"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:text="@string/hello_blank_fragment"&ndash;&gt;-->
+<!--    &lt;!&ndash;        app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
+<!--    &lt;!&ndash;        app:layout_constraintEnd_toEndOf="parent"&ndash;&gt;-->
+<!--    &lt;!&ndash;        app:layout_constraintStart_toStartOf="parent"&ndash;&gt;-->
+<!--    &lt;!&ndash;        app:layout_constraintTop_toTopOf="parent" />&ndash;&gt;-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/text_UserName"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Name"-->
+<!--        android:inputType="textPersonName"-->
+<!--        tools:layout_editor_absoluteX="87dp"-->
+<!--        tools:layout_editor_absoluteY="161dp" />-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/text_UserEmail"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Email"-->
+<!--        android:inputType="textEmailAddress"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/text_UserName"-->
+<!--        tools:layout_editor_absoluteX="87dp" />-->
+
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/createBtn"-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:background="@drawable/bottom_rounded"-->
+<!--        android:text="Button"-->
+<!--        app:backgroundTint="@color/slate_grey"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/text_UserEmail"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/text_UserEmail" />-->
+
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/loginAsGuest"-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:background="@drawable/bottom_rounded"-->
+<!--        android:text="Login as Guest"-->
+<!--        android:textColor="@color/slate_grey"-->
+<!--        app:backgroundTint="@color/light_grey"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/createBtn"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/createBtn"-->
+<!--        tools:layout_editor_absoluteY="400dp" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

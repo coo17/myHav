@@ -1,5 +1,7 @@
 package com.cleo.myha.data
 
+import android.util.Log
+
 data class Habits(
     var id: String,
     var ownerId: String,
@@ -8,7 +10,8 @@ data class Habits(
     var task: String,
     var repeatedDays: List<Boolean>,
     var duration: String,
-    var reminder: Long
+    var reminder: Long,
+    var timer:String
 //    var pomodoro: List<PomodoroData>
 )
 
