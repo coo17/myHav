@@ -26,6 +26,7 @@ class HomeFragment : Fragment() {
 
 
         viewModel.todayTasks.observe(viewLifecycleOwner, Observer {
+
             adapter.submitList(it)
         })
         return binding.root

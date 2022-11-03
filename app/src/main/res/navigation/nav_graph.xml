@@ -46,9 +46,5 @@
         android:label="dialog_timer_picker"
         tools:layout="@layout/dialog_timer_picker" />
     <action android:id="@+id/action_global_timePickerDialog" app:destination="@id/timePickerDialog" />
-    <dialog
-        android:id="@+id/timePickerDialogg"
-        android:name="com.cleo.myha.createhabits.TimePickerDialogg"
-        android:label="TimePickerDialogg" /><action android:id="@+id/action_global_timePickerDialogg" app:destination="@id/timePickerDialogg"/>
 
 </navigation>

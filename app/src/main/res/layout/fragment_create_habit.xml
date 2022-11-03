@@ -32,20 +32,19 @@
         app:layout_constraintStart_toStartOf="@+id/text_toForm"
         app:layout_constraintTop_toBottomOf="@+id/text_toForm" />
 
-    <TextView
-        android:id="@+id/text_selected_category"
+    <Spinner
+        android:id="@+id/spinnerCateogry"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="45dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="45dp"
-        android:background="@drawable/bottom_rounded"
-        android:gravity="center_vertical"
-        android:hint="health"
+        android:layout_marginTop="8dp"
+        android:spinnerMode="dialog"
         android:paddingStart="10dp"
-        android:textSize="18sp"
+        android:background="@drawable/bottom_rounded"
+        android:entries="@array/arrayOfCategory"
         app:layout_constraintStart_toStartOf="@+id/text_category"
-        app:layout_constraintTop_toBottomOf="@+id/text_category" />
+        app:layout_constraintTop_toBottomOf="@+id/text_category"  />
 
     <TextView
         android:id="@+id/text_task"
@@ -58,7 +57,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_selected_category" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerCateogry" />
 
     <EditText
         android:id="@+id/edit_task"
@@ -98,7 +97,7 @@
         android:layout_marginEnd="45dp"
         android:background="@drawable/bottom_rounded"
         android:gravity="center_vertical"
-        android:hint="21Days"
+        android:hint="21"
         android:paddingStart="10dp"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/text_duration"
@@ -118,19 +117,6 @@
         app:layout_constraintTop_toBottomOf="@+id/text_selected_duration" />
 
     <TextView
-        android:id="@+id/textThurs"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/rounded_days"
-        android:gravity="center"
-        android:text="T"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/textFri"
-        app:layout_constraintStart_toEndOf="@+id/textWed"
-        app:layout_constraintTop_toTopOf="@+id/textWed" />
-
-    <TextView
         android:id="@+id/textMon"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -139,7 +125,9 @@
         android:background="@drawable/rounded_days"
         android:gravity="center"
         android:text="M"
-        android:textColor="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:textColor="@drawable/selector_weekly"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/textTue"
         app:layout_constraintHorizontal_bias="0.5"
@@ -155,7 +143,9 @@
         android:background="@drawable/rounded_days"
         android:gravity="center"
         android:text="T"
-        android:textColor="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:textColor="@drawable/selector_weekly"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/textWed"
         app:layout_constraintHorizontal_bias="0.5"
@@ -169,12 +159,45 @@
         android:background="@drawable/rounded_days"
         android:gravity="center"
         android:text="W"
-        android:textColor="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:textColor="@drawable/selector_weekly"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/textThurs"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textTue"
         app:layout_constraintTop_toTopOf="@id/textTue" />
+
+    <TextView
+        android:id="@+id/textThurs"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/rounded_days"
+        android:gravity="center"
+        android:text="T"
+        android:clickable="true"
+        android:focusable="true"
+        android:textColor="@drawable/selector_weekly"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/textFri"
+        app:layout_constraintStart_toEndOf="@+id/textWed"
+        app:layout_constraintTop_toTopOf="@+id/textWed" />
+
+    <TextView
+        android:id="@+id/textFri"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/rounded_days"
+        android:gravity="center"
+        android:text="F"
+        android:clickable="true"
+        android:focusable="true"
+        android:textColor="@drawable/selector_weekly"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/textSat"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textThurs"
+        app:layout_constraintTop_toTopOf="@+id/textThurs" />
 
     <TextView
         android:id="@+id/textSat"
@@ -183,7 +206,9 @@
         android:background="@drawable/rounded_days"
         android:gravity="center"
         android:text="S"
-        android:textColor="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:textColor="@drawable/selector_weekly"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/textSun"
         app:layout_constraintHorizontal_bias="0.5"
@@ -198,26 +223,14 @@
         android:background="@drawable/rounded_days"
         android:gravity="center"
         android:text="S"
-        android:textColor="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:textColor="@drawable/selector_weekly"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textSat"
         app:layout_constraintTop_toTopOf="@+id/textSat" />
-
-    <TextView
-        android:id="@+id/textFri"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/rounded_days"
-        android:gravity="center"
-        android:text="F"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/textSat"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textThurs"
-        app:layout_constraintTop_toTopOf="@+id/textThurs" />
 
     <TextView
         android:id="@+id/text_timer"
@@ -232,19 +245,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textMon" />
 
-    <TextView
-        android:id="@+id/text_selected_timer"
+    <Spinner
+        android:id="@+id/spinnerTimer"
         android:layout_width="120dp"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="45dp"
         android:background="@drawable/bottom_rounded"
         android:gravity="center_vertical"
-        android:hint="30 minutes"
-        android:padding="10dp"
-        android:textSize="18sp"
+        android:spinnerMode="dialog"
+        android:paddingStart="10dp"
+        android:entries="@array/arrayOfTimer"
         app:layout_constraintStart_toStartOf="@+id/text_timer"
-        app:layout_constraintTop_toBottomOf="@+id/text_timer" />
+        app:layout_constraintTop_toBottomOf="@+id/text_timer"  />
+
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/text_selected_timer"-->
+<!--        android:layout_width="120dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginEnd="45dp"-->
+<!--        android:background="@drawable/bottom_rounded"-->
+<!--        android:gravity="center_vertical"-->
+<!--        android:hint="30 minutes"-->
+<!--        android:padding="10dp"-->
+<!--        android:textSize="18sp"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/text_timer"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/text_timer" />-->
 
 
     <TextView
@@ -285,7 +314,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_selected_timer" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerTimer" />
 
     <TextView
         android:id="@+id/text_selected_reminder"
