@@ -46,5 +46,16 @@
         android:label="dialog_timer_picker"
         tools:layout="@layout/dialog_timer_picker" />
     <action android:id="@+id/action_global_timePickerDialog" app:destination="@id/timePickerDialog" />
+    <fragment
+        android:id="@+id/publishFragment"
+        android:name="com.cleo.myha.PublishFragment"
+        android:label="fragment_publish"
+        tools:layout="@layout/fragment_publish" />
+    <action android:id="@+id/action_global_publishFragment" app:destination="@id/publishFragment" />
+    <fragment
+        android:id="@+id/chatRoomsFragment"
+        android:name="com.cleo.myha.chatroom.ChatRoomsFragment"
+        android:label="fragment_chat_rooms"
+        tools:layout="@layout/fragment_chat_rooms" /><action android:id="@+id/action_global_chatRoomsFragment" app:destination="@id/chatRoomsFragment"/>
 
 </navigation>

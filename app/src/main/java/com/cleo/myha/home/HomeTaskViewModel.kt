@@ -4,15 +4,13 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.cleo.myha.data.Habits
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.launch
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 
 class HomeTaskViewModel : ViewModel() {
 
 
-    private val firebase = FirebaseFirestore.getInstance()
 
     private val _todayTasks = MutableLiveData<List<Habits>>()
     val todayTasks: LiveData<List<Habits>>
@@ -22,9 +20,11 @@ class HomeTaskViewModel : ViewModel() {
         getTodayTasks()
     }
 
-    private fun getTodayTasks() = viewModelScope.launch {
+    private fun getTodayTasks() {
+        val db = FirebaseFirestore.getInstance()
 
-        firebase.collection("habits")
+        db.collection("habits")
+//            .whereEqualTo("ownerId", "Cleo@gmail.com")
             .get()
             .addOnSuccessListener { result ->
 //                Log.d("Cleooo", "get success ,${result.documents}")
@@ -32,6 +32,7 @@ class HomeTaskViewModel : ViewModel() {
                 Log.d("Vicc","${result.size()}")
 
                 for (i in result) {
+                    Log.d("Vicc","id=${i.get("id").toString()}")
 
 //                    val todayTaskData = i.toObject(Habits::class.java)
                     val members = i.get("members") as List<String>

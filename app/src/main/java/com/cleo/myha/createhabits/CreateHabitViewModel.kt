@@ -1,5 +1,6 @@
 package com.cleo.myha.createhabits
 
+import android.icu.text.Transliterator.Position
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,37 +19,21 @@ class CreateHabitViewModel : ViewModel() {
     val habitCreated: LiveData<List<Habits>>
         get() = _habitCreated
 
-//
-//    init {
-//        addHabit()
-//    }
+    private var _weeklyData = MutableLiveData<List<Boolean>>()
+    val weeklyData : LiveData<List<Boolean>>
+    get() = _weeklyData
 
-//    fun addHabit() {
-//        val habitCreated = FirebaseFirestore.getInstance().collection("habits")
-//        Log.d("ddd","$habitCreated")
-//        val document = habitCreated.document()
-////        val data
-////        document.set(data)
-//    }
+    val list = mutableListOf<Boolean>(false, false, false, false, false, false, false)
 
-//    fun addHabit(category: String, id: String, duration: Int, task: String, repeatedDays: Boolean){
-//
-//        val userHabit: MutableMap<String, Any> = HashMap()
-//        userHabit["category"] to category
-//        userHabit["duration"] to duration
-//        userHabit["id"] = "IU@gmail.com"
-//        userHabit["members"] to
-//        userHabit["ownerId"] to
-//        userHabit["reminder"] to
-//        userHabit["repeatedDays"] to repeatedDays
-//        userHabit["task"] to task
-//
-//        firebase.collection("habits").add("id").addOnSuccessListener {
-//            Log.d("Cleooo","Success!!")
-//        }
-//            .addOnFailureListener { e ->
-//                Log.d("Cleooo", "add fail")
-//            }
-//    }
+
+    init {
+        _weeklyData.value = list
+
+    }
+
+    fun selectDays(postion: Int){
+        list[postion] = !list[postion]
+        _weeklyData.value = list
+    }
 
 }
