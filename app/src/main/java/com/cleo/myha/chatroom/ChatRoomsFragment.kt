@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.cleo.myha.R
+import androidx.navigation.fragment.findNavController
+import com.cleo.myha.databinding.FragmentChatRoomsBinding
+
 
 
 class ChatRoomsFragment : Fragment() {
@@ -15,7 +17,15 @@ class ChatRoomsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val binding = FragmentChatRoomsBinding.inflate(inflater, container, false)
 
-        return inflater.inflate(R.layout.fragment_chat_rooms, container, false)
+
+
+        binding.backBtn.setOnClickListener{
+            findNavController().navigateUp()
+        }
+
+        return binding.root
     }
 }
+
