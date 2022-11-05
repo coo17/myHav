@@ -49,9 +49,6 @@ class HomeTaskViewModel : ViewModel() {
                         i.get("reminder").toString().toLong(),
                         i.get("timer").toString()
                     )
-//                    Log.d("Cleooo", "$repeatedDays")
-//                    Log.d("Cleooo", "${document.id} => ${document.data}")
-//                    Log.d("Cleooo", "$newHa")
                     list.add(todayTaskData)
                 }
                 Log.d("Vicc","${list.size}")

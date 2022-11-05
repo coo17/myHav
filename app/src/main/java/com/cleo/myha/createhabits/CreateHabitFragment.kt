@@ -170,14 +170,61 @@ class CreateHabitFragment : Fragment() {
             }else{
                 binding.textMon.setBackgroundResource(R.drawable.rounded_days)
             }
+           if (it.get(1)){
+               binding.textTue.setBackgroundResource(R.drawable.rounded_seleceted_days)
+           }else{
+               binding.textTue.setBackgroundResource(R.drawable.rounded_days)
+           }
+           if (it.get(2)){
+               binding.textWed.setBackgroundResource(R.drawable.rounded_seleceted_days)
+           }else{
+               binding.textWed.setBackgroundResource(R.drawable.rounded_days)
+           }
+           if (it.get(3)){
+               binding.textThurs.setBackgroundResource(R.drawable.rounded_seleceted_days)
+           }else{
+               binding.textThurs.setBackgroundResource(R.drawable.rounded_days)
+           }
+           if (it.get(4)){
+               binding.textFri.setBackgroundResource(R.drawable.rounded_seleceted_days)
+           }else{
+               binding.textFri.setBackgroundResource(R.drawable.rounded_days)
+           }
+           if (it.get(5)){
+               binding.textSat.setBackgroundResource(R.drawable.rounded_seleceted_days)
+           }else{
+               binding.textSat.setBackgroundResource(R.drawable.rounded_days)
+           }
+           if (it.get(6)){
+               binding.textSun.setBackgroundResource(R.drawable.rounded_seleceted_days)
+           }else{
+               binding.textSun.setBackgroundResource(R.drawable.rounded_days)
+           }
         }
        )
-
 
         monday.setOnClickListener {
             viewModel.selectDays(0)
         }
-        Log.d("CCC", "${monday.text}")
+        tuesday.setOnClickListener {
+            viewModel.selectDays(1)
+        }
+        wednesday.setOnClickListener {
+            viewModel.selectDays(2)
+        }
+        thursday.setOnClickListener {
+            viewModel.selectDays(3)
+        }
+        friday.setOnClickListener {
+            viewModel.selectDays(4)
+        }
+        saturday.setOnClickListener {
+            viewModel.selectDays(5)
+        }
+        sunday.setOnClickListener {
+            viewModel.selectDays(6)
+        }
+//        Log.d("CCC", "${monday.text}")
 
 
 
@@ -221,7 +268,7 @@ class CreateHabitFragment : Fragment() {
         )
 
         Log.d("OMG", "$data")
-//        document.set(data)
+
         firebase.collection("habits").add(data).addOnSuccessListener {
             Log.d("Cleooo", "Success!!")
         }
