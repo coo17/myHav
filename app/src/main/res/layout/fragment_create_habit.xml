@@ -97,6 +97,7 @@
         android:layout_marginEnd="45dp"
         android:background="@drawable/bottom_rounded"
         android:gravity="center_vertical"
+        android:text="21"
         android:hint="21"
         android:paddingStart="10dp"
         android:textSize="18sp"

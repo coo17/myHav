@@ -19,15 +19,15 @@ class HabitAdapter(): ListAdapter<Habits, HabitAdapter.SingleViewHolder>(SingleD
 
             binding.userTaskTitle.text = data.task
 
-//            binding.layoutTask.setBackgroundColor(
-//                when(data.category){
-//                    "health" -> R.drawable.rounded_days
-//                    "workout" -> R.color.light_grey
-//                    "reading" -> R.color.slate_grey
-//                    "learning" -> R.drawable.rounded_days
-//                    "general" -> R.drawable.rounded_days
-//                    else -> { R.drawable.icon_heart}
-//                })
+            binding.layoutTask.setBackgroundResource(
+                when(data.category){
+                    "health" -> R.drawable.cart_rounded_health
+                    "workout" -> R.drawable.bottom_rounded
+                    "reading" -> R.drawable.bottom_rounded
+                    "learning" -> R.drawable.bottom_rounded
+                    "general" -> R.drawable.cart_rounded_health
+                    else -> { R.drawable.icon_heart}
+                })
 
 
             binding.imageView.setImageResource(
