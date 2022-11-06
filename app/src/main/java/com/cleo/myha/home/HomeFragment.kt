@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.cleo.myha.R
 import com.cleo.myha.databinding.FragmentHomeBinding
 
 
@@ -19,7 +18,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val viewModel = ViewModelProvider(this)[HomeTaskViewModel::class.java]
+        val viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         val adapter = HomeAdapter()
         binding.taskRecyclerView.adapter = adapter
 

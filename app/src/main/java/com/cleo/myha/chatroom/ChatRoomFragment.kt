@@ -10,7 +10,7 @@ import com.cleo.myha.databinding.FragmentChatRoomsBinding
 
 
 
-class ChatRoomsFragment : Fragment() {
+class ChatRoomFragment : Fragment() {
 
 
     override fun onCreateView(

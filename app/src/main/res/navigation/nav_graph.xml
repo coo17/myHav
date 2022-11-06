@@ -54,8 +54,12 @@
     <action android:id="@+id/action_global_publishFragment" app:destination="@id/publishFragment" />
     <fragment
         android:id="@+id/chatRoomsFragment"
-        android:name="com.cleo.myha.chatroom.ChatRoomsFragment"
+        android:name="com.cleo.myha.chatroom.ChatRoomFragment"
         android:label="fragment_chat_rooms"
         tools:layout="@layout/fragment_chat_rooms" /><action android:id="@+id/action_global_chatRoomsFragment" app:destination="@id/chatRoomsFragment"/>
+    <fragment
+        android:id="@+id/commentFragment"
+        android:name="com.cleo.myha.comment.CommentFragment"
+        android:label="CommentFragment" /><action android:id="@+id/action_global_commentFragment" app:destination="@id/commentFragment"/>
 
 </navigation>
