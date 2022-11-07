@@ -48,7 +48,7 @@
     <action android:id="@+id/action_global_timePickerDialog" app:destination="@id/timePickerDialog" />
     <fragment
         android:id="@+id/publishFragment"
-        android:name="com.cleo.myha.PublishFragment"
+        android:name="com.cleo.myha.publish.PublishFragment"
         android:label="fragment_publish"
         tools:layout="@layout/fragment_publish" />
     <action android:id="@+id/action_global_publishFragment" app:destination="@id/publishFragment" />

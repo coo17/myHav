@@ -41,6 +41,9 @@ class ProfilePostFragment : Fragment() {
                 .addOnSuccessListener { documents ->
                     for(document in documents) {
                         val user = documents.toObjects(Posts::class.java)
+                        user.sortBy {
+                            it.id
+                        }
                         binding.profilePostRecycler.adapter = context?.let { ProfilePostAdapter(it, user) }
                     }
                 }
