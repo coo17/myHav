@@ -45,7 +45,10 @@ class HabitViewModel: ViewModel() {
                         repeatedDays,
                         i.get("duration").toString(),
                         i.get("reminder").toString().toLong(),
-                        i.get("timer").toString()
+                        i.get("timer").toString(),
+                        i.get("createdTime").toString().toLong(),
+                        i.get("startedDate").toString().toLong(),
+                        i.get("endDate").toString().toLong()
                     )
 
                     list.add(todayTaskData)

@@ -36,25 +36,36 @@ class PublishFragment : Fragment() {
 
         binding.btnPublish.setOnClickListener {
 
+            val tag = when (binding.chipGroup.checkedChipId) {
+                R.id.chip1 -> "health"
+                R.id.chip2 -> "workout"
+                R.id.chip3 -> "reading"
+                R.id.chip4 -> "learning"
+                R.id.chip5 -> "general"
+                else -> {
+                    ""
+                }
+            }
             addData(
                 binding.textPostTitle.text.toString(),
                 binding.textPostContent.text.toString(),
-
+                tag
             )
+            findNavController().navigateUp()
 
         }
 
         return binding.root
     }
 
-    private fun addData(title:String, content:String) {
+    private fun addData(title:String, content:String, tag: String) {
         val articles = FirebaseFirestore.getInstance().collection("habits")
         val document = articles.document()
         val data = hashMapOf(
             "title" to title,
             "content" to content,
             "id" to document.id,
-            "tag" to "tag"
+            "tag" to tag
 //            "lastUpdatedTime" to reminder
         )
 
@@ -65,30 +76,6 @@ class PublishFragment : Fragment() {
         }
             .addOnFailureListener { e ->
                 Log.d("Cleooo", "add fail")
-            }
-    }
-
-    fun addPost(title: String, content: String){
-        val user: MutableMap<String, Any> = HashMap()
-        user["title"] = title
-        user["content"] = content
-        user["author"] = "IU@gmail.com"
-////        user["tag"] = tag
-        user["lastUpatedTime"] = com.google.firebase.Timestamp.now()
-
-        //Get Data
-        Log.d("Cleooo", "publishBtn")
-
-        db.collection("posts")
-            .add(user)
-            .addOnSuccessListener { documentReference ->
-                Log.d("Cleooo", "add success")
-                Log.d("Cleooo", "DocumentSnapshot added with ID: ${documentReference.id}")
-
-            }
-            .addOnFailureListener { e ->
-                Log.d("Cleooo", "add fail")
-                Log.w("Cleooo", "Error adding document", e)
             }
     }
 }

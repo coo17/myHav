@@ -7,10 +7,12 @@ data class Posts(
     var title: String,
     var content: String,
 //    var lastUpdatedTime: Long ,
-    var photo: String
+    var photo: String,
+    var tag: String
 ){
 
     constructor() : this(
+        "",
         "",
         "",
         "",

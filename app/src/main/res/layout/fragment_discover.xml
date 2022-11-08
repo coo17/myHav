@@ -1,13 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+<!--    <com.events.calendar.views.EventsCalendar-->
+
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintBaseline_toBottomOf="parent"-->
+<!--        android:id="@+id/eventsCalendar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="#000000"-->
+<!--        android:overScrollMode="never"/>-->
+<!--        app:datesTextSize="16sp"-->
+<!--        app:eventDotColor="#ff0000"-->
+<!--        app:isBoldTextOnSelectionEnabled="true"-->
+<!--        app:monthTitleColor="#ffffff"-->
+<!--        app:monthTitleTextSize="16sp"-->
+<!--        app:primaryTextColor="#c4c4c4"-->
+<!--        app:secondaryTextColor="#666666"-->
+<!--        app:selectedTextColor="#000000"-->
+<!--        app:selectionColor="#ffe600"-->
+<!--        app:weekHeaderColor="#c6c6c6"-->
+<!--        app:rangeSelectionColor="#ffe600"-->
+<!--        app:rangeSelectionStartColor="#c1ae01"-->
+<!--        app:rangeSelectionEndColor="#c1ae01"-->
+<!--        app:weekHeaderTextSize="16sp" />-->
+
+    <com.applandeo.materialcalendarview.CalendarView
+        android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="hello_blank_discover" />
+        app:eventsEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="-58dp" />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,14 +28,15 @@ class HomeViewModel : ViewModel() {
             .addOnSuccessListener { result ->
 //                Log.d("Cleooo", "get success ,${result.documents}")
                 val list = mutableListOf<Habits>()
-                Log.d("Vicc","${result.size()}")
+                Log.d("Cleoo","${result.size()}")
 
                 for (i in result) {
-                    Log.d("Vicc","id=${i.get("id").toString()}")
+                    Log.d("Cleoo","id=${i.get("id").toString()}")
 
 //                    val todayTaskData = i.toObject(Habits::class.java)
                     val members = i.get("members") as List<String>
                     val repeatedDays = i.get("repeatedDays") as List<Boolean>
+
 
                     val todayTaskData = Habits(
                         i.get("id").toString(),
@@ -46,11 +47,17 @@ class HomeViewModel : ViewModel() {
                         repeatedDays,
                         i.get("duration").toString(),
                         i.get("reminder").toString().toLong(),
-                        i.get("timer").toString()
-                    )
+                        i.get("timer").toString(),
+                        i.get("createdTime").toString().toLong(),
+                        i.get("startedDate").toString().toLong(),
+                        i.get("endDate").toString().toLong()
+                        )
+                    Log.d("OMG","${ i.get("endDate").toString().toLong()}")
                     list.add(todayTaskData)
+
                 }
-                Log.d("Vicc","${list.size}")
+
+                Log.d("Cleoo","${list.size}")
                 list.sortBy { it.reminder }
                 _todayTasks.value = list
             }
@@ -60,5 +67,6 @@ class HomeViewModel : ViewModel() {
             }
     }
 }
+
 
 
