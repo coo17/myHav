@@ -8,12 +8,12 @@ plugins {
 
 android {
     namespace 'com.cleo.myha'
-    compileSdk 33
+    compileSdk 32
 
     defaultConfig {
         applicationId "com.cleo.myha"
         minSdk 26
-        targetSdk 33
+        targetSdk 32
         versionCode 1
         versionName "1.0"
 
@@ -27,6 +27,7 @@ android {
         }
     }
     compileOptions {
+
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -37,6 +38,7 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
 }
 
 dependencies {
@@ -61,11 +63,7 @@ dependencies {
     implementation 'com.diogobernardino:williamchart:3.10.1'
 
     //calendar
-//    implementation 'com.applandeo:material-calendar-view:1.7.0'
-    implementation 'com.applandeo:material-calendar-view:1.9.0-rc03'
-
-//    implementation 'com.github.tizisdeepan:eventscalendar:1.6.1'
-
+//    implementation 'com.applandeo:material-calendar-view:1.9.0-rc03'
 
 }
 

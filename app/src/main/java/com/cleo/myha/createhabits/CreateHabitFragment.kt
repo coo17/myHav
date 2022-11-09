@@ -262,7 +262,6 @@ class CreateHabitFragment : Fragment() {
                 timestamp.toString().toLong(),
                 startDate,
                 endDate
-
             )
             Log.d("ABC", "${timer}")
             findNavController().navigate(NavGraphDirections.actionGlobalHabitFragment())
@@ -277,11 +276,11 @@ class CreateHabitFragment : Fragment() {
 
     private fun addData(category:String, duration:String,  task: String, timer: String, reminder: Long, repeatedDays: List<Boolean>, createdTime: Long, startedDate: Long, endDate: Long) {
         val articles = FirebaseFirestore.getInstance().collection("habits")
-        val document = articles.document()
+        val document = articles.document().id
         val data = hashMapOf(
             "category" to category,
             "duration" to duration,
-            "id" to document.id,
+            "id" to document,
             "members" to
                     listOf<String>("IU", "Wayne"),
             "ownerId" to "IU@gmail.com",
@@ -296,7 +295,8 @@ class CreateHabitFragment : Fragment() {
 
         Log.d("OMG", "$data")
 
-        firebase.collection("habits").add(data).addOnSuccessListener {
+        firebase.collection("habits").document(document)
+            .set(data).addOnSuccessListener {
             Log.d("Cleooo", "Success!!")
         }
             .addOnFailureListener { e ->
