@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.cleo.myha.databinding.FragmentHomeBinding
@@ -25,11 +26,15 @@ class HomeFragment : Fragment() {
 
 
 
+
+
+        viewModel.doneList.observe(viewLifecycleOwner, Observer {
+            adapter.notifyDataSetChanged()
+        })
+
         viewModel.todayTasks.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
-
-
 
         return binding.root
     }

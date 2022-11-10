@@ -1,6 +1,7 @@
 package com.cleo.myha.home
 
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
@@ -17,6 +18,7 @@ class HomeAdapter(val viewModel: HomeViewModel): ListAdapter<Habits, HomeAdapter
 
 
     inner class TaskViewHolder(private var binding:ItemTodayTasksBinding): RecyclerView.ViewHolder(binding.root) {
+
 
         fun bind(data: Habits){
 
@@ -38,13 +40,18 @@ class HomeAdapter(val viewModel: HomeViewModel): ListAdapter<Habits, HomeAdapter
 //            binding.checkBox.setOnClickListener {
 //                viewModel.sendCompletedTask(data)
 //            }
-//            binding.checkBox.isChecked(要回來做的->歷史today task)
+
+            binding.checkBox.isChecked = viewModel. completedList.get(data.id)  ?: false
+            Log.d("Viccc", "id = ${data.id}  is ${viewModel.completedList.get(data.id)}")
+
             binding.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+
                 if(isChecked == true){
-                    viewModel.sendCompletedTask(data)
+
+                    viewModel.sendCompletedTask(data, true)
                     buttonView.isClickable = false
                 }else{
-                    false
+                    buttonView.isClickable = true
                 }
             }
         }
@@ -86,7 +93,6 @@ class HomeAdapter(val viewModel: HomeViewModel): ListAdapter<Habits, HomeAdapter
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val todayTaskData = getItem(position)
-
         holder.bind(todayTaskData)
 
     }

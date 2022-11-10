@@ -25,19 +25,6 @@ class DiscoverFragment : Fragment() {
     ): View? {
         val binding = FragmentDiscoverBinding.inflate(inflater, container, false)
 
-//
-//        val events: MutableList<EventDay> = ArrayList()
-//
-//        val calendar = Calendar.getInstance()
-////        val d1 = Calendar.getInstance()
-////        d1.set(2022,11,9)
-//
-//        events.add(EventDay(calendar, R.drawable.ic_test_dot))
-//
-////        events.add(EventDay(calendar, R.drawable.sampe_icon, Color.parseColor("#228B22")))
-//
-//
-//        binding.calendarView.setEvents(events)
 
 
         return binding.root

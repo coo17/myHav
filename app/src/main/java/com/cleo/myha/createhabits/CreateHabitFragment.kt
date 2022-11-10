@@ -184,7 +184,6 @@ class CreateHabitFragment : Fragment() {
         val saturday = binding.textSat
         val sunday = binding.textSun
 
-
        viewModel.weeklyData.observe( viewLifecycleOwner, androidx.lifecycle.Observer {
            if (it.get(0)){
                 binding.textMon.setBackgroundResource(R.drawable.rounded_seleceted_days)

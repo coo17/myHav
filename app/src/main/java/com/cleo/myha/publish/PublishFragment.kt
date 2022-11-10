@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.cleo.myha.NavGraphDirections
 import com.cleo.myha.R
+import com.cleo.myha.data.Posts
 import com.cleo.myha.databinding.FragmentHomeBinding
 import com.cleo.myha.databinding.FragmentPublishBinding
 import com.cleo.myha.home.HomeViewModel
@@ -59,19 +60,22 @@ class PublishFragment : Fragment() {
     }
 
     private fun addData(title:String, content:String, tag: String) {
-        val articles = FirebaseFirestore.getInstance().collection("habits")
-        val document = articles.document()
+        val articles = FirebaseFirestore.getInstance().collection("posts")
+        val postId = articles.document().id
         val data = hashMapOf(
             "title" to title,
             "content" to content,
-            "id" to document.id,
+            "id" to postId,
             "tag" to tag
 //            "lastUpdatedTime" to reminder
         )
 
-        Log.d("OMG", "$data")
+        Log.d("OMG", "ddddd $data")
 
-        db.collection("posts").add(data).addOnSuccessListener {
+        db.collection("posts")
+            .document(postId)
+            .set(data)
+            .addOnSuccessListener {
             Log.d("Cleooo", "Success!!")
         }
             .addOnFailureListener { e ->
