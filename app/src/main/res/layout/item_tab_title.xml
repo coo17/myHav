@@ -7,6 +7,14 @@
     android:layout_gravity="center"
     android:padding="16dp">
 
+    <!--    <com.applandeo.materialcalendarview.CalendarView-->
+    <!--        android:id="@+id/calendarView"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        app:eventsEnabled="true"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        tools:layout_editor_absoluteY="-58dp" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,18 +30,8 @@ class ProfileFragment : Fragment() {
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-//        val tabLayout = binding.tabLayout
-//        val viewPager = binding.viewPager
         binding.viewPager.adapter = ProfileViewPagerAdapter(childFragmentManager, lifecycle)
 
-//        TabLayoutMediator(tabLayout, viewPager){ tab, position ->
-//            tab.text = when(position){
-//                0 ->  "Post"
-//                1 ->  "Progress"
-//                else -> { throw IllegalArgumentException("Not found")
-//                }
-//            }
-//        }
         setUpTabLayoutWithViewPager()
 
 
@@ -75,12 +65,5 @@ class ProfileFragment : Fragment() {
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = tabTitles[position]
         }.attach()
-
-//        for(i in 0..2){
-//            val tabTextView = LayoutInflater.from(requireContext()).inflate(R.layout.item_tab, null) as TextView
-//            binding.tabLayout.getTabAt(i)?.customView = tabTextView
-//        }
-
     }
-
 }

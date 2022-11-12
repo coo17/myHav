@@ -16,6 +16,8 @@ import com.cleo.myha.databinding.FragmentHomeBinding
 import com.cleo.myha.databinding.FragmentPublishBinding
 import com.cleo.myha.home.HomeViewModel
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class PublishFragment : Fragment() {
@@ -59,15 +61,26 @@ class PublishFragment : Fragment() {
         return binding.root
     }
 
+    fun convertLongToTime(time: Long): String{
+        val date = Date(time)
+        val format = SimpleDateFormat("yyyy-MM-dd hh:mm a", Locale.getDefault())
+        return format.format(date)
+    }
+
     private fun addData(title:String, content:String, tag: String) {
         val articles = FirebaseFirestore.getInstance().collection("posts")
         val postId = articles.document().id
+
+        val author = "IU@gmail.com"
+        val createdTime = Date().time
+        val lastUpdatedTime = convertLongToTime(createdTime)
         val data = hashMapOf(
             "title" to title,
             "content" to content,
             "id" to postId,
-            "tag" to tag
-//            "lastUpdatedTime" to reminder
+            "tag" to tag,
+            "author" to author,
+            "lastUpdatedTime" to lastUpdatedTime
         )
 
         Log.d("OMG", "ddddd $data")

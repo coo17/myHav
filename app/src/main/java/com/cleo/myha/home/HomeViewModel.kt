@@ -106,6 +106,7 @@ class HomeViewModel : ViewModel() {
                 var today = Date().time
                 var dayOfWeek = Instant.ofEpochMilli(today).atZone(ZoneId.systemDefault()).toLocalDate().dayOfWeek.value
                 Log.d("VICC", "cleooo ${dayOfWeek}")
+
                 val toDoList =  list.filter{
                     today > it.startedDate && today < it.endDate && it.repeatedDays.get(dayOfWeek-1) == true
                 }
