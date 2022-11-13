@@ -1,25 +1,22 @@
-package com.cleo.myha.habits
+package com.cleo.myha.discover.community
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cleo.myha.R
 import com.cleo.myha.data.Habits
-import com.cleo.myha.databinding.ItemSingleTaskBinding
+import com.cleo.myha.databinding.ItemDiscoverBinding
 
+class CommunityAdapter(): ListAdapter<Habits, CommunityAdapter.GroupViewHolder>(GroupDiffCallBack()) {
 
-class HabitAdapter(): ListAdapter<Habits, HabitAdapter.SingleViewHolder>(SingleDiffCallBack()){
-
-    class SingleViewHolder(private var binding: ItemSingleTaskBinding): RecyclerView.ViewHolder(binding.root) {
+    class GroupViewHolder(private var binding: ItemDiscoverBinding): RecyclerView.ViewHolder(binding.root){
 
         fun bind(data: Habits){
 
             binding.userTaskTitle.text = data.task
-
-            binding.layoutTask.setBackgroundResource(
+            binding.layoutCommunity.setBackgroundResource(
                 when(data.category){
                     "health" -> R.drawable.cart_rounded_health
                     "workout" -> R.drawable.cart_rounded_workout
@@ -29,8 +26,7 @@ class HabitAdapter(): ListAdapter<Habits, HabitAdapter.SingleViewHolder>(SingleD
                     else -> { R.drawable.cart_rounded_other}
                 })
 
-
-            binding.imageView.setImageResource(
+            binding.imageView4.setImageResource(
                 when(data.category){
                     "health" -> R.drawable.icon_health
                     "workout" -> R.drawable.icon_workout
@@ -39,11 +35,10 @@ class HabitAdapter(): ListAdapter<Habits, HabitAdapter.SingleViewHolder>(SingleD
                     "general" -> R.drawable.icon_smilingface
                     else -> { R.drawable.icon_heart}
                 })
-
         }
     }
 
-    class SingleDiffCallBack: DiffUtil.ItemCallback<Habits>() {
+    class GroupDiffCallBack: DiffUtil.ItemCallback<Habits>() {
         override fun areItemsTheSame(oldItem: Habits, newItem: Habits): Boolean {
             return oldItem == newItem
         }
@@ -54,17 +49,19 @@ class HabitAdapter(): ListAdapter<Habits, HabitAdapter.SingleViewHolder>(SingleD
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
-        return SingleViewHolder(ItemSingleTaskBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
+        return GroupViewHolder(
+            ItemDiscoverBinding.inflate(
+                LayoutInflater.from(
+                    parent.context
+                ), parent, false
+            )
+        )
     }
 
-    override fun onBindViewHolder(holder: SingleViewHolder, position: Int) {
-        val singleTaskData = getItem(position)
-        holder.bind(singleTaskData)
-        holder.itemView.setOnClickListener{
-            Navigation.createNavigateOnClickListener(R.id.action_global_chatRoomsFragment).onClick(holder.itemView)
-        }
+    override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
+        val groupTaskData = getItem(position)
+        holder.bind(groupTaskData)
+
     }
-
-
 }

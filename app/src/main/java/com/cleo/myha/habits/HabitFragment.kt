@@ -38,10 +38,9 @@ class HabitFragment : Fragment() {
                 viewHolder: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
             ): Boolean {
+
                 val fromPosition = viewHolder.adapterPosition
                 val toPosition = target.adapterPosition
-//                Collections.swap(adapter.currentList, fromPosition, toPosition)
-
                 adapter.notifyItemMoved(fromPosition, toPosition)
 
                 return false

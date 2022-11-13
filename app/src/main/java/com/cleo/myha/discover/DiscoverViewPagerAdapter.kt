@@ -17,11 +17,11 @@ class DiscoverViewPagerAdapter (fragmentManager: FragmentManager, lifecycle: Lif
     override fun createFragment(position: Int): Fragment {
         return when(position){
             0 -> { DiscoverItemFragment() }
-            1 -> { ProfileProgressFragment() }
-            2 -> { ProfilePostFragment() }
-            3 -> { HomeFragment() }
-            4 -> { HomeFragment() }
-            5 -> { HomeFragment() }
+            1 -> { DiscoverItemFragment() }
+            2 -> { DiscoverItemFragment() }
+            3 -> { DiscoverItemFragment() }
+            4 -> { DiscoverItemFragment() }
+            5 -> { DiscoverItemFragment() }
             else -> {throw IllegalArgumentException("Error Type")
             }
         }

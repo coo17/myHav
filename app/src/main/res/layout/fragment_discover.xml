@@ -51,6 +51,7 @@
                 app:tabIndicatorColor="@color/light_blue"
                 app:tabSelectedTextColor="@color/slate_grey"
                 app:tabTextColor="@color/light_blue"
+                app:tabMode="scrollable"
                 app:tabRippleColor="@null"/>
 
             <androidx.viewpager2.widget.ViewPager2

@@ -28,15 +28,27 @@ class DiscoverViewModel : ViewModel() {
          db.collection("posts")
             .get()
             .addOnSuccessListener { documents ->
-                val list = mutableListOf<Posts>()
+                val list = documents.toObjects(Posts::class.java)
                 Log.d("Vicc22","${documents.size()}")
 
-                for(document in documents) {
-                    val user = documents.toObjects(Posts::class.java)
-                }
+//                for(document in documents) {
+//                    val user = documents.toObjects(Posts::class.java)
+//                    list.add(user)
+//                }
+
+                _allPost.value = list
+
+//                _allPost.value = list.filter {
+//                    it.tag == "health"
+//                }
 
             }
             .addOnFailureListener {
                 Log.d("Cleooo", "get fail")}
+    }
+
+    private fun getData(){
+
+
     }
 }
