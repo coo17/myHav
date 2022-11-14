@@ -4,10 +4,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.cleo.myha.data.Habits
+import com.cleo.myha.data.Category
 import com.cleo.myha.data.Posts
-import com.cleo.myha.profile.ProfilePostAdapter
 import com.google.firebase.firestore.FirebaseFirestore
+
 
 class DiscoverViewModel : ViewModel() {
 
@@ -17,11 +17,17 @@ class DiscoverViewModel : ViewModel() {
     val allPost: LiveData<List<Posts>>
     get() = _allPost
 
+    var category: String? = null
+
+    fun setPost(filterPost: String){
+       category = filterPost
+    }
 
 
     init {
         addPost()
     }
+
 
     private fun addPost(){
 
@@ -36,19 +42,19 @@ class DiscoverViewModel : ViewModel() {
 //                    list.add(user)
 //                }
 
-                _allPost.value = list
+//                _allPost.value = list
 
-//                _allPost.value = list.filter {
-//                    it.tag == "health"
-//                }
+
+                _allPost.value = if(category == Category.All.type){
+                    list
+                   }else{
+                    list.filter {
+                        it.tag == category
+                    }
+                }
 
             }
             .addOnFailureListener {
                 Log.d("Cleooo", "get fail")}
-    }
-
-    private fun getData(){
-
-
     }
 }

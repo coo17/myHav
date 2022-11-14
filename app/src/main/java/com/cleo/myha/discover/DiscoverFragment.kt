@@ -22,6 +22,7 @@ class DiscoverFragment : Fragment() {
 
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,6 +37,7 @@ class DiscoverFragment : Fragment() {
         viewModel.groupTask.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
+
 
 
         setUpTabLayoutWithViewPager()

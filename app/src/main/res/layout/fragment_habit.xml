@@ -18,32 +18,32 @@
         app:layout_constraintStart_toEndOf="@id/view_side"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/layout_side"
-        android:layout_width="80dp"
-        android:layout_height="150dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="200dp"
-        android:layout_marginStart="20dp"
-        android:background="@drawable/selector_side_wall"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/layout_side"-->
+<!--        android:layout_width="80dp"-->
+<!--        android:layout_height="150dp"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginTop="200dp"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:background="@drawable/selector_side_wall"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
-    <LinearLayout
-        android:id="@+id/layout_side2"
-        android:layout_width="80dp"
-        android:layout_height="150dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="132dp"
-        android:background="@drawable/selector_side_wall"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="@+id/layout_side"
-        app:layout_constraintTop_toBottomOf="@+id/layout_side">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/layout_side2"-->
+<!--        android:layout_width="80dp"-->
+<!--        android:layout_height="150dp"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginTop="132dp"-->
+<!--        android:background="@drawable/selector_side_wall"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/layout_side"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/layout_side">-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
     <View
         android:id="@+id/view_side"
@@ -74,7 +74,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@id/layout_side"
+        app:layout_constraintStart_toEndOf="@+id/view_side"
         app:layout_constraintTop_toBottomOf="@+id/header1"
         app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/item_single_task" />
