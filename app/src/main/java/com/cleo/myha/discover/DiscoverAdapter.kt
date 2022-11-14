@@ -2,10 +2,14 @@ package com.cleo.myha.discover
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.cleo.myha.NavGraphDirections
+import com.cleo.myha.R
 import com.cleo.myha.data.Posts
 import com.cleo.myha.databinding.ItemProfilePostBinding
 
@@ -20,7 +24,9 @@ class DiscoverAdapter(val viewModel: DiscoverViewModel): ListAdapter<Posts, Disc
             Glide.with(itemView.context)
                 .load(item.photo)
                 .into(binding.imageView3)
+
         }
+
     }
 
     override fun onCreateViewHolder(
@@ -33,6 +39,7 @@ class DiscoverAdapter(val viewModel: DiscoverViewModel): ListAdapter<Posts, Disc
     override fun onBindViewHolder(holder: DiscoverViewHolder, position: Int) {
         val userPost = getItem(position)
         holder.bind(userPost)
+
     }
 
 

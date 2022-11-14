@@ -65,6 +65,4 @@ class HabitAdapter(): ListAdapter<Habits, HabitAdapter.SingleViewHolder>(SingleD
             Navigation.createNavigateOnClickListener(R.id.action_global_chatRoomsFragment).onClick(holder.itemView)
         }
     }
-
-
 }

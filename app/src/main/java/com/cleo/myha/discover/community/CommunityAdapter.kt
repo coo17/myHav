@@ -2,6 +2,9 @@ package com.cleo.myha.discover.community
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.NavDirections
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -62,6 +65,8 @@ class CommunityAdapter(): ListAdapter<Habits, CommunityAdapter.GroupViewHolder>(
     override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
         val groupTaskData = getItem(position)
         holder.bind(groupTaskData)
-
+        holder.itemView.setOnClickListener{
+            Navigation.createNavigateOnClickListener(R.id.action_global_taskDialog).onClick(holder.itemView)
+        }
     }
 }

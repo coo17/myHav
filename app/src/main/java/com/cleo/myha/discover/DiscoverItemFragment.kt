@@ -42,6 +42,7 @@ class DiscoverItemFragment : Fragment() {
         binding.discoverPostRecycler.adapter = adapter
 
 
+
         val type = requireArguments().getString("post")
 
 

@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.cleo.myha.NavGraphDirections
 import com.cleo.myha.databinding.FragmentDiscoverBinding
 import com.cleo.myha.discover.community.CommunityAdapter
 import com.cleo.myha.discover.community.CommunityViewModel
