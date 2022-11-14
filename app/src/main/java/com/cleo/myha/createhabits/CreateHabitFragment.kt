@@ -1,7 +1,8 @@
 package com.cleo.myha.createhabits
 
 
-import android.graphics.Color
+
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,11 +11,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.cleo.myha.NavGraphDirections
@@ -30,6 +27,7 @@ import java.util.*
 class CreateHabitFragment : Fragment() {
 
     private val firebase = FirebaseFirestore.getInstance()
+
 
 
     override fun onCreateView(
@@ -122,36 +120,60 @@ class CreateHabitFragment : Fragment() {
         }
 
 
-//        fun convertLongToTime(time: Long): String{
-//            val date = Date(time)
-//            val format = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-//            return format.format(date)
+        fun convertLongToTime(time: Long): String{
+            val date = Date(time)
+            val format = SimpleDateFormat("MMM d yyyy", Locale.getDefault())
+            return format.format(date)
+        }
+
+
+
+
+
+
+//        fun showStartedDay(){
+//    val startDay = binding.textSelectedDuration
+//     val c = Calendar.getInstance()
+//    val year = c.get(Calendar.YEAR)
+//    val month = c.get(Calendar.MONTH)
+//    val day = c.get(Calendar.DAY_OF_MONTH)
+//    val dpd =
+//        context?.let { it1 ->
+//            DatePickerDialog(it1, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+//                startDay.setText("" + dayOfMonth + " " + month + ", " + year)
+//            }, year, month, day)
+//        }
+//
+//    if (dpd != null) {
+//        dpd.show()
+//    }
 //        }
 
-//        fun showDateRangePicker(){
-//            val dateRangePicker = MaterialDatePicker.Builder.dateRangePicker().setTitleText("Select Date").build()
-//
-//            dateRangePicker.show(
-//                childFragmentManager,"date_range_picker"
-//            )
-//
-//            dateRangePicker.addOnPositiveButtonClickListener { dateSelected ->
-//
-//                val startDate = dateSelected.first
-//                val endDate = dateSelected.second
-//
-//                if(startDate != null && endDate != null) {
-//                    binding.textSelectedDuration.text =
-//                        "${convertLongToTime(startDate)} " + "~ ${convertLongToTime(endDate)}"
-//                    Log.d("startDate", "$startDate")
-//                }
-//            }
-//
-//        }
-//
-//        binding.textSelectedDuration.setOnClickListener {
-//            showDateRangePicker()
-//        }
+
+
+        var startDate = 0L
+        var endDate = 0L
+
+        binding.textSelectedDuration.setOnClickListener {
+            val dateRangePicker = MaterialDatePicker.Builder.dateRangePicker().setTitleText("Select Date").build()
+            dateRangePicker.show(
+                childFragmentManager,"date_range_picker"
+            )
+
+            dateRangePicker.addOnPositiveButtonClickListener { dateSelected ->
+
+                startDate = dateSelected.first
+                endDate = dateSelected.second
+
+                if(startDate != null && endDate != null) {
+                    binding.textSelectedDuration.text =
+                        "${convertLongToTime(startDate)} " + "~ ${convertLongToTime(endDate)}"
+                    Log.d("startDate", "$startDate")
+                    Log.d("endDate", "$endDate")
+                }
+            }
+
+        }
 
 
         val monday = binding.textMon
@@ -161,8 +183,6 @@ class CreateHabitFragment : Fragment() {
         val friday = binding.textFri
         val saturday = binding.textSat
         val sunday = binding.textSun
-
-        val list = mutableListOf<Boolean>(false, false, false, false, false, false, false)
 
        viewModel.weeklyData.observe( viewLifecycleOwner, androidx.lifecycle.Observer {
            if (it.get(0)){
@@ -225,8 +245,9 @@ class CreateHabitFragment : Fragment() {
             viewModel.selectDays(6)
         }
 //        Log.d("CCC", "${monday.text}")
+        val timestamp = System.currentTimeMillis()
 
-
+        Log.d("cleoo","${timestamp}")
 
         binding.btnSave.setOnClickListener {
 
@@ -236,7 +257,10 @@ class CreateHabitFragment : Fragment() {
                 binding.editTask.text.toString(),
                 timer,
                 reminderToFirebase,
-                list
+                viewModel.list,
+                timestamp.toString().toLong(),
+                startDate,
+                endDate
             )
             Log.d("ABC", "${timer}")
             findNavController().navigate(NavGraphDirections.actionGlobalHabitFragment())
@@ -249,27 +273,29 @@ class CreateHabitFragment : Fragment() {
         return binding.root
     }
 
-    private fun addData(category:String, duration:String,  task: String, timer: String, reminder: Long, repeatedDays: List<Boolean>) {
+    private fun addData(category:String, duration:String,  task: String, timer: String, reminder: Long, repeatedDays: List<Boolean>, createdTime: Long, startedDate: Long, endDate: Long) {
         val articles = FirebaseFirestore.getInstance().collection("habits")
-        val document = articles.document()
+        val document = articles.document().id
         val data = hashMapOf(
             "category" to category,
             "duration" to duration,
-            "id" to document.id,
+            "id" to document,
             "members" to
                     listOf<String>("IU", "Wayne"),
             "ownerId" to "IU@gmail.com",
             "reminder" to reminder,
             "task" to task,
             "timer" to timer,
-            "repeatedDays" to repeatedDays
-//            "repeatedDays" to listOf<Boolean>(true, true, true, true, false, false, false)
-
+            "repeatedDays" to repeatedDays,
+            "createdTime" to createdTime,
+            "startedDate" to startedDate,
+            "endDate" to endDate
         )
 
         Log.d("OMG", "$data")
 
-        firebase.collection("habits").add(data).addOnSuccessListener {
+        firebase.collection("habits").document(document)
+            .set(data).addOnSuccessListener {
             Log.d("Cleooo", "Success!!")
         }
             .addOnFailureListener { e ->

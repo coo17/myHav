@@ -1,26 +1,73 @@
 package com.cleo.myha.home
 
+import android.os.HandlerThread
+import android.renderscript.ScriptIntrinsicColorMatrix
 import android.util.Log
+import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cleo.myha.data.Habits
 import com.google.firebase.firestore.FirebaseFirestore
+import io.grpc.internal.ManagedChannelImplBuilder.ChannelBuilderDefaultPortProvider
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.ZoneId
+import java.util.*
 
 class HomeViewModel : ViewModel() {
 
+    private val db = FirebaseFirestore.getInstance()
 
-
-    private val _todayTasks = MutableLiveData<List<Habits>>()
+    private var _todayTasks = MutableLiveData<List<Habits>>()
     val todayTasks: LiveData<List<Habits>>
         get() = _todayTasks
 
+    private var _completedTask = MutableLiveData<List<Habits>>()
+    val completedTask: LiveData<List<Habits>>
+    get() = _completedTask
+
+    private var _doneList = MutableLiveData<Map<String, Boolean>>()
+    val doneList: LiveData<Map<String, Boolean>>
+    get() = _doneList
+
+    var completedList = mutableMapOf<String, Boolean>()
+
     init {
         getTodayTasks()
+//        queryTest()
+    }
+
+    fun queryTest(habitId: String) {
+//        val habitId = "30l3lmRirwifxWmrydox"
+//        val todayString = "2022-11-10"
+        val todayString = Date().time
+        val date = convertLongToTime(todayString)
+
+        db.collection("habits")
+            .document(habitId)
+            .collection("Test")
+            .document(date)
+            .get()
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Log.d("Cleoo","count: ${it.result?.data?.size}")
+                    it.result?.data?.let {
+                        (it["isDone"] as Boolean?)?.let {
+                           completedList.put(habitId, it)
+                            _doneList.value = completedList
+                            Log.d("VIC","isDone: ${doneList}")
+                            Log.d("VICC","isDone: $it")
+                        }
+                        Log.d("Cleoo","isDone: ${it["isDone"]}")
+                    }
+                } else {
+                    Log.d("Cleoo","fail")
+                }
+            }
     }
 
     private fun getTodayTasks() {
-        val db = FirebaseFirestore.getInstance()
 
         db.collection("habits")
 //            .whereEqualTo("ownerId", "Cleo@gmail.com")
@@ -28,12 +75,11 @@ class HomeViewModel : ViewModel() {
             .addOnSuccessListener { result ->
 //                Log.d("Cleooo", "get success ,${result.documents}")
                 val list = mutableListOf<Habits>()
-                Log.d("Vicc","${result.size()}")
+                Log.d("Cleoo","${result.size()}")
 
                 for (i in result) {
-                    Log.d("Vicc","id=${i.get("id").toString()}")
+                    Log.d("Cleoo","id=${i.get("id").toString()}")
 
-//                    val todayTaskData = i.toObject(Habits::class.java)
                     val members = i.get("members") as List<String>
                     val repeatedDays = i.get("repeatedDays") as List<Boolean>
 
@@ -46,19 +92,69 @@ class HomeViewModel : ViewModel() {
                         repeatedDays,
                         i.get("duration").toString(),
                         i.get("reminder").toString().toLong(),
-                        i.get("timer").toString()
-                    )
+                        i.get("timer").toString(),
+                        i.get("createdTime").toString().toLong(),
+                        i.get("startedDate").toString().toLong(),
+                        i.get("endDate").toString().toLong()
+                        )
+                    queryTest(todayTaskData.id)
+                    Log.d("OMG","${ i.get("endDate").toString().toLong()}")
                     list.add(todayTaskData)
                 }
-                Log.d("Vicc","${list.size}")
-                list.sortBy { it.reminder }
-                _todayTasks.value = list
+
+                Log.d("Cleoo","${list.size}")
+                var today = Date().time
+                var dayOfWeek = Instant.ofEpochMilli(today).atZone(ZoneId.systemDefault()).toLocalDate().dayOfWeek.value
+                Log.d("VICC", "cleooo ${dayOfWeek}")
+
+                val toDoList =  list.filter{
+                    today > it.startedDate && today < it.endDate && it.repeatedDays.get(dayOfWeek-1) == true
+                }
+                Log.d("kkk", "${toDoList}")
+//                kkk.sortBy { it.reminder }
+                _todayTasks.value = toDoList
             }
             .addOnFailureListener { exception ->
                 Log.d("Cleooo", "get fail")
                 Log.w("Cleooo", "Error getting documents.", exception)
             }
     }
+
+    fun convertLongToTime(time: Long): String{
+        val date = Date(time)
+        val format = SimpleDateFormat("yyyy-MM-d", Locale.getDefault())
+        return format.format(date)
+    }
+
+
+    fun sendCompletedTask(data: Habits, isDone: Boolean){
+//        val task = FirebaseFirestore.getInstance().collection("habits")
+        val document = data.id
+        val userEmail = "Vic@gmail.com"
+        val nowTime = Date().time
+        val date = convertLongToTime(nowTime)
+//        val taskState : Boolean = isDone ?: false
+
+        val dailyTask: MutableMap<String, Any> = HashMap()
+        dailyTask["email"] = userEmail
+        dailyTask["id"] = data.id
+        dailyTask["completedTime"] = date
+        dailyTask["isDone"] = isDone
+
+                db.collection("habits")
+                    .document(document)
+                    .collection("Test")
+                    .document(date)
+                    .set(dailyTask)
+
+            .addOnSuccessListener {
+                Log.d("Cleooo","Success! ${nowTime}")
+            }
+            .addOnFailureListener {
+                Log.d("Cleooo", "oh, it's fail")
+            }
+    }
 }
+
 
 

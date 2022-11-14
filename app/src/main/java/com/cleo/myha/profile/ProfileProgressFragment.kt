@@ -19,9 +19,14 @@ class ProfileProgressFragment : Fragment() {
 
 
 
+     binding.barChart.apply {
 
+
+     }
 
 
         return binding.root
     }
+
+
 }

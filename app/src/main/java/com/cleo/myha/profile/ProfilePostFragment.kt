@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.cleo.myha.data.Posts
 import com.cleo.myha.databinding.FragmentProfilePostBinding
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
 
 
 class ProfilePostFragment : Fragment() {
@@ -30,19 +31,20 @@ class ProfilePostFragment : Fragment() {
         }
 //        val staggeredGridLayoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
 //        binding.profilePostRecycler.layoutManager = staggeredGridLayoutManager
-
 //        val adapter = ProfilePostAdapter()
 //        binding.profilePostRecycler.adapter = adapter
 //
 
         fun postData(){
+
             FirebaseFirestore.getInstance().collection("posts")
+                .whereEqualTo("author","IU@gmail.com")
                 .get()
                 .addOnSuccessListener { documents ->
                     for(document in documents) {
                         val user = documents.toObjects(Posts::class.java)
                         user.sortBy {
-                            it.id
+                            it.lastUpdatedTime
                         }
                         binding.profilePostRecycler.adapter = context?.let { ProfilePostAdapter(it, user) }
                     }
@@ -50,7 +52,6 @@ class ProfilePostFragment : Fragment() {
                 .addOnFailureListener {
                     Log.d("Cleooo", "get fail")}
         }
-
 
         postData()
         return binding.root

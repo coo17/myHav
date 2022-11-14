@@ -14,4 +14,8 @@
     <color name="light_blue">#ABD3D6</color>
     <color name="side_wall">#A7B0B7</color>
     <color name="cart_learning">#E7CAC2</color>
+    <color name="dark_gery">#F7F7EE</color>
+    <color name="soil">#E1DFD1</color>
+    <color name="green_blue">#BEC8BC</color>
+    <color name="blue_grey">#C9D5D4</color>
 </resources>

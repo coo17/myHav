@@ -36,7 +36,6 @@
             app:layout_constraintStart_toStartOf="@id/text_helloUser"
             app:layout_constraintTop_toBottomOf="@id/text_helloUser" />
 
-
         <CalendarView
             android:id="@+id/calendarView"
             android:layout_width="wrap_content"

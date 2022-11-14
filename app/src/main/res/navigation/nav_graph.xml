@@ -61,5 +61,9 @@
         android:id="@+id/commentFragment"
         android:name="com.cleo.myha.comment.CommentFragment"
         android:label="CommentFragment" /><action android:id="@+id/action_global_commentFragment" app:destination="@id/commentFragment"/>
+    <dialog
+        android:id="@+id/taskDialog"
+        android:name="com.cleo.myha.discover.dialog.TaskDialog"
+        android:label="TaskDialog" /><action android:id="@+id/action_global_taskDialog" app:destination="@id/taskDialog"/>
 
 </navigation>

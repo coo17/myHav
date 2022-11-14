@@ -1,7 +1,10 @@
 package com.cleo.myha.home
 
+
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,9 +14,11 @@ import com.cleo.myha.databinding.ItemTodayTasksBinding
 import java.util.*
 
 
-class HomeAdapter(): ListAdapter<Habits, HomeAdapter.TaskViewHolder>(HomeDiffCallBack()) {
+class HomeAdapter(val viewModel: HomeViewModel): ListAdapter<Habits, HomeAdapter.TaskViewHolder>(HomeDiffCallBack()) {
 
-    class TaskViewHolder(private var binding:ItemTodayTasksBinding): RecyclerView.ViewHolder(binding.root) {
+
+    inner class TaskViewHolder(private var binding:ItemTodayTasksBinding): RecyclerView.ViewHolder(binding.root) {
+
 
         fun bind(data: Habits){
 
@@ -32,6 +37,23 @@ class HomeAdapter(): ListAdapter<Habits, HomeAdapter.TaskViewHolder>(HomeDiffCal
                     else -> { R.drawable.icon_heart}
                 })
 
+//            binding.checkBox.setOnClickListener {
+//                viewModel.sendCompletedTask(data)
+//            }
+
+            binding.checkBox.isChecked = viewModel. completedList.get(data.id)  ?: false
+            Log.d("Viccc", "id = ${data.id}  is ${viewModel.completedList.get(data.id)}")
+
+            binding.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+
+                if(isChecked == true){
+
+                    viewModel.sendCompletedTask(data, true)
+                    buttonView.isClickable = false
+                }else{
+                    buttonView.isClickable = true
+                }
+            }
         }
 
 //        fun getStringFromLong(millis: Long): String? {
@@ -72,6 +94,7 @@ class HomeAdapter(): ListAdapter<Habits, HomeAdapter.TaskViewHolder>(HomeDiffCal
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val todayTaskData = getItem(position)
         holder.bind(todayTaskData)
+
     }
 }
 

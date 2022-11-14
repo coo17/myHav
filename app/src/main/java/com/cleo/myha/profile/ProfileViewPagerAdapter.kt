@@ -4,6 +4,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.cleo.myha.habits.HabitFragment
+import com.cleo.myha.home.HomeFragment
 import java.lang.IllegalArgumentException
 
 class ProfileViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle):
@@ -13,8 +15,8 @@ FragmentStateAdapter(fragmentManager, lifecycle){
 
     override fun createFragment(position: Int): Fragment {
         return when(position){
-            0 -> { ProfilePostFragment()}
-            1 -> { ProfileProgressFragment()}
+            0 -> { ProfilePostFragment() }
+            1 -> { ProfileProgressFragment() }
             else -> {throw IllegalArgumentException("Error Type")
             }
         }

@@ -22,11 +22,11 @@ class HabitAdapter(): ListAdapter<Habits, HabitAdapter.SingleViewHolder>(SingleD
             binding.layoutTask.setBackgroundResource(
                 when(data.category){
                     "health" -> R.drawable.cart_rounded_health
-                    "workout" -> R.drawable.bottom_rounded
-                    "reading" -> R.drawable.bottom_rounded
-                    "learning" -> R.drawable.bottom_rounded
-                    "general" -> R.drawable.cart_rounded_health
-                    else -> { R.drawable.icon_heart}
+                    "workout" -> R.drawable.cart_rounded_workout
+                    "reading" -> R.drawable.cart_rounded_reading
+                    "learning" -> R.drawable.cart_rounded_learning
+                    "general" -> R.drawable.cart_rounded_general
+                    else -> { R.drawable.cart_rounded_other}
                 })
 
 
@@ -65,6 +65,4 @@ class HabitAdapter(): ListAdapter<Habits, HabitAdapter.SingleViewHolder>(SingleD
             Navigation.createNavigateOnClickListener(R.id.action_global_chatRoomsFragment).onClick(holder.itemView)
         }
     }
-
-
 }
