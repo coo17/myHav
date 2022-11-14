@@ -38,6 +38,7 @@ class CommunityAdapter(): ListAdapter<Habits, CommunityAdapter.GroupViewHolder>(
                     "general" -> R.drawable.icon_smilingface
                     else -> { R.drawable.icon_heart}
                 })
+
         }
     }
 

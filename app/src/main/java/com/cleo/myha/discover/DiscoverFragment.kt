@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import com.cleo.myha.NavGraphDirections
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
+import com.cleo.myha.component.CenterZoomLayoutManager
 import com.cleo.myha.databinding.FragmentDiscoverBinding
 import com.cleo.myha.discover.community.CommunityAdapter
 import com.cleo.myha.discover.community.CommunityViewModel
@@ -23,8 +24,6 @@ class DiscoverFragment : Fragment() {
         arrayListOf("all", "health", "workout", "learning", "reading", "general")
 
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,6 +34,12 @@ class DiscoverFragment : Fragment() {
         val viewModel = ViewModelProvider(this)[CommunityViewModel::class.java]
         val adapter = CommunityAdapter()
         binding.groupTaskRecycler.adapter = adapter
+
+        val snapHelper = LinearSnapHelper()
+        snapHelper.attachToRecyclerView(binding.groupTaskRecycler)
+
+        binding.groupTaskRecycler.layoutManager = CenterZoomLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+//        binding.groupTaskRecycler.scrollToPosition(500)
 
         viewModel.groupTask.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
