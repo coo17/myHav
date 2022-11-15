@@ -58,6 +58,8 @@ class DiscoverFragment : Fragment() {
 
 
 
+
+
         setUpTabLayoutWithViewPager()
         return binding.root
 
