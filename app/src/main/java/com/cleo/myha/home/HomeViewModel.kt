@@ -1,15 +1,12 @@
 package com.cleo.myha.home
 
-import android.os.HandlerThread
-import android.renderscript.ScriptIntrinsicColorMatrix
 import android.util.Log
-import androidx.core.text.isDigitsOnly
+import android.widget.CheckBox
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cleo.myha.data.Habits
 import com.google.firebase.firestore.FirebaseFirestore
-import io.grpc.internal.ManagedChannelImplBuilder.ChannelBuilderDefaultPortProvider
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.ZoneId
@@ -33,10 +30,16 @@ class HomeViewModel : ViewModel() {
 
     var completedList = mutableMapOf<String, Boolean>()
 
+
     init {
         getTodayTasks()
-//        queryTest()
     }
+
+//    fun List<CheckBox>.checkAll(check: Boolean) {
+//        this.forEach {
+//            it.isChecked = check
+//        }
+//    }
 
     fun queryTest(habitId: String) {
 //        val habitId = "30l3lmRirwifxWmrydox"
@@ -56,7 +59,7 @@ class HomeViewModel : ViewModel() {
                         (it["isDone"] as Boolean?)?.let {
                            completedList.put(habitId, it)
                             _doneList.value = completedList
-                            Log.d("VIC","isDone: ${doneList}")
+                            Log.d("VIC","isDone: ${completedList}")
                             Log.d("VICC","isDone: $it")
                         }
                         Log.d("Cleoo","isDone: ${it["isDone"]}")
@@ -128,7 +131,7 @@ class HomeViewModel : ViewModel() {
 
 
     fun sendCompletedTask(data: Habits, isDone: Boolean){
-//        val task = FirebaseFirestore.getInstance().collection("habits")
+
         val document = data.id
         val userEmail = "Vic@gmail.com"
         val nowTime = Date().time
@@ -153,6 +156,18 @@ class HomeViewModel : ViewModel() {
             .addOnFailureListener {
                 Log.d("Cleooo", "oh, it's fail")
             }
+
+        completedList.set(data.id, isDone)
+    }
+
+    fun checkAllList():Boolean {
+
+        //filter出一樣的size
+        return completedList.filter {
+            it.value == true
+        }.size == completedList.size
+
+
     }
 }
 

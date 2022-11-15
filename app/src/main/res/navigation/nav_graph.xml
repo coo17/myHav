@@ -41,12 +41,6 @@
     </fragment>
     <action android:id="@+id/action_global_createHabitFragment" app:destination="@id/createHabitFragment" />
     <fragment
-        android:id="@+id/timePickerDialog"
-        android:name="com.cleo.myha.createhabits.TimePickerDialog"
-        android:label="dialog_timer_picker"
-        tools:layout="@layout/dialog_timer_picker" />
-    <action android:id="@+id/action_global_timePickerDialog" app:destination="@id/timePickerDialog" />
-    <fragment
         android:id="@+id/publishFragment"
         android:name="com.cleo.myha.publish.PublishFragment"
         android:label="fragment_publish"
@@ -65,5 +59,10 @@
         android:id="@+id/taskDialog"
         android:name="com.cleo.myha.discover.dialog.TaskDialog"
         android:label="TaskDialog" /><action android:id="@+id/action_global_taskDialog" app:destination="@id/taskDialog"/>
+    <dialog
+        android:id="@+id/finishTaskDialog"
+        android:name="com.cleo.myha.home.dialog.FinishTaskDialog"
+        android:label="FinishTaskDialog" />
+    <action android:id="@+id/action_global_finishTaskDialog" app:destination="@id/finishTaskDialog" />
 
 </navigation>

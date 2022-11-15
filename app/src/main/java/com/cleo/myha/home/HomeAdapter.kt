@@ -1,24 +1,36 @@
 package com.cleo.myha.home
 
 
+
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.cleo.myha.R
 import com.cleo.myha.data.Habits
 import com.cleo.myha.databinding.ItemTodayTasksBinding
 import java.util.*
 
 
-class HomeAdapter(val viewModel: HomeViewModel): ListAdapter<Habits, HomeAdapter.TaskViewHolder>(HomeDiffCallBack()) {
+class HomeAdapter(val onClickListener: HomeListener, val viewModel: HomeViewModel): ListAdapter<Habits, HomeAdapter.TaskViewHolder>(HomeDiffCallBack()) {
+
+//    private var isSelectedAll = false
+
+//    val checkBoxes = ArrayList<CheckBox>()
+//    checkBoxes.checkAll(true)
+//    checkBoxse.checkAll(false)
+//
+//    fun selectAll() {
+//        Log.e("onClickSelectAll", "yes")
+//        isSelectedAll = true
+//        notifyDataSetChanged()
+//    }
 
 
     inner class TaskViewHolder(private var binding:ItemTodayTasksBinding): RecyclerView.ViewHolder(binding.root) {
-
 
         fun bind(data: Habits){
 
@@ -41,19 +53,29 @@ class HomeAdapter(val viewModel: HomeViewModel): ListAdapter<Habits, HomeAdapter
 //                viewModel.sendCompletedTask(data)
 //            }
 
-            binding.checkBox.isChecked = viewModel. completedList.get(data.id)  ?: false
+            binding.checkBox.isChecked = viewModel.completedList.get(data.id)  ?: false
             Log.d("Viccc", "id = ${data.id}  is ${viewModel.completedList.get(data.id)}")
 
-            binding.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+            binding.checkBox.setOnClickListener {
+                onClickListener.onClick(binding.checkBox.isChecked)
+                viewModel.sendCompletedTask(data, true)
+                itemView.isClickable = false
 
-                if(isChecked == true){
-
-                    viewModel.sendCompletedTask(data, true)
-                    buttonView.isClickable = false
-                }else{
-                    buttonView.isClickable = true
-                }
             }
+//            binding.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+//
+//                if(isChecked == true){
+//                    onClickListener.onClick(true)
+//                    viewModel.sendCompletedTask(data, true)
+//                    buttonView.isClickable = false
+//
+//                }else{
+//                    buttonView.isClickable = true
+//                    onClickListener.onClick(false)
+//                }
+//            }
+
+
         }
 
 //        fun getStringFromLong(millis: Long): String? {
@@ -74,6 +96,7 @@ class HomeAdapter(val viewModel: HomeViewModel): ListAdapter<Habits, HomeAdapter
             }else minutes
             return "${newHour}:${newMinutes}"
         }
+
     }
 
     class HomeDiffCallBack: DiffUtil.ItemCallback<Habits>() {
@@ -96,6 +119,9 @@ class HomeAdapter(val viewModel: HomeViewModel): ListAdapter<Habits, HomeAdapter
         holder.bind(todayTaskData)
 
     }
-}
 
+    class HomeListener(val checkListener:(checkbox: Boolean) -> Unit){
+        fun onClick(check: Boolean) = checkListener(check)
+    }
+}
 

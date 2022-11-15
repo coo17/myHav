@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
+import com.cleo.myha.NavGraphDirections
 import com.cleo.myha.databinding.FragmentHomeBinding
 import java.util.Calendar
 
@@ -21,11 +24,17 @@ class HomeFragment : Fragment() {
     ): View? {
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
         val viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
-        val adapter = HomeAdapter(viewModel)
+
+        val adapter = HomeAdapter(HomeAdapter.HomeListener { checkbox: Boolean ->
+
+            if (checkbox == true) {
+                if (viewModel.checkAllList()) {
+                    findNavController().navigate(NavGraphDirections.actionGlobalFinishTaskDialog())
+                }
+            }
+        }, viewModel)
+
         binding.taskRecyclerView.adapter = adapter
-
-
-
 
 
         viewModel.doneList.observe(viewLifecycleOwner, Observer {
@@ -38,4 +47,5 @@ class HomeFragment : Fragment() {
 
         return binding.root
     }
+
 }

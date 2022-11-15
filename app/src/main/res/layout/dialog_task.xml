@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="Join"
-            android:textSize="14dp"
+            android:textSize="14sp"
             app:backgroundTint="@color/cardview_dark_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
