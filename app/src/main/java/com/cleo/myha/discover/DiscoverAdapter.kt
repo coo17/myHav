@@ -14,19 +14,22 @@ import com.cleo.myha.data.Posts
 import com.cleo.myha.databinding.ItemProfilePostBinding
 
 
-class DiscoverAdapter(val viewModel: DiscoverViewModel): ListAdapter<Posts, DiscoverAdapter.DiscoverViewHolder>(DiscoverDiffCallBack()) {
+class DiscoverAdapter(val onClickListener: OnClickListener, val viewModel: DiscoverViewModel): ListAdapter<Posts, DiscoverAdapter.DiscoverViewHolder>(DiscoverDiffCallBack()) {
 
 
-    class DiscoverViewHolder(val binding: ItemProfilePostBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class DiscoverViewHolder(val binding: ItemProfilePostBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Posts){
             binding.textView3.text = item.title
             Glide.with(itemView.context)
                 .load(item.photo)
+                .error(R.drawable.ic_iu)
                 .into(binding.imageView3)
+            binding.imageView3.setOnClickListener {
+                onClickListener.onClick(item)
+            }
 
         }
-
     }
 
     override fun onCreateViewHolder(
@@ -53,4 +56,7 @@ class DiscoverAdapter(val viewModel: DiscoverViewModel): ListAdapter<Posts, Disc
         }
     }
 
+    class OnClickListener(val clickListener: (post: Posts) -> Unit) {
+        fun onClick(post: Posts) = clickListener(post)
+    }
 }

@@ -26,12 +26,6 @@ class DiscoverFragment : Fragment() {
     private val tabTitles =
         arrayListOf("all", "health", "workout", "learning", "reading", "general")
 
-    //屏幕宽
-    var screenWidth = 0
-
-    //屏幕高
-    var screenHeight = 0
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +36,10 @@ class DiscoverFragment : Fragment() {
 
         val viewModel = ViewModelProvider(this)[CommunityViewModel::class.java]
         val adapter = CommunityAdapter()
+
+
+
+
         binding.groupTaskRecycler.adapter = adapter
 
         val snapHelper = LinearSnapHelper()
@@ -54,6 +52,8 @@ class DiscoverFragment : Fragment() {
         viewModel.groupTask.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
+
+
 
 
 

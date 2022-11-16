@@ -29,11 +29,9 @@ class ProfilePostFragment : Fragment() {
         binding.profilePostRecycler.apply{
             layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
         }
-//        val staggeredGridLayoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
-//        binding.profilePostRecycler.layoutManager = staggeredGridLayoutManager
-//        val adapter = ProfilePostAdapter()
-//        binding.profilePostRecycler.adapter = adapter
-//
+
+
+
 
         fun postData(){
 

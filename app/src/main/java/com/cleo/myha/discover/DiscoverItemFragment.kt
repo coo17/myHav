@@ -7,9 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.cleo.myha.data.Category
+import com.cleo.myha.data.PomodoroData
 import com.cleo.myha.databinding.FragmentDiscoverItemBinding
 
 class DiscoverItemFragment : Fragment() {
@@ -38,7 +41,13 @@ class DiscoverItemFragment : Fragment() {
         }
 
         val viewModel = ViewModelProvider(this)[DiscoverViewModel::class.java]
-        val adapter = DiscoverAdapter(viewModel)
+//        val adapter = DiscoverAdapter(viewModel)
+        val adapter = DiscoverAdapter(onClickListener = DiscoverAdapter.OnClickListener { Posts ->
+            this.findNavController()
+                .navigate(DiscoverItemFragmentDirections.actionGlobalCommentFragment(Posts))
+        },viewModel)
+
+
         binding.discoverPostRecycler.adapter = adapter
 
 

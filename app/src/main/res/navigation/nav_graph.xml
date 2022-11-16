@@ -54,7 +54,11 @@
     <fragment
         android:id="@+id/commentFragment"
         android:name="com.cleo.myha.comment.CommentFragment"
-        android:label="CommentFragment" /><action android:id="@+id/action_global_commentFragment" app:destination="@id/commentFragment"/>
+        android:label="CommentFragment" >
+        <argument
+            android:name="postsKey"
+            app:argType="com.cleo.myha.data.Posts" />
+    </fragment><action android:id="@+id/action_global_commentFragment" app:destination="@id/commentFragment"/>
     <dialog
         android:id="@+id/taskDialog"
         android:name="com.cleo.myha.discover.dialog.TaskDialog"
@@ -64,5 +68,9 @@
         android:name="com.cleo.myha.home.dialog.FinishTaskDialog"
         android:label="FinishTaskDialog" />
     <action android:id="@+id/action_global_finishTaskDialog" app:destination="@id/finishTaskDialog" />
+    <fragment
+        android:id="@+id/discoverItemFragment"
+        android:name="com.cleo.myha.discover.DiscoverItemFragment"
+        android:label="DiscoverItemFragment" /><action android:id="@+id/action_global_discoverItemFragment" app:destination="@id/discoverItemFragment"/>
 
 </navigation>
