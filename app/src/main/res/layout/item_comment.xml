@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/avatarUser"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/rounded"
         android:clipToOutline="true"
@@ -19,7 +19,7 @@
 
     <TextView
         android:id="@+id/textComment"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Best advice ever"
         android:textSize="14sp"
@@ -27,8 +27,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="20dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/avatarUser"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintStart_toEndOf="@id/avatarUser"/>
 
     <TextView
         android:id="@+id/textTime"

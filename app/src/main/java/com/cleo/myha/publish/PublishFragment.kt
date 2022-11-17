@@ -83,7 +83,6 @@ class PublishFragment : Fragment() {
             "lastUpdatedTime" to lastUpdatedTime
         )
 
-        Log.d("OMG", "ddddd $data")
 
         db.collection("posts")
             .document(postId)

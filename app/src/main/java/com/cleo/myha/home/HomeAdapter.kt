@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.cleo.myha.R
 import com.cleo.myha.data.Habits
 import com.cleo.myha.databinding.ItemTodayTasksBinding
@@ -77,12 +76,6 @@ class HomeAdapter(val onClickListener: HomeListener, val viewModel: HomeViewMode
 
 
         }
-
-//        fun getStringFromLong(millis: Long): String? {
-//            val sdf = SimpleDateFormat("hh:mm a")
-//            val dt: Date = Date(millis)
-//            return sdf.format(dt)
-//        }
 
         fun toFormat(millis: Long): String? {
             val hours = millis/(1000*60*60)

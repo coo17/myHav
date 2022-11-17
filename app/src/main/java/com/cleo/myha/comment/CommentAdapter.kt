@@ -6,17 +6,21 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.cleo.myha.data.CommentsInfo
 import com.cleo.myha.data.Posts
 import com.cleo.myha.databinding.ItemCommentBinding
 
 import com.cleo.myha.discover.DiscoverViewModel
 
-class CommentAdapter(val viewModel: DiscoverViewModel): ListAdapter<Posts, CommentAdapter.CommentViewHolder>(CommentDiffCallBack()) {
+class CommentAdapter(val viewModel: CommentViewModel): ListAdapter<CommentsInfo, CommentAdapter.CommentViewHolder>(CommentDiffCallBack()) {
 
 
     inner class CommentViewHolder(val binding: ItemCommentBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Posts){
+        fun bind(item: CommentsInfo){
+            binding.textComment.text = item.content
+            binding.textTime.text = item.createdTime
+//            binding.avatarUser.setImageResource
 
         }
     }
@@ -35,12 +39,12 @@ class CommentAdapter(val viewModel: DiscoverViewModel): ListAdapter<Posts, Comme
     }
 
 
-    class CommentDiffCallBack : DiffUtil.ItemCallback<Posts>(){
-        override fun areItemsTheSame(oldItem: Posts, newItem: Posts): Boolean {
+    class CommentDiffCallBack : DiffUtil.ItemCallback<CommentsInfo>(){
+        override fun areItemsTheSame(oldItem: CommentsInfo, newItem: CommentsInfo): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Posts, newItem: Posts): Boolean {
+        override fun areContentsTheSame(oldItem: CommentsInfo, newItem: CommentsInfo): Boolean {
             return oldItem == newItem
         }
     }

@@ -45,6 +45,8 @@ class DiscoverViewModel : ViewModel() {
 //                _allPost.value = list
 
 
+
+
                 _allPost.value = if(category == Category.All.type){
                     list
                    }else{
