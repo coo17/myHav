@@ -26,12 +26,12 @@ class SingleViewModel: ViewModel() {
    private fun getSingleHabits(){
 
         db.collection("habits")
+            .whereEqualTo("ownerId","IU@gmail.com")
             .get()
             .addOnSuccessListener { documents ->
                 val list = documents.toObjects(Habits::class.java)
 
                 Log.d("VIC","${documents.size()}")
-
 
                val singleHabits = list.filter {
                     it.mode == 0

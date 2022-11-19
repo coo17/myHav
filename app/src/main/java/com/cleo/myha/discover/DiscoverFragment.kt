@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.cleo.myha.R
@@ -35,12 +37,19 @@ class DiscoverFragment : Fragment() {
         binding.viewPager.adapter = DiscoverViewPagerAdapter(childFragmentManager, lifecycle)
 
         val viewModel = ViewModelProvider(this)[CommunityViewModel::class.java]
-        val adapter = CommunityAdapter()
+
+        val adapter = CommunityAdapter(onClickListener = CommunityAdapter.OnClickListener { Habits ->
+            this.findNavController()
+                .navigate(DiscoverFragmentDirections.actionGlobalTaskDialog(Habits))
+//                .navigate(DiscoverItemFragmentDirections.actionGlobalTaskDialog(Habits))
+        },viewModel)
 
 
 
 
         binding.groupTaskRecycler.adapter = adapter
+
+
 
         val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(binding.groupTaskRecycler)
@@ -49,7 +58,7 @@ class DiscoverFragment : Fragment() {
             CenterZoomLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 //        binding.groupTaskRecycler.scrollToPosition(500)
 
-        viewModel.groupTask.observe(viewLifecycleOwner, Observer {
+        viewModel.groupTasks.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
 

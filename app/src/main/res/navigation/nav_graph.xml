@@ -62,7 +62,11 @@
     <dialog
         android:id="@+id/taskDialog"
         android:name="com.cleo.myha.discover.dialog.TaskDialog"
-        android:label="TaskDialog" /><action android:id="@+id/action_global_taskDialog" app:destination="@id/taskDialog"/>
+        android:label="TaskDialog" >
+        <argument
+            android:name="habitsKey"
+            app:argType="com.cleo.myha.data.Habits" />
+    </dialog><action android:id="@+id/action_global_taskDialog" app:destination="@id/taskDialog"/>
     <dialog
         android:id="@+id/finishTaskDialog"
         android:name="com.cleo.myha.home.dialog.FinishTaskDialog"

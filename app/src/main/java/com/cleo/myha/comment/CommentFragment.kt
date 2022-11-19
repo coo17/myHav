@@ -41,11 +41,7 @@ class CommentFragment : Fragment() {
 
         viewModel.userComments.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             adapter.submitList(it)
-            Log.d("Mindy", "get $it")
         })
-
-
-
 
 
         if (posts != null) {

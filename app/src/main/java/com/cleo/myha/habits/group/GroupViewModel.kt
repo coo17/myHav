@@ -5,21 +5,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cleo.myha.data.Habits
+import com.cleo.myha.data.Posts
 import com.google.firebase.firestore.FirebaseFirestore
 
 class GroupViewModel : ViewModel() {
 
     private val db = FirebaseFirestore.getInstance()
+    private lateinit var habits: Habits
 
     private val _groupHabits = MutableLiveData<List<Habits>>()
     val groupHabits: LiveData<List<Habits>>
         get() = _groupHabits
 
     init {
-       getGroupTasks()
+        getGroupHabits()
     }
 
-    private fun getGroupTasks() {
+    private fun getGroupHabits() {
 
         db.collection("habits")
             .get()
@@ -29,14 +31,17 @@ class GroupViewModel : ViewModel() {
                 Log.d("VIC","${documents.size()}")
 
 
-                val singleHabits = list.filter {
+                val habits = list.filter {
                     it.mode == 1
                 }
-                _groupHabits.value = singleHabits
+                _groupHabits.value = habits
 
             }
             .addOnFailureListener {
                 Log.d("Cleooo", "get fail")}
     }
 
+    fun setHabits(newHabits: Habits) {
+        habits = newHabits
+    }
 }

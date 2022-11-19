@@ -1,8 +1,10 @@
 package com.cleo.myha.data
 
-import android.util.Log
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
+@Parcelize
 data class Habits(
     var id: String = "",
     var ownerId: String = "",
@@ -17,13 +19,5 @@ data class Habits(
     var startedDate: Long = -1L,
     var endDate: Long = -1L,
     var mode:Int = 0
+    ): Parcelable
 
-    )
-
-
-data class PomodoroData(
-    var startTime: Long,
-    var stopTime: Long,
-    var resetTime: Long,
-    var saveTime: Long
-)

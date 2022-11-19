@@ -284,7 +284,7 @@ class CreateHabitFragment : Fragment() {
         return binding.root
     }
 
-    private fun addData(category:String, duration:String,  task: String, timer: String, reminder: Long, repeatedDays: List<Boolean>, createdTime: Long, startedDate: Long, endDate: Long, mode: Int) {
+    private fun addData(category:String, duration:String, task: String, timer: String, reminder: Long, repeatedDays: List<Boolean>, createdTime: Long, startedDate: Long, endDate: Long, mode: Int) {
         val articles = FirebaseFirestore.getInstance().collection("habits")
         val document = articles.document().id
         val data = hashMapOf(
@@ -293,7 +293,7 @@ class CreateHabitFragment : Fragment() {
             "id" to document,
             "members" to
                     listOf<String>("IU", "Wayne"),
-            "ownerId" to "IU@gmail.com",
+            "ownerId" to "wayne@gmail.com",
             "reminder" to reminder,
             "task" to task,
             "timer" to timer,
