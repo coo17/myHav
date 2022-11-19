@@ -98,8 +98,9 @@ class HomeViewModel : ViewModel() {
                         i.get("timer").toString(),
                         i.get("createdTime").toString().toLong(),
                         i.get("startedDate").toString().toLong(),
-                        i.get("endDate").toString().toLong()
-                        )
+                        i.get("endDate").toString().toLong(),
+                        i.get("mode").toString().toInt()
+                    )
                     queryTest(todayTaskData.id)
                     Log.d("OMG","${ i.get("endDate").toString().toLong()}")
                     list.add(todayTaskData)

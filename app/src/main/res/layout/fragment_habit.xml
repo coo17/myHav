@@ -5,18 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/header1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/alegreya_sans_sc_medium"
-        android:text="Your Habit Card!"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/view_side"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <TextView-->
+<!--        android:id="@+id/header1"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="30dp"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:fontFamily="@font/alegreya_sans_sc_medium"-->
+<!--        android:text="Your Habit Card!"-->
+<!--        android:textSize="24sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintStart_toEndOf="@id/view_side1"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
 <!--    <LinearLayout-->
 <!--        android:id="@+id/layout_side"-->
@@ -46,11 +46,36 @@
 <!--    </LinearLayout>-->
 
     <View
-        android:id="@+id/view_side"
-        android:layout_width="60dp"
+        android:id="@+id/view1"
+        android:layout_width="55dp"
+        android:layout_height="240dp"
+        android:layout_marginTop="112dp"
+        android:background="@drawable/rounded"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+    </View>
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="55dp"
+        android:layout_height="230dp"
+        android:background="@drawable/rounded"
+        app:layout_constraintTop_toBottomOf="@id/view1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBaseline_toBottomOf="parent"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:background="@color/side_wall"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginStart="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/view1">
+
+    </androidx.viewpager2.widget.ViewPager2>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/buttonToCreate"
@@ -63,20 +88,5 @@
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/singleRecycler"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/view_side"
-        app:layout_constraintTop_toBottomOf="@+id/header1"
-        app:layout_constraintVertical_bias="1.0"
-        tools:listitem="@layout/item_single_task" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

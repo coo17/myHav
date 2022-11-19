@@ -42,7 +42,8 @@ class CommunityViewModel : ViewModel() {
                         i.get("timer").toString(),
                         i.get("createdTime").toString().toLong(),
                         i.get("startedDate").toString().toLong(),
-                        i.get("endDate").toString().toLong()
+                        i.get("endDate").toString().toLong(),
+                        i.get("mode").toString().toInt()
                     )
 
                     list.add(todayTaskData)
@@ -57,9 +58,4 @@ class CommunityViewModel : ViewModel() {
             }
 
     }
-
-
-
-
-
 }

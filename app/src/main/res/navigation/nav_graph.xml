@@ -72,5 +72,13 @@
         android:id="@+id/discoverItemFragment"
         android:name="com.cleo.myha.discover.DiscoverItemFragment"
         android:label="DiscoverItemFragment" /><action android:id="@+id/action_global_discoverItemFragment" app:destination="@id/discoverItemFragment"/>
+    <fragment
+        android:id="@+id/groupFragment"
+        android:name="com.cleo.myha.habits.group.GroupFragment"
+        android:label="GroupFragment" />
+    <fragment
+        android:id="@+id/singleFragment"
+        android:name="com.cleo.myha.habits.single.SingleFragment"
+        android:label="SingleFragment" /><action android:id="@+id/action_global_singleFragment" app:destination="@id/singleFragment"/><action android:id="@+id/action_global_groupFragment" app:destination="@id/groupFragment"/>
 
 </navigation>

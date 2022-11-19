@@ -6,338 +6,355 @@
     android:layout_height="match_parent"
     tools:context=".createhabits.CreateHabitFragment">
 
-    <TextView
-        android:id="@+id/text_toForm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/alegreya_sans_sc_medium"
-        android:text="Form a new habit!"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/text_category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
-        android:text="Category"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/text_toForm"
-        app:layout_constraintTop_toBottomOf="@+id/text_toForm" />
-
-    <Spinner
-        android:id="@+id/spinnerCateogry"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginTop="8dp"
-        android:spinnerMode="dialog"
-        android:paddingStart="10dp"
-        android:background="@drawable/bottom_rounded"
-        android:entries="@array/arrayOfCategory"
-        app:layout_constraintStart_toStartOf="@+id/text_category"
-        app:layout_constraintTop_toBottomOf="@+id/text_category"  />
-
-    <TextView
-        android:id="@+id/text_task"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="10dp"
-        android:text="Task"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerCateogry" />
-
-    <EditText
-        android:id="@+id/edit_task"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="45dp"
-        android:background="@drawable/bottom_rounded"
-        android:ems="8"
-        android:hint="Guitar Lesson"
-        android:inputType="textPersonName"
-        android:paddingStart="10dp"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/text_task"
-        app:layout_constraintTop_toBottomOf="@+id/text_task" />
-
-    <TextView
-        android:id="@+id/text_duration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="10dp"
-        android:text="Duration"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_task" />
-
-    <TextView
-        android:id="@+id/text_selected_duration"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="45dp"
-        android:background="@drawable/bottom_rounded"
-        android:gravity="center_vertical"
-        android:text="21"
-        android:hint="21"
-        android:paddingStart="10dp"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/text_duration"
-        app:layout_constraintTop_toBottomOf="@+id/text_duration" />
-
-    <TextView
-        android:id="@+id/text_repeated_days"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="10dp"
-        android:text="Repeat Days"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_selected_duration" />
-
-    <TextView
-        android:id="@+id/textMon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/rounded_days"
-        android:gravity="center"
-        android:text="M"
-        android:clickable="true"
-        android:focusable="true"
-        android:textColor="@drawable/selector_weekly"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/textTue"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_repeated_days"
-        tools:layout_editor_absoluteY="398dp" />
-
-    <TextView
-        android:id="@+id/textTue"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/rounded_days"
-        android:gravity="center"
-        android:text="T"
-        android:clickable="true"
-        android:focusable="true"
-        android:textColor="@drawable/selector_weekly"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/textWed"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textMon"
-        app:layout_constraintTop_toTopOf="@id/textMon" />
-
-    <TextView
-        android:id="@+id/textWed"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/rounded_days"
-        android:gravity="center"
-        android:text="W"
-        android:clickable="true"
-        android:focusable="true"
-        android:textColor="@drawable/selector_weekly"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/textThurs"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textTue"
-        app:layout_constraintTop_toTopOf="@id/textTue" />
-
-    <TextView
-        android:id="@+id/textThurs"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/rounded_days"
-        android:gravity="center"
-        android:text="T"
-        android:clickable="true"
-        android:focusable="true"
-        android:textColor="@drawable/selector_weekly"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/textFri"
-        app:layout_constraintStart_toEndOf="@+id/textWed"
-        app:layout_constraintTop_toTopOf="@+id/textWed" />
-
-    <TextView
-        android:id="@+id/textFri"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/rounded_days"
-        android:gravity="center"
-        android:text="F"
-        android:clickable="true"
-        android:focusable="true"
-        android:textColor="@drawable/selector_weekly"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/textSat"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textThurs"
-        app:layout_constraintTop_toTopOf="@+id/textThurs" />
-
-    <TextView
-        android:id="@+id/textSat"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/rounded_days"
-        android:gravity="center"
-        android:text="S"
-        android:clickable="true"
-        android:focusable="true"
-        android:textColor="@drawable/selector_weekly"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/textSun"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textFri"
-        app:layout_constraintTop_toTopOf="@+id/textFri" />
-
-    <TextView
-        android:id="@+id/textSun"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/rounded_days"
-        android:gravity="center"
-        android:text="S"
-        android:clickable="true"
-        android:focusable="true"
-        android:textColor="@drawable/selector_weekly"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textSat"
-        app:layout_constraintTop_toTopOf="@+id/textSat" />
-
-    <TextView
-        android:id="@+id/text_timer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="10dp"
-        android:text="Timer"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textMon" />
-
-    <Spinner
-        android:id="@+id/spinnerTimer"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="45dp"
-        android:background="@drawable/bottom_rounded"
-        android:gravity="center_vertical"
-        android:spinnerMode="dialog"
-        android:paddingStart="10dp"
-        android:entries="@array/arrayOfTimer"
-        app:layout_constraintStart_toStartOf="@+id/text_timer"
-        app:layout_constraintTop_toBottomOf="@+id/text_timer"  />
-
-    <TextView
-        android:id="@+id/text_mode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="120dp"
-        android:text="Mode"
-        android:textColor="@color/black"
-        android:visibility="invisible"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textThurs" />
-
-    <TextView
-        android:id="@+id/text_selected_mode"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="45dp"
-        android:background="@drawable/bottom_rounded"
-        android:gravity="center_vertical"
-        android:hint="pomodoro"
-        android:visibility="invisible"
-        android:padding="10dp"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/text_mode"
-        app:layout_constraintTop_toBottomOf="@+id/text_mode" />
-
-    <TextView
-        android:id="@+id/text_reminder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="10dp"
-        android:text="Reminder"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerTimer" />
-
-    <TextView
-        android:id="@+id/text_selected_reminder"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="45dp"
-        android:background="@drawable/bottom_rounded"
-        android:gravity="center_vertical"
-        android:hint="11:00 PM"
-        android:padding="10dp"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/text_reminder"
-        app:layout_constraintTop_toBottomOf="@+id/text_reminder" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="68dp"
-        android:layout_marginBottom="16dp"
-        android:text="Cancel"
-        android:textSize="12sp"
-        app:backgroundTint="@color/light_blue"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnSave"
-        app:layout_constraintStart_toStartOf="@+id/text_selected_reminder" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:textSize="12sp"
-        app:backgroundTint="@color/light_blue"
-        app:layout_constraintEnd_toEndOf="@+id/text_selected_mode"
-        app:layout_constraintTop_toTopOf="@+id/btnCancel" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/text_toForm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/alegreya_sans_sc_medium"
+                android:text="Form a new habit!"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="Category"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/text_toForm"
+                app:layout_constraintTop_toBottomOf="@+id/text_toForm" />
+
+            <Spinner
+                android:id="@+id/spinnerCateogry"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="45dp"
+                android:background="@drawable/bottom_rounded"
+                android:entries="@array/arrayOfCategory"
+                android:paddingStart="10dp"
+                android:spinnerMode="dialog"
+                app:layout_constraintStart_toStartOf="@+id/text_category"
+                app:layout_constraintTop_toBottomOf="@+id/text_category" />
+
+            <TextView
+                android:id="@+id/text_task"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:text="Task"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerCateogry" />
+
+            <EditText
+                android:id="@+id/edit_task"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="45dp"
+                android:background="@drawable/bottom_rounded"
+                android:ems="8"
+                android:hint="Guitar Lesson"
+                android:inputType="textPersonName"
+                android:paddingStart="10dp"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/text_task"
+                app:layout_constraintTop_toBottomOf="@+id/text_task" />
+
+            <TextView
+                android:id="@+id/text_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:text="Duration"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_task" />
+
+            <TextView
+                android:id="@+id/text_selected_duration"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="45dp"
+                android:background="@drawable/bottom_rounded"
+                android:gravity="center_vertical"
+                android:hint="Start Date to End Date"
+                android:paddingStart="10dp"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/text_duration"
+                app:layout_constraintTop_toBottomOf="@+id/text_duration" />
+
+            <TextView
+                android:id="@+id/text_repeated_days"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:text="Repeat Days"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_selected_duration" />
+
+            <TextView
+                android:id="@+id/textMon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_days"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="M"
+                android:textColor="@drawable/selector_weekly"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/textTue"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_repeated_days"
+                tools:layout_editor_absoluteY="398dp" />
+
+            <TextView
+                android:id="@+id/textTue"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_days"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="T"
+                android:textColor="@drawable/selector_weekly"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/textWed"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textMon"
+                app:layout_constraintTop_toTopOf="@id/textMon" />
+
+            <TextView
+                android:id="@+id/textWed"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_days"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="W"
+                android:textColor="@drawable/selector_weekly"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/textThurs"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textTue"
+                app:layout_constraintTop_toTopOf="@id/textTue" />
+
+            <TextView
+                android:id="@+id/textThurs"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_days"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="T"
+                android:textColor="@drawable/selector_weekly"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/textFri"
+                app:layout_constraintStart_toEndOf="@+id/textWed"
+                app:layout_constraintTop_toTopOf="@+id/textWed" />
+
+            <TextView
+                android:id="@+id/textFri"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_days"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="F"
+                android:textColor="@drawable/selector_weekly"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/textSat"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textThurs"
+                app:layout_constraintTop_toTopOf="@+id/textThurs" />
+
+            <TextView
+                android:id="@+id/textSat"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_days"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="S"
+                android:textColor="@drawable/selector_weekly"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/textSun"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textFri"
+                app:layout_constraintTop_toTopOf="@+id/textFri" />
+
+            <TextView
+                android:id="@+id/textSun"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rounded_days"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="S"
+                android:textColor="@drawable/selector_weekly"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textSat"
+                app:layout_constraintTop_toTopOf="@+id/textSat" />
+
+            <TextView
+                android:id="@+id/text_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:text="Timer"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textMon" />
+
+            <Spinner
+                android:id="@+id/spinnerTimer"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="45dp"
+                android:background="@drawable/bottom_rounded"
+                android:entries="@array/arrayOfTimer"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:spinnerMode="dialog"
+                app:layout_constraintStart_toStartOf="@+id/text_timer"
+                app:layout_constraintTop_toBottomOf="@+id/text_timer" />
+
+            <TextView
+                android:id="@+id/text_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="120dp"
+                android:text="Mode"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textThurs" />
+
+            <Spinner
+                android:id="@+id/spinnerMode"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="45dp"
+                android:background="@drawable/bottom_rounded"
+                android:entries="@array/arrayOfMode"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:paddingStart="10dp"
+                android:spinnerMode="dialog"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/text_mode"
+                app:layout_constraintTop_toBottomOf="@+id/text_mode" />
+
+            <TextView
+                android:id="@+id/text_reminder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:text="Reminder"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerTimer" />
+
+            <TextView
+                android:id="@+id/text_selected_reminder"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="45dp"
+                android:background="@drawable/bottom_rounded"
+                android:gravity="center_vertical"
+                android:hint="11:00 PM"
+                android:padding="10dp"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/text_reminder"
+                app:layout_constraintTop_toBottomOf="@+id/text_reminder" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCancel"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="68dp"
+                android:layout_marginBottom="16dp"
+                android:text="Cancel"
+                android:textSize="12sp"
+                android:background="@drawable/rounded"
+                app:backgroundTint="@color/slate_grey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnSave"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_selected_reminder" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSave"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="Save"
+                android:textSize="12sp"
+                android:background="@drawable/rounded"
+                app:backgroundTint="@color/slate_grey"
+                app:layout_constraintEnd_toEndOf="@+id/spinnerMode"
+                app:layout_constraintTop_toTopOf="@+id/btnCancel" />
 
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

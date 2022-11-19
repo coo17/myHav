@@ -12,6 +12,11 @@
         <item>general</item>
     </string-array>
 
+    <string-array name="arrayOfMode">
+        <item>single</item>
+        <item>group</item>
+    </string-array>
+
     <string-array name="arrayOfTimer">
         <item>0</item>
         <item>5</item>

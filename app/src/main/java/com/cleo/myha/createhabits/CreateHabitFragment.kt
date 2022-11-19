@@ -2,7 +2,6 @@ package com.cleo.myha.createhabits
 
 
 
-import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -27,8 +26,6 @@ import java.util.*
 class CreateHabitFragment : Fragment() {
 
     private val firebase = FirebaseFirestore.getInstance()
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -84,20 +81,38 @@ class CreateHabitFragment : Fragment() {
         )
         spinnerTimer.adapter = timerAdapter
 
-        var timer = ""
+        val spinnerMode: Spinner = binding.spinnerMode
+        val modeSetting = listOf("single", "group")
+        val modeAdapter = ArrayAdapter(
+            requireContext(),
+            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+            modeSetting
+        )
+        spinnerMode.adapter = modeAdapter
+        var textMode = 0
 
-        spinnerTimer.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-
-                timer = timerSetting.get(p2).toLong().toString()
-
+        spinnerMode.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+                textMode = position
 
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
+            }
+        }
+
+        var timer = ""
+
+        spinnerTimer.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                timer = timerSetting.get(p2).toLong().toString()
+
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {
 
             }
         }
+
         val timePicker = MaterialTimePicker.Builder().build()
         binding.textSelectedReminder.setOnClickListener {
 
@@ -127,10 +142,6 @@ class CreateHabitFragment : Fragment() {
         }
 
 
-
-
-
-
 //        fun showStartedDay(){
 //    val startDay = binding.textSelectedDuration
 //     val c = Calendar.getInstance()
@@ -148,8 +159,6 @@ class CreateHabitFragment : Fragment() {
 //        dpd.show()
 //    }
 //        }
-
-
 
         var startDate = 0L
         var endDate = 0L
@@ -247,7 +256,8 @@ class CreateHabitFragment : Fragment() {
 //        Log.d("CCC", "${monday.text}")
         val timestamp = System.currentTimeMillis()
 
-        Log.d("cleoo","${timestamp}")
+
+//        Log.d("cleoo","choose ${mode}")
 
         binding.btnSave.setOnClickListener {
 
@@ -260,7 +270,8 @@ class CreateHabitFragment : Fragment() {
                 viewModel.list,
                 timestamp.toString().toLong(),
                 startDate,
-                endDate
+                endDate,
+                textMode
             )
             Log.d("ABC", "${timer}")
             findNavController().navigate(NavGraphDirections.actionGlobalHabitFragment())
@@ -273,7 +284,7 @@ class CreateHabitFragment : Fragment() {
         return binding.root
     }
 
-    private fun addData(category:String, duration:String,  task: String, timer: String, reminder: Long, repeatedDays: List<Boolean>, createdTime: Long, startedDate: Long, endDate: Long) {
+    private fun addData(category:String, duration:String,  task: String, timer: String, reminder: Long, repeatedDays: List<Boolean>, createdTime: Long, startedDate: Long, endDate: Long, mode: Int) {
         val articles = FirebaseFirestore.getInstance().collection("habits")
         val document = articles.document().id
         val data = hashMapOf(
@@ -289,7 +300,8 @@ class CreateHabitFragment : Fragment() {
             "repeatedDays" to repeatedDays,
             "createdTime" to createdTime,
             "startedDate" to startedDate,
-            "endDate" to endDate
+            "endDate" to endDate,
+            "mode" to mode
         )
 
         Log.d("OMG", "$data")
