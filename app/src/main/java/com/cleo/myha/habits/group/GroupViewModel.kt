@@ -23,6 +23,9 @@ class GroupViewModel : ViewModel() {
 
     private fun getGroupHabits() {
 
+
+        val userId = "Cleo@gmail.com"
+
         db.collection("habits")
             .get()
             .addOnSuccessListener { documents ->
@@ -33,6 +36,7 @@ class GroupViewModel : ViewModel() {
 
                 val habits = list.filter {
                     it.mode == 1
+                    it.members!!.contains(userId)
                 }
                 _groupHabits.value = habits
 
