@@ -11,6 +11,8 @@ import com.cleo.myha.data.Posts
 import com.cleo.myha.databinding.ItemCommentBinding
 
 import com.cleo.myha.discover.DiscoverViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CommentAdapter(val viewModel: CommentViewModel): ListAdapter<CommentsInfo, CommentAdapter.CommentViewHolder>(CommentDiffCallBack()) {
 
@@ -18,6 +20,8 @@ class CommentAdapter(val viewModel: CommentViewModel): ListAdapter<CommentsInfo,
     inner class CommentViewHolder(val binding: ItemCommentBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: CommentsInfo){
+
+
             binding.textComment.text = item.content
             binding.textTime.text = item.createdTime
 //            binding.avatarUser.setImageResource

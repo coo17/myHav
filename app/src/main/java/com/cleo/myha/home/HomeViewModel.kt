@@ -1,7 +1,6 @@
 package com.cleo.myha.home
 
 import android.util.Log
-import android.widget.CheckBox
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -163,6 +162,7 @@ class HomeViewModel : ViewModel() {
 
     fun checkAllList():Boolean {
 
+//       var maxValue =0
         //filter出一樣的size
         return completedList.filter {
             it.value == true

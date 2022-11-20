@@ -4,4 +4,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="signin">SignIn</string>
     <string name="cancel">Cancel</string>
+
+    <string name="webClient_id">100851688335-da2ohgoqaet0gv8fkkqk4u6g2t6ncu3i.apps.googleusercontent.com</string>
 </resources>

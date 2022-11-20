@@ -1,5 +1,7 @@
 package com.cleo.myha.home.dialog
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +21,7 @@ class FinishTaskDialog : AppCompatDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         binding = DialogFinishTaskBinding.inflate(inflater, container, false)
 
 //        binding.lottieAnimationView.setAnimation("complete.json")

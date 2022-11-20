@@ -22,5 +22,5 @@ data class Posts (
 data class CommentsInfo(
     var senderId: String ="",
     var content: String ="",
-    var createdTime: String =""
+    var createdTime: String ="",
 )
