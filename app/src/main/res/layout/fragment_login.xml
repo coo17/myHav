@@ -4,58 +4,105 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login.LoginFragment">
+    tools:context=".home.login.LoginFragment">
 
-
-    <EditText
-        android:id="@+id/text_UserEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="240dp"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textPersonName"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView1"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/floral" />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/btnSignIn"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteX="48dp"
+            tools:layout_editor_absoluteY="216dp"
+            app:layout_constraintTop_toBottomOf="@id/header"/>
+
+
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="255dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/alegreya_sans_sc_medium"
+        android:text="We first make our habits, \nand then \nour habits make us."
+        android:textSize="26dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/text_UserPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_UserEmail" />
+    <!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/btnSignout"-->
+<!--        android:layout_width="200dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:text="OUT"-->
+<!--        android:textSize="10dp"-->
+<!--        app:layout_constraintStart_toEndOf="@id/btnSignIn"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/btnSignIn"/>-->
+<!--    -->
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/createBtn"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/bottom_rounded"
-        android:text="sign in"
-        app:backgroundTint="@color/slate_grey"
-        app:layout_constraintEnd_toEndOf="@+id/text_UserPassword"
-        app:layout_constraintStart_toStartOf="@+id/text_UserPassword"
-        app:layout_constraintTop_toBottomOf="@+id/text_UserPassword" />
+<!--    <EditText-->
+<!--        android:id="@+id/text_UserEmail"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="240dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Email"-->
+<!--        android:inputType="textPersonName"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.502"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/loginAsGuest"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/bottom_rounded"
-        android:text="Register"
-        android:textColor="@color/slate_grey"
-        app:backgroundTint="@color/light_grey"
-        app:layout_constraintStart_toStartOf="@+id/createBtn"
-        app:layout_constraintTop_toBottomOf="@+id/createBtn"
-        tools:layout_editor_absoluteY="400dp" />
+<!--    <EditText-->
+<!--        android:id="@+id/text_UserPassword"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="28dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Password"-->
+<!--        android:inputType="textPassword"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.502"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/text_UserEmail" />-->
+
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/createBtn"-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginTop="28dp"-->
+<!--        android:background="@drawable/bottom_rounded"-->
+<!--        android:text="sign in"-->
+<!--        app:backgroundTint="@color/slate_grey"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/text_UserPassword"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/text_UserPassword"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/text_UserPassword" />-->
+
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/loginAsGuest"-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:background="@drawable/bottom_rounded"-->
+<!--        android:text="Register"-->
+<!--        android:textColor="@color/slate_grey"-->
+<!--        app:backgroundTint="@color/light_grey"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/createBtn"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/createBtn"-->
+<!--        tools:layout_editor_absoluteY="400dp" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

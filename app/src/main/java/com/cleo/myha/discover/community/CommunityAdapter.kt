@@ -10,11 +10,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cleo.myha.R
 import com.cleo.myha.data.Habits
+import com.cleo.myha.data.Posts
 import com.cleo.myha.databinding.ItemDiscoverBinding
+import com.cleo.myha.discover.DiscoverAdapter
+import com.cleo.myha.discover.DiscoverViewModel
 
-class CommunityAdapter(): ListAdapter<Habits, CommunityAdapter.GroupViewHolder>(GroupDiffCallBack()) {
+class CommunityAdapter(val onClickListener: OnClickListener, val viewModel: CommunityViewModel): ListAdapter<Habits, CommunityAdapter.GroupViewHolder>(GroupDiffCallBack()) {
 
-    class GroupViewHolder(private var binding: ItemDiscoverBinding): RecyclerView.ViewHolder(binding.root){
+
+   inner class GroupViewHolder(private var binding: ItemDiscoverBinding): RecyclerView.ViewHolder(binding.root){
 
         fun bind(data: Habits){
 
@@ -38,6 +42,11 @@ class CommunityAdapter(): ListAdapter<Habits, CommunityAdapter.GroupViewHolder>(
                     "general" -> R.drawable.icon_smilingface
                     else -> { R.drawable.icon_heart}
                 })
+
+            binding.imageView4.setOnClickListener {
+                onClickListener.onClick(data)
+            }
+
         }
     }
 
@@ -65,8 +74,9 @@ class CommunityAdapter(): ListAdapter<Habits, CommunityAdapter.GroupViewHolder>(
     override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
         val groupTaskData = getItem(position)
         holder.bind(groupTaskData)
-        holder.itemView.setOnClickListener{
-            Navigation.createNavigateOnClickListener(R.id.action_global_taskDialog).onClick(holder.itemView)
-        }
+    }
+
+    class OnClickListener(val clickListener: (habits: Habits) -> Unit) {
+        fun onClick(habits: Habits) = clickListener(habits)
     }
 }

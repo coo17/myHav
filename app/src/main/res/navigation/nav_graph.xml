@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -41,12 +41,6 @@
     </fragment>
     <action android:id="@+id/action_global_createHabitFragment" app:destination="@id/createHabitFragment" />
     <fragment
-        android:id="@+id/timePickerDialog"
-        android:name="com.cleo.myha.createhabits.TimePickerDialog"
-        android:label="dialog_timer_picker"
-        tools:layout="@layout/dialog_timer_picker" />
-    <action android:id="@+id/action_global_timePickerDialog" app:destination="@id/timePickerDialog" />
-    <fragment
         android:id="@+id/publishFragment"
         android:name="com.cleo.myha.publish.PublishFragment"
         android:label="fragment_publish"
@@ -60,10 +54,40 @@
     <fragment
         android:id="@+id/commentFragment"
         android:name="com.cleo.myha.comment.CommentFragment"
-        android:label="CommentFragment" /><action android:id="@+id/action_global_commentFragment" app:destination="@id/commentFragment"/>
+        android:label="CommentFragment" >
+        <argument
+            android:name="postsKey"
+            app:argType="com.cleo.myha.data.Posts" />
+    </fragment><action android:id="@+id/action_global_commentFragment" app:destination="@id/commentFragment"/>
     <dialog
         android:id="@+id/taskDialog"
         android:name="com.cleo.myha.discover.dialog.TaskDialog"
-        android:label="TaskDialog" /><action android:id="@+id/action_global_taskDialog" app:destination="@id/taskDialog"/>
+        android:label="TaskDialog" >
+        <argument
+            android:name="habitsKey"
+            app:argType="com.cleo.myha.data.Habits" />
+    </dialog><action android:id="@+id/action_global_taskDialog" app:destination="@id/taskDialog"/>
+    <dialog
+        android:id="@+id/finishTaskDialog"
+        android:name="com.cleo.myha.home.dialog.FinishTaskDialog"
+        android:label="FinishTaskDialog" />
+    <action android:id="@+id/action_global_finishTaskDialog" app:destination="@id/finishTaskDialog" />
+    <fragment
+        android:id="@+id/discoverItemFragment"
+        android:name="com.cleo.myha.discover.DiscoverItemFragment"
+        android:label="DiscoverItemFragment" /><action android:id="@+id/action_global_discoverItemFragment" app:destination="@id/discoverItemFragment"/>
+    <fragment
+        android:id="@+id/groupFragment"
+        android:name="com.cleo.myha.habits.group.GroupFragment"
+        android:label="GroupFragment" />
+    <fragment
+        android:id="@+id/singleFragment"
+        android:name="com.cleo.myha.habits.single.SingleFragment"
+        android:label="SingleFragment" /><action android:id="@+id/action_global_singleFragment" app:destination="@id/singleFragment"/><action android:id="@+id/action_global_groupFragment" app:destination="@id/groupFragment"/>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.cleo.myha.home.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" /><action android:id="@+id/action_global_loginFragment" app:destination="@id/loginFragment"/>
 
 </navigation>

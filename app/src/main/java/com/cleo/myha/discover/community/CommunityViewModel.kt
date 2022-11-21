@@ -9,57 +9,34 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class CommunityViewModel : ViewModel() {
 
-    private val firebase = FirebaseFirestore.getInstance()
+    private val db = FirebaseFirestore.getInstance()
 
-    private val _groupTask = MutableLiveData<List<Habits>>()
-    val groupTask: LiveData<List<Habits>>
-        get() = _groupTask
+    private val _groupTasks = MutableLiveData<List<Habits>>()
+    val groupTasks: LiveData<List<Habits>>
+        get() = _groupTasks
 
     init {
-        getGroupTask()
+        getGroupTasks()
     }
 
-    private fun getGroupTask(){
+    private fun getGroupTasks() {
 
-        firebase.collection("habits")
+        db.collection("habits")
             .get()
-            .addOnSuccessListener { result ->
+            .addOnSuccessListener { documents ->
+                val list = documents.toObjects(Habits::class.java)
 
-                val list = mutableListOf<Habits>()
+                Log.d("VIC","${documents.size()}")
 
-                for (i in result) {
-                    val members = i.get("members") as List<String>
-                    val repeatedDays = i.get("repeatedDays") as List<Boolean>
-                    val todayTaskData = Habits(
-                        i.get("id").toString(),
-                        i.get("ownerID").toString(),
-                        members,
-                        i.get("category").toString(),
-                        i.get("task").toString(),
-                        repeatedDays,
-                        i.get("duration").toString(),
-                        i.get("reminder").toString().toLong(),
-                        i.get("timer").toString(),
-                        i.get("createdTime").toString().toLong(),
-                        i.get("startedDate").toString().toLong(),
-                        i.get("endDate").toString().toLong()
-                    )
 
-                    list.add(todayTaskData)
+                val joinHabits = list.filter {
+                    it.mode == 1
                 }
+                _groupTasks.value = joinHabits
 
-                list.sortBy { it.reminder }
-                _groupTask.value = list
             }
-            .addOnFailureListener { exception ->
-                Log.d("Cleooo", "get fail")
-                Log.w("Cleooo", "Error getting documents.", exception)
-            }
-
+            .addOnFailureListener {
+                Log.d("Cleooo", "get fail")}
     }
-
-
-
-
 
 }

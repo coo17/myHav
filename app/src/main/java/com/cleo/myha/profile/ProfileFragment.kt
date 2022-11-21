@@ -35,25 +35,6 @@ class ProfileFragment : Fragment() {
         setUpTabLayoutWithViewPager()
 
 
-//        binding.textBio.addTextChangedListener(object : TextWatcher {
-//            override fun afterTextChanged(s: Editable?) {
-//                if(binding.textBio.text.toString() != "")
-//                    binding.textBio.setText("${binding.textBio.text.toString().toFloat()}")
-//
-//                else  binding.textBio.setText("0")
-//            }
-//
-//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-//            }
-//
-//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//            }
-//        })
-//
-//        binding.textBio.doAfterTextChanged {
-//            binding.textBio.text = it
-//        }
-
         binding.createPost.setOnClickListener {
             findNavController().navigate(NavGraphDirections.actionGlobalPublishFragment())
         }

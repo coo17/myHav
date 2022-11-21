@@ -8,7 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="400dp"
         android:layout_height="400dp"
-        android:background="@drawable/cart_rounded_learning"
+        android:background="@drawable/rounded"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +22,7 @@
             android:layout_marginTop="30dp"
             android:fontFamily="@font/alegreya_sans_sc_medium"
             android:text="Group Habit"
-            android:textSize="28sp"
+            android:textSize="26sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,9 +36,20 @@
             android:layout_marginTop="30dp"
             android:fontFamily="@font/alegreya_sans_sc_medium"
             android:text="category : "
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header" />
+
+        <TextView
+            android:id="@+id/textCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/alegreya_sans_sc_medium"
+            android:text="health"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/category"
             app:layout_constraintTop_toBottomOf="@id/header" />
 
         <TextView
@@ -49,10 +60,21 @@
             android:layout_marginTop="30dp"
             android:fontFamily="@font/alegreya_sans_sc_medium"
             android:text="Task : "
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/category" />
+
+        <TextView
+            android:id="@+id/textTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/alegreya_sans_sc_medium"
+            android:text="Walking"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/task"
+            app:layout_constraintTop_toBottomOf="@id/textCategory" />
 
         <TextView
             android:id="@+id/duration"
@@ -62,10 +84,21 @@
             android:layout_marginTop="30dp"
             android:fontFamily="@font/alegreya_sans_sc_medium"
             android:text="Duration : "
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/task" />
+
+        <TextView
+            android:id="@+id/textDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/alegreya_sans_sc_medium"
+            android:text="2022-11-01~2022-11-30"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/duration"
+            app:layout_constraintTop_toBottomOf="@id/textTask" />
 
         <TextView
             android:id="@+id/repeated_days"
@@ -75,10 +108,22 @@
             android:layout_marginTop="30dp"
             android:fontFamily="@font/alegreya_sans_sc_medium"
             android:text="Repeated Days : "
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/duration" />
+
+
+        <TextView
+            android:id="@+id/textRepeatedDays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/alegreya_sans_sc_medium"
+            android:text="M"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/repeated_days"
+            app:layout_constraintTop_toBottomOf="@id/textDuration" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/joinBtn"
@@ -86,8 +131,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="Join"
-            android:textSize="14dp"
-            app:backgroundTint="@color/cardview_dark_background"
+            android:textSize="14sp"
+            app:backgroundTint="@color/slate_grey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
