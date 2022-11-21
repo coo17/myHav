@@ -54,10 +54,11 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/postBtn"
-            android:layout_width="0dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             app:backgroundTint="@color/soil"
             android:text="Add your Post"
+            android:layout_marginBottom="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>

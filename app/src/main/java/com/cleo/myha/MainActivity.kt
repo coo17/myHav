@@ -1,9 +1,11 @@
 package com.cleo.myha
 
 import android.content.Intent
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.navigation.findNavController
 import com.cleo.myha.data.User
@@ -46,19 +48,22 @@ class MainActivity : AppCompatActivity() {
 
         val signInClient = GoogleSignIn.getClient(this, options)
 
-        binding.btnSignIn.setOnClickListener {
-            signInClient.signInIntent.also {
-                startActivityForResult(it, REQUEST_CODE_SIGN_IN)
-            }
 
-        }
+//        binding.btnSignIn.setOnClickListener {
+//            signInClient.signInIntent.also {
+//                startActivityForResult(it, REQUEST_CODE_SIGN_IN)
+//            }
+//
+//        }
+//
+//        binding.btnSignout.setOnClickListener {
+//            signInClient.signOut()
+//                .addOnCompleteListener(this, OnCompleteListener {
+//                    signOutFun()
+//                })
+//        }
 
-        binding.btnSignout.setOnClickListener {
-            signInClient.signOut()
-                .addOnCompleteListener(this, OnCompleteListener {
-                    signOutFun()
-                })
-        }
+
 
 
         binding.bottomNav.setOnItemSelectedListener { item ->

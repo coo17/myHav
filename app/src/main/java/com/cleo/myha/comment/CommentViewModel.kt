@@ -38,10 +38,11 @@ class CommentViewModel : ViewModel() {
 
         articles.document(postId).collection("messages")
             .addSnapshotListener { value, error ->
-                val list = value!!.toObjects(CommentsInfo::class.java)
+                value?.let {
+                val list = it.toObjects(CommentsInfo::class.java)
                 _userComments.value = list
+                }
 
-            Log.d("ttt","${list}")
         }
     }
 

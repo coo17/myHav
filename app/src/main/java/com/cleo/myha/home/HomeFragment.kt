@@ -12,11 +12,13 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.cleo.myha.NavGraphDirections
 import com.cleo.myha.databinding.FragmentHomeBinding
+import com.google.firebase.auth.FirebaseAuth
 import java.util.Calendar
 
 
 class HomeFragment : Fragment() {
 
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +37,14 @@ class HomeFragment : Fragment() {
         }, viewModel)
 
         binding.taskRecyclerView.adapter = adapter
-
+//        auth = FirebaseAuth.getInstance()
+//        val user = auth.currentUser
+//
+//        if (user != null) {
+//            binding.textHelloUser.text = auth.currentUser?.displayName ?: ""
+//        }else{
+//            binding.textHelloUser.text = "User"
+//        }
 
         viewModel.doneList.observe(viewLifecycleOwner, Observer {
             adapter.notifyDataSetChanged()

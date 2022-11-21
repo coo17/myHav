@@ -18,6 +18,7 @@ import com.cleo.myha.R
 import com.cleo.myha.databinding.FragmentCreateHabitBinding
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
@@ -26,6 +27,7 @@ import java.util.*
 class CreateHabitFragment : Fragment() {
 
     private val firebase = FirebaseFirestore.getInstance()
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +36,9 @@ class CreateHabitFragment : Fragment() {
 
         val binding = FragmentCreateHabitBinding.inflate(inflater, container, false)
         val viewModel = ViewModelProvider(this)[CreateHabitViewModel::class.java]
+
+        auth = FirebaseAuth.getInstance()
+        var user = auth.currentUser
 
 //        val hours = CreateHabitFragmentArgs.fromBundle(requireArguments()).reminder
 //        val minutes = CreateHabitFragmentArgs.fromBundle(requireArguments()).minutes
@@ -292,8 +297,8 @@ class CreateHabitFragment : Fragment() {
             "duration" to duration,
             "id" to document,
             "members" to
-                    listOf<String>("IU", "Wayne"),
-            "ownerId" to "wayne@gmail.com",
+                    listOf<String>(),
+            "ownerId" to auth.currentUser!!.email,
             "reminder" to reminder,
             "task" to task,
             "timer" to timer,

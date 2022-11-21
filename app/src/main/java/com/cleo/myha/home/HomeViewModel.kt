@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cleo.myha.data.Habits
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.time.Instant
@@ -29,6 +30,8 @@ class HomeViewModel : ViewModel() {
 
     var completedList = mutableMapOf<String, Boolean>()
 
+    val auth = FirebaseAuth.getInstance()
+    val user = auth.currentUser
 
     init {
         getTodayTasks()
@@ -122,6 +125,7 @@ class HomeViewModel : ViewModel() {
                 Log.w("Cleooo", "Error getting documents.", exception)
             }
     }
+
 
     fun convertLongToTime(time: Long): String{
         val date = Date(time)
