@@ -1,6 +1,7 @@
 package com.cleo.myha.data
 
 import android.os.Parcelable
+import com.google.firebase.Timestamp
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
@@ -22,5 +23,6 @@ data class Posts (
 data class CommentsInfo(
     var senderId: String ="",
     var content: String ="",
-    var createdTime: String ="",
+    var createdTime: Timestamp? = null,
+    var userName: String = ""
 )

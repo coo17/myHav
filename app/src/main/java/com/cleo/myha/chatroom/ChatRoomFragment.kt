@@ -83,7 +83,6 @@ class ChatRoomFragment : Fragment() {
             senderImage = auth.currentUser?.photoUrl.toString(),
             message = content,
             textTime =  Timestamp.now()
-
         )
 
         Log.d("OMG", "comment ${senderId}")

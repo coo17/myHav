@@ -24,8 +24,6 @@ private const val ITEM_RECEIVED_MESSAGE = 0X01
 class ChatRoomAdapter : ListAdapter<UserType, RecyclerView.ViewHolder>(DiffCallBack()) {
 
 
-
-
     class SentMessageViewHolder(private var binding: ItemSentMessageBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -35,6 +33,7 @@ class ChatRoomAdapter : ListAdapter<UserType, RecyclerView.ViewHolder>(DiffCallB
             val createdTime = currentTime?.toDate()?.let { (it.time) }
 
             binding.textMessage.text = data.user.message
+
             if (createdTime != null) {
                 binding.textDateTime.text = createdTime.convertToTime()
             }
@@ -46,11 +45,17 @@ class ChatRoomAdapter : ListAdapter<UserType, RecyclerView.ViewHolder>(DiffCallB
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: UserType.Receiver) {
+            val currentTime = data.user.textTime
+            val createdTime = currentTime?.toDate()?.let { (it.time) }
+
             binding.textMessage.text = data.user.message
-            binding.textDateTime.text = data.user.textTime.toString()
+            if (createdTime != null) {
+                binding.textDateTime.text = createdTime.convertToTime()
+            }
+
             Glide.with(itemView.context)
                 .load(data.user.senderImage)
-                .placeholder(R.drawable.ic_lion)
+                .placeholder(R.drawable.lion)
                 .into(binding.imageProfile)
         }
 

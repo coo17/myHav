@@ -17,6 +17,8 @@ import com.cleo.myha.R
 import com.cleo.myha.data.Posts
 import com.cleo.myha.databinding.FragmentCommentBinding
 import com.google.android.material.internal.ViewUtils.hideKeyboard
+import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,17 +27,22 @@ import java.util.*
 class CommentFragment : Fragment() {
     private var firebase = FirebaseFirestore.getInstance()
     private lateinit var posts: Posts
+    private lateinit var auth: FirebaseAuth
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentCommentBinding.inflate(inflater, container, false)
-
+        auth= FirebaseAuth.getInstance()
         val viewModel = ViewModelProvider(this)[CommentViewModel::class.java]
         posts = arguments?.getParcelable<Posts>("postsKey")!!
         Log.d("post", "$posts")
         viewModel.setPosts(posts)
+
+
+
         val adapter = CommentAdapter(viewModel)
         binding.commentRecycler.adapter = adapter
 
@@ -86,17 +93,23 @@ class CommentFragment : Fragment() {
 
     private fun addComment(content: String) {
 
-        val senderId = "IU@gmail.com"
+        val senderId = auth.currentUser?.let {
+            it.email
+        }
+
         val currentTime = Date().time
         val createdTime = convertLongToTime(currentTime)
 
         val data = hashMapOf(
             "content" to content,
             "senderId" to senderId,
-            "createdTime" to createdTime
+            "createdTime" to Timestamp.now(),
+            "userName" to auth.currentUser?.let {
+                it.displayName
+            }!!,
         )
 
-        Log.d("OMG", "comment ${currentTime}")
+        Log.d("OMG", "XXXXX ${data}")
 
         firebase.collection("posts")
             .document(posts.id)

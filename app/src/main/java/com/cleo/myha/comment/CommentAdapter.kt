@@ -5,26 +5,29 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.cleo.myha.R
 import com.cleo.myha.data.CommentsInfo
-import com.cleo.myha.data.Posts
 import com.cleo.myha.databinding.ItemCommentBinding
+import convertToTime
 
-import com.cleo.myha.discover.DiscoverViewModel
-import java.text.SimpleDateFormat
-import java.util.*
 
 class CommentAdapter(val viewModel: CommentViewModel): ListAdapter<CommentsInfo, CommentAdapter.CommentViewHolder>(CommentDiffCallBack()) {
+
 
 
     inner class CommentViewHolder(val binding: ItemCommentBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: CommentsInfo){
-
+            val currentTime = item.createdTime
+            val createdTime = currentTime?.toDate()?.let { (it.time) }
 
             binding.textComment.text = item.content
-            binding.textTime.text = item.createdTime
-//            binding.avatarUser.setImageResource
+
+            if (createdTime != null) {
+                binding.textTime.text = createdTime.convertToTime()
+            }
+            binding.userName.text = item.userName
+            binding.avatarUser.setImageResource(R.drawable.lion)
 
         }
     }
