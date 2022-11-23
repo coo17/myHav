@@ -37,14 +37,11 @@ class HomeFragment : Fragment() {
         }, viewModel)
 
         binding.taskRecyclerView.adapter = adapter
-//        auth = FirebaseAuth.getInstance()
-//        val user = auth.currentUser
-//
-//        if (user != null) {
-//            binding.textHelloUser.text = auth.currentUser?.displayName ?: ""
-//        }else{
-//            binding.textHelloUser.text = "User"
-//        }
+        auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
+
+        binding.textHelloUser.text = "Hello, ${auth.currentUser?.displayName}" ?: "User"
+
 
         viewModel.doneList.observe(viewLifecycleOwner, Observer {
             adapter.notifyDataSetChanged()

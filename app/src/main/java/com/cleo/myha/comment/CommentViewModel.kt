@@ -14,7 +14,7 @@ import java.util.*
 
 class CommentViewModel : ViewModel() {
 
-    private var firebase = FirebaseFirestore.getInstance()
+    private var db = FirebaseFirestore.getInstance()
     private lateinit var posts: Posts
 
     private val _userComments = MutableLiveData<List<CommentsInfo>>()

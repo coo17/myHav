@@ -1,21 +1,23 @@
 package com.cleo.myha.comment
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.cleo.myha.R
 import com.cleo.myha.data.Posts
 import com.cleo.myha.databinding.FragmentCommentBinding
-import com.cleo.myha.home.HomeViewModel
+import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.google.firebase.firestore.FirebaseFirestore
-import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -36,6 +38,9 @@ class CommentFragment : Fragment() {
         viewModel.setPosts(posts)
         val adapter = CommentAdapter(viewModel)
         binding.commentRecycler.adapter = adapter
+
+
+
 
 
 
@@ -64,8 +69,9 @@ class CommentFragment : Fragment() {
 
         binding.sendBtn.setOnClickListener {
             addComment(
-                binding.editTextComment.text.toString()
+                binding.editTextComment.text.toString(),
             )
+
         }
 
 
@@ -103,6 +109,10 @@ class CommentFragment : Fragment() {
                 Log.d("CLEOOO", "add fail")
             }
     }
-
+//
+//    private fun hideKeyboard() {
+//        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//        imm.hideSoftInputFromWindow(view.windowToken, 0)
+//    }
 
 }

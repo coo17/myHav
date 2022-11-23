@@ -7,7 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
+import com.cleo.myha.NavGraphDirections
 import com.cleo.myha.databinding.FragmentGroupBinding
+import com.cleo.myha.discover.DiscoverAdapter
+import com.cleo.myha.discover.DiscoverItemFragmentDirections
 
 
 class GroupFragment: Fragment(){
@@ -18,7 +23,13 @@ class GroupFragment: Fragment(){
     ): View? {
         val binding = FragmentGroupBinding.inflate(inflater, container, false)
         val viewModel = ViewModelProvider(this)[GroupViewModel::class.java]
-        val adapter = GroupAdapter()
+//        val adapter = GroupAdapter()
+
+        val adapter = GroupAdapter(onClickListener = GroupAdapter.OnClickListener { Habits ->
+            this.findNavController()
+                .navigate(NavGraphDirections.actionGlobalChatRoomsFragment(Habits))
+        },viewModel)
+
         binding.groupRecycler.adapter = adapter
 
 

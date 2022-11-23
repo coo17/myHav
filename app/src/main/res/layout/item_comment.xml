@@ -18,25 +18,37 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
+        android:id="@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cleo Chang"
+        android:textSize="12sp"
+        android:layout_marginTop="17dp"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/slate_grey"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/avatarUser"/>
+
+    <TextView
         android:id="@+id/textComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Best advice ever"
-        android:textSize="14sp"
+        android:textSize="10sp"
         android:textColor="@color/slate_grey"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/avatarUser"/>
+        app:layout_constraintTop_toBottomOf="@id/userName"
+        app:layout_constraintStart_toStartOf="@id/userName"/>
 
     <TextView
         android:id="@+id/textTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="2022-11-15 20:00"
-        android:layout_marginTop="3dp"
-        android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@id/textComment"
-        app:layout_constraintTop_toBottomOf="@id/textComment"/>
+        android:textSize="8sp"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintTop_toTopOf="@id/userName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/textComment"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

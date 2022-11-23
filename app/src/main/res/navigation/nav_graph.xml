@@ -50,7 +50,11 @@
         android:id="@+id/chatRoomsFragment"
         android:name="com.cleo.myha.chatroom.ChatRoomFragment"
         android:label="fragment_chat_rooms"
-        tools:layout="@layout/fragment_chat_rooms" /><action android:id="@+id/action_global_chatRoomsFragment" app:destination="@id/chatRoomsFragment"/>
+        tools:layout="@layout/fragment_chat_rooms" >
+        <argument
+            android:name="habitsKey"
+            app:argType="com.cleo.myha.data.Habits" />
+    </fragment><action android:id="@+id/action_global_chatRoomsFragment" app:destination="@id/chatRoomsFragment"/>
     <fragment
         android:id="@+id/commentFragment"
         android:name="com.cleo.myha.comment.CommentFragment"

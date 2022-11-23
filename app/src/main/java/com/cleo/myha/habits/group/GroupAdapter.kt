@@ -8,11 +8,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cleo.myha.R
 import com.cleo.myha.data.Habits
+import com.cleo.myha.data.Posts
 import com.cleo.myha.databinding.ItemGroupTaskBinding
+import com.cleo.myha.discover.DiscoverAdapter
+import com.cleo.myha.discover.DiscoverViewModel
 
-class GroupAdapter(): ListAdapter<Habits, GroupAdapter.GroupViewHolder>(GroupDiffCallBack()) {
+class GroupAdapter(val onClickListener: OnClickListener, val viewModel: GroupViewModel): ListAdapter<Habits, GroupAdapter.GroupViewHolder>(GroupDiffCallBack()) {
 
-    class GroupViewHolder(private var binding: ItemGroupTaskBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class GroupViewHolder(private var binding: ItemGroupTaskBinding): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: Habits){
 
@@ -42,6 +45,10 @@ class GroupAdapter(): ListAdapter<Habits, GroupAdapter.GroupViewHolder>(GroupDif
                     }
                 }
             )
+
+            binding.root.setOnClickListener {
+                onClickListener.onClick(data)
+            }
         }
     }
 
@@ -63,8 +70,12 @@ class GroupAdapter(): ListAdapter<Habits, GroupAdapter.GroupViewHolder>(GroupDif
     override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
         val groupTask = getItem(position)
         holder.bind(groupTask)
-        holder.itemView.setOnClickListener{
-            Navigation.createNavigateOnClickListener(R.id.action_global_chatRoomsFragment).onClick(holder.itemView)
-        }
+//        holder.itemView.setOnClickListener{
+//            Navigation.createNavigateOnClickListener(R.id.action_global_chatRoomsFragment).onClick(holder.itemView)
+//        }
+    }
+
+    class OnClickListener(val clickListener: (habit: Habits) -> Unit) {
+        fun onClick(habit: Habits) = clickListener(habit)
     }
 }

@@ -37,9 +37,7 @@ class GroupViewModel : ViewModel() {
 
 
                     val habits = list.filter {
-                        it.mode == 1
-                        it.members!!.contains(remoteUser.email)
-                        it.ownerId == remoteUser.email
+                        (it.mode == 1 && it.members!!.contains(remoteUser.email) ) || (it.mode == 1 &&  it.ownerId == remoteUser.email)
                     }
                     _groupHabits.value = habits
 

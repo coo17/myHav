@@ -1,5 +1,7 @@
 package com.cleo.myha.data
 
+import com.google.firebase.Timestamp
+
 data class ChatRooms(
     var roomId: String ="",
     var habitId: String= "",
@@ -9,7 +11,9 @@ data class ChatRooms(
 )
 
 data class MessagesInfo(
-    var senderId: String = "",
-    var text: String = "",
-    var time: Long = -1L
+    var senderEmail: String = "",
+    var senderName: String = "",
+    var senderImage: String = "",
+    var message: String = "",
+    var textTime: Timestamp? = null ,
 )
