@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cleo.myha.R
 import com.cleo.myha.data.Habits
 import com.cleo.myha.databinding.ItemSingleTaskBinding
+import com.cleo.myha.habits.group.GroupAdapter
+import com.cleo.myha.habits.group.GroupViewModel
+import com.google.android.material.shape.CornerFamily
 
 
 class SingleAdapter() : ListAdapter<Habits, SingleAdapter.SingleViewHolder>(SingleDiffCallBack()) {
@@ -32,9 +35,18 @@ class SingleAdapter() : ListAdapter<Habits, SingleAdapter.SingleViewHolder>(Sing
                 }
             )
 
+            val radius = 50.0f
+            binding.imageView.shapeAppearanceModel = binding.imageView.shapeAppearanceModel
+                .toBuilder()
+                .setTopRightCorner(CornerFamily.ROUNDED, radius)
+                .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
+                .setTopLeftCorner(CornerFamily.ROUNDED,radius)
+                .setBottomRightCorner(CornerFamily.ROUNDED,radius)
+                .build()
+
             binding.imageView.setImageResource(
                 when (data.category) {
-                    "health" -> R.drawable.icon_health
+                    "health" -> R.drawable.lion
                     "workout" -> R.drawable.icon_workout
                     "reading" -> R.drawable.icon_reading
                     "learning" -> R.drawable.icon_learning
@@ -73,4 +85,8 @@ class SingleAdapter() : ListAdapter<Habits, SingleAdapter.SingleViewHolder>(Sing
         val singleTaskData = getItem(position)
         holder.bind(singleTaskData)
     }
+//
+//    class OnClickListener(val clickListener: (habit: Habits) -> Unit) {
+//        fun onClick(habit: Habits) = clickListener(habit)
+//    }
 }

@@ -33,14 +33,14 @@ class HabitFragment : Fragment() {
 
 
 
-        binding.view1.setOnClickListener {
+        binding.textView1.setOnClickListener {
             binding.viewPager.post {
                 binding.viewPager.setCurrentItem(0,true)
 
             }
         }
 
-        binding.view2.setOnClickListener {
+        binding.textView2.setOnClickListener {
             binding.viewPager.post {
                 binding.viewPager.setCurrentItem(1,true)
 

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    app:layout_constraintStart_toStartOf="parent"
     android:layout_marginStart="30dp"
     android:paddingBottom="20dp">
 
@@ -51,12 +52,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageView"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/rounded"
             android:clipToOutline="true"
             tools:srcCompat="@tools:sample/avatars" />
 

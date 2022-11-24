@@ -7,9 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.cleo.myha.NavGraphDirections
 import com.cleo.myha.databinding.FragmentSingleBinding
+import com.cleo.myha.habits.group.GroupAdapter
 
 class SingleFragment: Fragment() {
 
@@ -21,6 +24,11 @@ class SingleFragment: Fragment() {
         val viewModel = ViewModelProvider(this)[SingleViewModel::class.java]
 
         val adapter = SingleAdapter()
+//        val adapter = SingleAdapter(onClickListener = SingleAdapter.OnClickListener { Habits ->
+//            this.findNavController()
+//                .navigate(NavGraphDirections.actionGlobalChatRoomsFragment(Habits))
+//        }, viewModel)
+
         binding.singleRecycler.adapter = adapter
 
 
@@ -51,6 +59,10 @@ class SingleFragment: Fragment() {
         viewModel.yourHabits.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
+
+        binding.root.setOnClickListener {
+            findNavController().navigate(NavGraphDirections.actionGlobalHabitDetailFragment())
+        }
 
         return binding.root
     }

@@ -98,5 +98,9 @@
         android:name="com.cleo.myha.home.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" /><action android:id="@+id/action_global_loginFragment" app:destination="@id/loginFragment"/>
+    <fragment
+        android:id="@+id/habitDetailFragment"
+        android:name="com.cleo.myha.habits.detail.HabitDetailFragment"
+        android:label="HabitDetailFragment" /><action android:id="@+id/action_global_habitDetailFragment" app:destination="@id/habitDetailFragment"/>
 
 </navigation>

@@ -29,6 +29,7 @@ class CurrentUserAdapter() :
                 .setTopLeftCorner(CornerFamily.ROUNDED,radius)
                 .setBottomRightCorner(CornerFamily.ROUNDED,radius)
                 .build()
+
             binding.userName.text = item.name
 
             Glide.with(itemView.context)

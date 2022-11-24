@@ -35,7 +35,7 @@ class GroupAdapter(val onClickListener: OnClickListener, val viewModel: GroupVie
 
             binding.imageView.setImageResource(
                 when (data.category) {
-                    "health" -> R.drawable.icon_health
+                    "health" -> R.drawable.lion
                     "workout" -> R.drawable.icon_workout
                     "reading" -> R.drawable.icon_reading
                     "learning" -> R.drawable.icon_learning
