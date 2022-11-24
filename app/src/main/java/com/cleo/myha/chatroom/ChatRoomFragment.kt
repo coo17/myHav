@@ -6,20 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.createViewModelLazy
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.cleo.myha.comment.CommentAdapter
-import com.cleo.myha.comment.CommentViewModel
+import com.cleo.myha.chatroom.currentuser.CurrentUserAdapter
 import com.cleo.myha.data.Habits
 import com.cleo.myha.data.MessagesInfo
-import com.cleo.myha.data.Posts
 import com.cleo.myha.databinding.FragmentChatRoomsBinding
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class ChatRoomFragment : Fragment() {
@@ -43,12 +40,20 @@ class ChatRoomFragment : Fragment() {
         val adapter = ChatRoomAdapter()
         binding.chatRecyclerView.adapter = adapter
 
+        val userAdapter = CurrentUserAdapter()
+        binding.userRecyclerView.adapter = userAdapter
+
+
 
 
         viewModel.sender.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
 
+
+        viewModel.userInfo.observe(viewLifecycleOwner, Observer {
+            userAdapter.submitList(it)
+        })
 
         binding.sendBtn.setOnClickListener {
             addComment(
@@ -63,11 +68,6 @@ class ChatRoomFragment : Fragment() {
         return binding.root
     }
 
-    fun convertLongToTime(time: Long): String {
-        val date = Date(time)
-        val format = SimpleDateFormat("yyyy-MM-d hh:mm a", Locale.getDefault())
-        return format.format(date)
-    }
 
     private fun addComment(content: String) {
 
@@ -85,17 +85,17 @@ class ChatRoomFragment : Fragment() {
             textTime =  Timestamp.now()
         )
 
-        Log.d("OMG", "comment ${senderId}")
+        Log.d("C", "comment ${senderId}")
 
         db.collection("habits")
             .document(habit.id)
             .collection("messages")
             .add(data)
             .addOnSuccessListener {
-                Log.d("CLEOOO", "Success!!")
+                Log.d("Cleo", "Get Comment Success!!")
             }
             .addOnFailureListener { e ->
-                Log.d("CLEOOO", "add fail")
+                Log.d("Cleo", "add fail")
             }
     }
 

@@ -32,16 +32,11 @@ class HomeViewModel : ViewModel() {
 
     val auth = FirebaseAuth.getInstance()
     val user = auth.currentUser
+    val userEmail = user?.email.toString()
 
     init {
         getTodayTasks()
     }
-
-//    fun List<CheckBox>.checkAll(check: Boolean) {
-//        this.forEach {
-//            it.isChecked = check
-//        }
-//    }
 
     fun queryTest(habitId: String) {
 //        val habitId = "30l3lmRirwifxWmrydox"
@@ -74,8 +69,9 @@ class HomeViewModel : ViewModel() {
 
     private fun getTodayTasks() {
 
+
         db.collection("habits")
-//            .whereEqualTo("ownerId", "Cleo@gmail.com")
+            .whereEqualTo("ownerId", userEmail)
             .get()
             .addOnSuccessListener { result ->
 //                Log.d("Cleooo", "get success ,${result.documents}")
@@ -137,7 +133,7 @@ class HomeViewModel : ViewModel() {
     fun sendCompletedTask(data: Habits, isDone: Boolean){
 
         val document = data.id
-        val userEmail = "Vic@gmail.com"
+        val userEmail = user?.email.toString()
         val nowTime = Date().time
         val date = convertLongToTime(nowTime)
 //        val taskState : Boolean = isDone ?: false
@@ -171,9 +167,8 @@ class HomeViewModel : ViewModel() {
         return completedList.filter {
             it.value == true
         }.size == completedList.size
-
-
     }
+
 }
 
 

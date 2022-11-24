@@ -25,12 +25,6 @@ class CommentViewModel : ViewModel() {
 //        getComments()
     }
 
-    fun convertLongToTime(time: Long): String {
-        val date = Date(time)
-        val format = SimpleDateFormat("yyyy-MM-d", Locale.getDefault())
-        return format.format(date)
-    }
-
 
     fun getComments() {
         val articles = FirebaseFirestore.getInstance().collection("posts")

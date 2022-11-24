@@ -18,7 +18,8 @@ class CommentAdapter(val viewModel: CommentViewModel): ListAdapter<CommentsInfo,
     inner class CommentViewHolder(val binding: ItemCommentBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: CommentsInfo){
-            val currentTime = item.createdTime
+
+            val currentTime = item.updatedTime
             val createdTime = currentTime?.toDate()?.let { (it.time) }
 
             binding.textComment.text = item.content
@@ -26,6 +27,7 @@ class CommentAdapter(val viewModel: CommentViewModel): ListAdapter<CommentsInfo,
             if (createdTime != null) {
                 binding.textTime.text = createdTime.convertToTime()
             }
+
             binding.userName.text = item.userName
             binding.avatarUser.setImageResource(R.drawable.lion)
 

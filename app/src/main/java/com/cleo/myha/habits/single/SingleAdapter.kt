@@ -60,11 +60,11 @@ class SingleAdapter() : ListAdapter<Habits, SingleAdapter.SingleViewHolder>(Sing
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
-        return SingleViewHolder(
-            ItemSingleTaskBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
+       return SingleViewHolder(
+                    ItemSingleTaskBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
             )
         )
     }

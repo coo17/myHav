@@ -20,6 +20,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="50dp"
             android:text="Hello, User"
+            android:fontFamily="@font/alegreya_sans_sc_medium"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,12 +37,28 @@
             app:layout_constraintStart_toStartOf="@id/text_helloUser"
             app:layout_constraintTop_toBottomOf="@id/text_helloUser" />
 
-        <CalendarView
+<!--        <CalendarView-->
+<!--            android:id="@+id/calendarView"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/text_todayTasks"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"/>-->
+
+
+        <com.applandeo.materialcalendarview.CalendarView
             android:id="@+id/calendarView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            app:layout_constraintBottom_toTopOf="@id/text_todayTasks"
+            app:headerColor="@color/white"
+            app:headerLabelColor="@color/slate_grey"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:selectionColor="@color/light_blue"
+            app:selectionLabelColor="@color/slate_grey"
+            android:layout_marginBottom="10dp"
+            app:type="many_days_picker"
+            app:layout_constraintBottom_toTopOf="@+id/text_todayTasks"
+            app:layout_constraintTop_toBottomOf="@+id/textClock"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -50,6 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
+            android:layout_marginTop="20dp"
             android:text="Today Tasks"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -63,7 +81,7 @@
         android:id="@+id/taskRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

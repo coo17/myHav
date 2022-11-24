@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cleo.myha.data.*
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 
 
@@ -15,10 +14,15 @@ class ChatRoomViewModel : ViewModel() {
 
     private var db = FirebaseFirestore.getInstance()
     private lateinit var habit: Habits
+    private lateinit var users: User
 
-    private var _userMessage = MutableLiveData<List<MessagesInfo>>()
-    val userMessage: LiveData<List<MessagesInfo>>
-        get() = _userMessage
+    private var _userData = MutableLiveData<List<Habits>>()
+    val userData: LiveData<List<Habits>>
+        get() = _userData
+
+    private var _userInfo = MutableLiveData<List<User>>()
+    val userInfo: LiveData<List<User>>
+        get() = _userInfo
 
     private var _sender = MutableLiveData<List<UserType>>()
     val sender: LiveData<List<UserType>>
@@ -28,8 +32,61 @@ class ChatRoomViewModel : ViewModel() {
     val user = auth.currentUser
 
     init {
-
     }
+
+    private fun getUserData() {
+
+        val habitID = habit.id
+
+        user?.let { remoteUser ->
+            db.collection("habits").document(habitID)
+                .get()
+                .addOnSuccessListener { documents ->
+
+                    val uData = documents.toObject(Habits::class.java)
+
+                    val uList = mutableListOf<String>()
+
+                    uList.addAll(uData?.members as List)
+                    uList.add(uData.ownerId)
+                    val userLists = mutableListOf<User>()
+
+                    for(email in uList){
+                        Log.d("CIV", "$email")
+                        db.collection("users").document(email)
+                            .get()
+                            .addOnSuccessListener {
+                                val uAllData = it.toObject(User::class.java)
+
+                                Log.d("CIV", "get $userLists")
+//                                    val userAData = User(
+//                                        it.get("id").toString(),
+//                                        it.get("name").toString(),
+//                                        it.get("photo").toString(),
+//                                        it.get("email").toString()
+//                                    )
+
+                                uAllData?.let {
+                                    userLists.add(it)
+                                    Log.d("CIV", "oh $userLists")
+                                }
+
+                                _userInfo.value = userLists
+
+                            }.addOnFailureListener {
+
+                            }
+
+                    }
+
+
+                }
+                .addOnFailureListener {
+                    Log.d("Cleooo", "get fail")
+                }
+        }
+    }
+
 
     private fun getReceivedMessage() {
 
@@ -41,17 +98,17 @@ class ChatRoomViewModel : ViewModel() {
                 value?.let {
 
                     val list = it.toObjects(MessagesInfo::class.java) as List<MessagesInfo>
-                    val sortList= list.sortedBy{
+                    val sortList = list.sortedBy {
                         it.textTime
                     }
 
                     val myList = mutableListOf<UserType>()
-                    for(item in sortList){
+                    for (item in sortList) {
                         Log.d("MAGIC", "$item")
 
-                        val message = if(item.senderEmail == auth.currentUser?.email){
+                        val message = if (item.senderEmail == auth.currentUser?.email) {
                             UserType.Sender(item)
-                        }else{
+                        } else {
                             UserType.Receiver(item)
                         }
                         myList.add(message)
@@ -86,5 +143,6 @@ class ChatRoomViewModel : ViewModel() {
     fun setHabits(newHabit: Habits) {
         habit = newHabit
         getReceivedMessage()
+        getUserData()
     }
 }

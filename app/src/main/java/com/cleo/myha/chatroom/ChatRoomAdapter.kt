@@ -7,13 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cleo.myha.R
-import com.cleo.myha.data.MessagesInfo
 import com.cleo.myha.data.UserType
 import com.cleo.myha.databinding.ItemReceivedMessageBinding
 import com.cleo.myha.databinding.ItemSentMessageBinding
 import convertToTime
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 private const val ITEM_SENT_MESSAGE = 0X00

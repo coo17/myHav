@@ -34,7 +34,7 @@ class DiscoverViewModel : ViewModel() {
             .get()
             .addOnSuccessListener { documents ->
                 val list = documents.toObjects(Posts::class.java)
-                Log.d("Vicc22","${documents.size()}")
+                Log.d("Cleoo","${documents.size()}")
 
                 _allPost.value = if(category == Category.All.type){
                     list

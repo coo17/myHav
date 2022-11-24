@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.cleo.myha.data.User
 import com.cleo.myha.databinding.ActivityMainBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -39,6 +40,34 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
+        val navHomeFragment = supportFragmentManager.findFragmentById(R.id.my_nav_host_fragment)
+        val navController = navHomeFragment!!.findNavController()
+
+        navController.addOnDestinationChangedListener { controller, destination, argument ->
+            when (destination.id) {
+                R.id.homeFragment -> {
+                    binding.bottomNav.visibility = View.VISIBLE
+                }
+                R.id.habitFragment -> {
+                    binding.bottomNav.visibility = View.VISIBLE
+                }
+                R.id.discoverFragment -> {
+                    binding.bottomNav.visibility = View.VISIBLE
+                }
+                R.id.profileFragment -> {
+                    binding.bottomNav.visibility = View.VISIBLE
+                }
+                R.id.loginFragment -> {
+                    binding.bottomNav.visibility = View.GONE
+                }
+
+            }
+
+        }
+
+
+
+
         binding.bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.item_home -> {
@@ -62,6 +91,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
 
     }
 

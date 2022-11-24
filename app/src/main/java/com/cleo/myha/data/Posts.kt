@@ -10,7 +10,7 @@ import kotlinx.parcelize.RawValue
 @Parcelize
 data class Posts (
     var id: String = "",
-//    var author: String,
+    var author: String = "",
     var title: String = "",
     var content: String = "",
     var lastUpdatedTime: String? = null ,
@@ -23,6 +23,6 @@ data class Posts (
 data class CommentsInfo(
     var senderId: String ="",
     var content: String ="",
-    var createdTime: Timestamp? = null,
+    var updatedTime: Timestamp? = null,
     var userName: String = ""
 )
