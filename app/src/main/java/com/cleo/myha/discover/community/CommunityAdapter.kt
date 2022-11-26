@@ -14,6 +14,7 @@ import com.cleo.myha.data.Posts
 import com.cleo.myha.databinding.ItemDiscoverBinding
 import com.cleo.myha.discover.DiscoverAdapter
 import com.cleo.myha.discover.DiscoverViewModel
+import com.google.android.material.shape.CornerFamily
 
 class CommunityAdapter(val onClickListener: OnClickListener, val viewModel: CommunityViewModel): ListAdapter<Habits, CommunityAdapter.GroupViewHolder>(GroupDiffCallBack()) {
 
@@ -21,6 +22,16 @@ class CommunityAdapter(val onClickListener: OnClickListener, val viewModel: Comm
    inner class GroupViewHolder(private var binding: ItemDiscoverBinding): RecyclerView.ViewHolder(binding.root){
 
         fun bind(data: Habits){
+
+            val radius = 50.0f
+            binding.imageView4.shapeAppearanceModel = binding.imageView4.shapeAppearanceModel
+                .toBuilder()
+                .setTopRightCorner(CornerFamily.ROUNDED, radius)
+                .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
+                .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                .setBottomRightCorner(CornerFamily.ROUNDED, radius)
+                .build()
+
 
             binding.userTaskTitle.text = data.task
             binding.layoutCommunity.setBackgroundResource(
@@ -35,11 +46,11 @@ class CommunityAdapter(val onClickListener: OnClickListener, val viewModel: Comm
 
             binding.imageView4.setImageResource(
                 when(data.category){
-                    "health" -> R.drawable.icon_health
-                    "workout" -> R.drawable.icon_workout
-                    "reading" -> R.drawable.icon_reading
-                    "learning" -> R.drawable.icon_learning
-                    "general" -> R.drawable.icon_smilingface
+                    "health" -> R.drawable.ic_reading
+                    "workout" -> R.drawable.ic_reading
+                    "reading" -> R.drawable.ic_reading
+                    "learning" -> R.drawable.ic_reading
+                    "general" -> R.drawable.ic_reading
                     else -> { R.drawable.icon_heart}
                 })
 

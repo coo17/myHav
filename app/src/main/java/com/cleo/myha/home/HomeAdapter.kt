@@ -5,6 +5,7 @@ package com.cleo.myha.home
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -48,12 +49,35 @@ class HomeAdapter(val onClickListener: HomeListener, val viewModel: HomeViewMode
             binding.checkBox.isChecked = viewModel.completedList.get(data.id)  ?: false
             Log.d("Viccc", "id = ${data.id}  is ${viewModel.completedList.get(data.id)}")
 
+
             binding.checkBox.setOnClickListener {
                 onClickListener.onClick(binding.checkBox.isChecked)
-                viewModel.sendCompletedTask(data, true)
+               viewModel.sendCompletedTask(data, true)
                 itemView.isClickable = false
 
             }
+
+//            if(data.mode == 0){
+//                binding.dailyLayout.background = ResourcesCompat.getDrawable(itemView.resources,R.drawable.ic_reading, null)
+//            }
+//            else{
+//                binding.dailyLayout.background = ResourcesCompat.getDrawable(itemView.resources,R.drawable.cart_rounded_workout, null)
+//            }
+
+
+
+            binding.dailyLayout.setBackgroundResource(
+                when (data.category) {
+                    "health" -> R.drawable.cart_rounded_workout
+                    "workout" -> R.drawable.cart_rounded_workout
+                    "reading" -> R.drawable.cart_rounded_reading
+                    "learning" -> R.drawable.cart_rounded_learning
+                    "general" -> R.drawable.cart_rounded_general
+                    else -> {
+                        R.drawable.cart_rounded_other
+                    }
+                }
+            )
 //            binding.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
 //
 //                if(isChecked == true){

@@ -31,9 +31,9 @@ class SingleAdapter() : ListAdapter<Habits, SingleAdapter.SingleViewHolder>(Sing
 
             binding.imageBackground.setBackgroundResource(
                 when (data.category) {
-                    "health" -> R.drawable.cart_rounded_workout
+                    "health" -> R.drawable.ic_reading
                     "workout" -> R.drawable.cart_rounded_workout
-                    "reading" -> R.drawable.cart_rounded_reading
+                    "reading" -> R.drawable.ic_reading
                     "learning" -> R.drawable.cart_rounded_learning
                     "general" -> R.drawable.cart_rounded_general
                     else -> {
