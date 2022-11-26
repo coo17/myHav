@@ -2,7 +2,7 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/alegreya_sans_sc_medium</item>
-        <item>@font/dm_mono_light</item>
-        <item>@font/kalam</item>
+        <item>@font/k2d_bold</item>
+        <item>@font/k2d_medium</item>
     </array>
 </resources>

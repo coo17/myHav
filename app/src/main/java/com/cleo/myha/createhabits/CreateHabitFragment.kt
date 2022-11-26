@@ -56,7 +56,7 @@ class CreateHabitFragment : Fragment() {
 
 
         val spinner: Spinner = binding.spinnerCateogry
-        val spinnerList = listOf("health", "workout", "reading", "learning", "general")
+        val spinnerList = listOf("Health", "Workout", "Reading", "Learning", "General")
         val arrayAdapter = ArrayAdapter(
             requireContext(),
             androidx.constraintlayout.widget.R.layout.support_simple_spinner_dropdown_item,

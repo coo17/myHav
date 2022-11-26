@@ -52,6 +52,8 @@ class SingleFragment: Fragment() {
         }
 
 
+
+
         val itemTouchHelper = ItemTouchHelper(simpleCallBack)
         itemTouchHelper.attachToRecyclerView(binding.singleRecycler)
 

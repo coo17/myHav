@@ -7,7 +7,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/layout_leave_comment"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,13 +23,13 @@
                 android:id="@+id/postImage"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
                 android:layout_marginEnd="20dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/backBtn"
                 tools:src="@tools:sample/avatars" />
 
             <TextView
@@ -41,24 +41,33 @@
                 android:layout_marginEnd="20dp"
                 android:text="Task Title"
                 android:textSize="16dp"
-                android:textStyle="bold"
+                android:fontFamily="@font/k2d_bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/postImage" />
+
+
+            <ScrollView
+                android:id="@+id/textScroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textTitle">
 
             <TextView
                 android:id="@+id/textContent"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="20dp"
                 android:text="Task Content"
                 android:textSize="14dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textTitle" />
+                android:fontFamily="@font/k2d" />
+
+            </ScrollView>
 
             <TextView
-                android:id="@+id/avatarUser1"
+                android:id="@+id/postUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -68,7 +77,7 @@
                 android:textColor="@color/slate_grey"
                 android:text="IU"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textContent"
+                app:layout_constraintTop_toBottomOf="@id/textScroll"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <View
@@ -81,7 +90,7 @@
                 android:background="@color/light_grey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/avatarUser1" />
+                app:layout_constraintTop_toBottomOf="@id/postUser" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/commentRecycler"

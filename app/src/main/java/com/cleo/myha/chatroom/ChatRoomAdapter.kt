@@ -10,12 +10,12 @@ import com.cleo.myha.R
 import com.cleo.myha.data.UserType
 import com.cleo.myha.databinding.ItemReceivedMessageBinding
 import com.cleo.myha.databinding.ItemSentMessageBinding
+import com.google.android.material.shape.CornerFamily
 import convertToTime
 
 
 private const val ITEM_SENT_MESSAGE = 0X00
 private const val ITEM_RECEIVED_MESSAGE = 0X01
-
 
 
 class ChatRoomAdapter : ListAdapter<UserType, RecyclerView.ViewHolder>(DiffCallBack()) {
@@ -26,6 +26,7 @@ class ChatRoomAdapter : ListAdapter<UserType, RecyclerView.ViewHolder>(DiffCallB
 
 
         fun bind(data: UserType.Sender) {
+
             val currentTime = data.user.textTime
             val createdTime = currentTime?.toDate()?.let { (it.time) }
 
@@ -54,6 +55,17 @@ class ChatRoomAdapter : ListAdapter<UserType, RecyclerView.ViewHolder>(DiffCallB
                 .load(data.user.senderImage)
                 .placeholder(R.drawable.lion)
                 .into(binding.imageProfile)
+
+            //set rounded image
+            val radius = 40.0f
+            binding.imageProfile.shapeAppearanceModel = binding.imageProfile.shapeAppearanceModel
+                .toBuilder()
+                .setTopRightCorner(CornerFamily.ROUNDED, radius)
+                .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
+                .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                .setBottomRightCorner(CornerFamily.ROUNDED, radius)
+                .build()
+
         }
 
     }
@@ -82,7 +94,7 @@ class ChatRoomAdapter : ListAdapter<UserType, RecyclerView.ViewHolder>(DiffCallB
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-        when(holder) {
+        when (holder) {
             is SentMessageViewHolder -> {
                 val data = getItem(position) as UserType.Sender
                 holder.bind(data)
@@ -95,7 +107,7 @@ class ChatRoomAdapter : ListAdapter<UserType, RecyclerView.ViewHolder>(DiffCallB
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when(getItem(position)){
+        return when (getItem(position)) {
             is UserType.Sender -> ITEM_SENT_MESSAGE
             is UserType.Receiver -> ITEM_RECEIVED_MESSAGE
         }

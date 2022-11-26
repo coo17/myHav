@@ -4,70 +4,140 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Track Habit Card"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/alegreya_sans_sc_medium"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_side"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-
-    <View
-        android:id="@+id/viewSingle"
-        android:layout_width="350dp"
-        android:layout_height="2dp"
-        android:layout_marginTop="100dp"
-        android:background="@color/light_grey"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <View
-        android:id="@+id/viewSingle2"
-        android:layout_width="1dp"
-        android:layout_height="650dp"
-        android:background="@color/light_grey"
-        app:layout_constraintTop_toTopOf="@id/viewSingle"
-        app:layout_constraintStart_toEndOf="@id/viewSingle"/>
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/bookmark_shape"
-        android:text="Yours"
-        android:textColor="@color/navy_blue"
-        app:layout_constraintTop_toTopOf="@id/viewSingle2"
-        app:layout_constraintStart_toEndOf="@id/viewSingle2"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="visible"/>
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/alegreya_sans_sc_medium"
+            android:text="Habit Card"
+            android:rotation="-90"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/bookmark_shape2"
-        android:text="Group"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/textView1"
-        app:layout_constraintStart_toEndOf="@id/viewSingle2"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="visible"/>
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Yours"
+                android:rotation="-90"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_marginTop="350dp"
+                android:fontFamily="@font/alegreya_sans_sc_medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/header"/>
+
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/alegreya_sans_sc_medium"
+            android:text="Group"
+            android:rotation="-90"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text1"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--    <View-->
+<!--        android:id="@+id/viewSingle"-->
+<!--        android:layout_width="350dp"-->
+<!--        android:layout_height="2dp"-->
+<!--        android:layout_marginTop="100dp"-->
+<!--        android:background="@color/light_grey"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"/>-->
+
+<!--    <View-->
+<!--        android:id="@+id/viewSingle2"-->
+<!--        android:layout_width="1dp"-->
+<!--        android:layout_height="650dp"-->
+<!--        android:background="@color/light_grey"-->
+<!--        app:layout_constraintTop_toTopOf="@id/viewSingle"-->
+<!--        app:layout_constraintStart_toEndOf="@id/viewSingle"/>-->
+
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/textView1"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:layout_marginEnd="10dp"-->
+<!--        android:background="@drawable/bookmark_shape"-->
+<!--        app:layout_constraintTop_toTopOf="@id/viewSingle"-->
+<!--        app:layout_constraintStart_toEndOf="@id/viewSingle"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:visibility="visible">-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/text1"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Yours"-->
+<!--        android:rotation="90"-->
+<!--        android:textSize="18dp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:fontFamily="@font/alegreya_sans_sc_medium"-->
+<!--        android:textColor="@color/navy_blue"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"/>-->
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/textView2"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:layout_marginEnd="10dp"-->
+<!--        android:background="@drawable/bookmark_shape2"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/textView1"-->
+<!--        app:layout_constraintStart_toEndOf="@id/viewSingle"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:visibility="visible">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/text2"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Group"-->
+<!--            android:textSize="18dp"-->
+<!--            android:fontFamily="@font/alegreya_sans_sc_medium"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:rotation="90"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"/>-->
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
-        android:layout_width="345dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewSingle">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layout_side">
 
     </androidx.viewpager2.widget.ViewPager2>
 
@@ -79,6 +149,7 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/light_blue"
         android:src="@drawable/ic_add"
+        app:fabCustomSize="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

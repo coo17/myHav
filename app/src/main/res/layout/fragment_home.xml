@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_calendar"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="480dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -17,11 +17,11 @@
             android:id="@+id/text_helloUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="40dp"
             android:text="Hello, User"
             android:fontFamily="@font/alegreya_sans_sc_medium"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,6 +34,7 @@
             android:format12Hour="dd, MMM, yyyy"
             android:textSize="12sp"
             android:textStyle="bold"
+            android:fontFamily="@font/k2d"
             app:layout_constraintStart_toStartOf="@id/text_helloUser"
             app:layout_constraintTop_toBottomOf="@id/text_helloUser" />
 
@@ -49,10 +50,11 @@
 
         <com.applandeo.materialcalendarview.CalendarView
             android:id="@+id/calendarView"
-            app:headerColor="@color/white"
-            app:headerLabelColor="@color/slate_grey"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:padding="15dp"
+            app:headerColor="@color/white"
+            app:headerLabelColor="@color/slate_grey"
             app:selectionColor="@color/light_blue"
             app:selectionLabelColor="@color/slate_grey"
             android:layout_marginBottom="10dp"
@@ -66,14 +68,13 @@
             android:id="@+id/text_todayTasks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="30dp"
             android:text="Today Tasks"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold"
+            android:fontFamily="@font/alegreya_sans_sc_medium"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/layout_calendar" />
-
+            app:layout_constraintStart_toStartOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -81,9 +82,9 @@
         android:id="@+id/taskRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
+        android:layout_marginTop="20dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@+id/layout_calendar"
         app:layout_constraintStart_toStartOf="@id/layout_calendar"

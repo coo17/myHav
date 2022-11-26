@@ -6,12 +6,11 @@
     android:layout_height="wrap_content"
     android:padding="4dp">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageProfile"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/rounded"
-        android:clipToOutline="true"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@id/textMessage"
         app:layout_constraintStart_toStartOf="parent"

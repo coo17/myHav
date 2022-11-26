@@ -31,6 +31,15 @@ class CommentAdapter(val viewModel: CommentViewModel): ListAdapter<CommentsInfo,
             binding.userName.text = item.userName
             binding.avatarUser.setImageResource(R.drawable.lion)
 
+//            val radius = 50.0f
+//            binding.imageView.shapeAppearanceModel = binding.imageView.shapeAppearanceModel
+//                .toBuilder()
+//                .setTopRightCorner(CornerFamily.ROUNDED, radius)
+//                .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
+//                .setTopLeftCorner(CornerFamily.ROUNDED,radius)
+//                .setBottomRightCorner(CornerFamily.ROUNDED,radius)
+//                .build()
+
         }
     }
 
@@ -38,7 +47,7 @@ class CommentAdapter(val viewModel: CommentViewModel): ListAdapter<CommentsInfo,
         parent: ViewGroup,
         viewType: Int
     ): CommentViewHolder {
-        return CommentViewHolder(ItemCommentBinding.inflate(LayoutInflater.from(parent.context)))
+        return CommentViewHolder(ItemCommentBinding.inflate(LayoutInflater.from(parent.context),parent, false))
     }
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {

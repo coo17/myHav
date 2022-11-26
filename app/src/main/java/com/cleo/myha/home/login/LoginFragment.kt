@@ -97,9 +97,9 @@ class LoginFragment : Fragment() {
                     .document(it.email.toString())
                     .set(newUser)
                     .addOnSuccessListener {
-                        Log.d("Vic", "i dont know")
+
                     }.addOnFailureListener {
-                        Log.d("Vic", "Long Island")
+
                     }
 
 

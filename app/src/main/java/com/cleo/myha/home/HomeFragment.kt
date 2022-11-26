@@ -54,21 +54,12 @@ class HomeFragment : Fragment() {
         })
 
 
-//        val calendars: List<Calendar> = ArrayList()
 
-        val d1 = GregorianCalendar(2022,11,9)
-        val d2 = GregorianCalendar(2022,11,22)
-//        val events: MutableList<EventDay> = ArrayList()
-//
-//        val calendarss = Calendar.getInstance()
-//        events.add(EventDay(calendarss, R.drawable.lion))
-////
-//
-//        val calendar = Calendar.getInstance()
-//        calendar[2022, 11] = 23
+        val d1 = GregorianCalendar(2022,10,9)
+        val d2 = GregorianCalendar(2022,10,22)
+
         binding.calendarView.selectedDates = listOf(d1,d2)
 
-//        calendarView.setDate(calendar)
 
         return binding.root
     }

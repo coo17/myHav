@@ -20,9 +20,11 @@ class GroupAdapter(val onClickListener: OnClickListener, val viewModel: GroupVie
         fun bind(data: Habits){
 
             binding.groupTaskTitle.text = data.task
-            binding.layoutTask.setBackgroundResource(
+            binding.groupTaskCategory.text = data.category
+
+            binding.imageBackground.setBackgroundResource(
                 when (data.category) {
-                    "health" -> R.drawable.cart_rounded_health
+                    "health" -> R.drawable.yoga1
                     "workout" -> R.drawable.cart_rounded_workout
                     "reading" -> R.drawable.cart_rounded_reading
                     "learning" -> R.drawable.cart_rounded_learning
@@ -33,18 +35,18 @@ class GroupAdapter(val onClickListener: OnClickListener, val viewModel: GroupVie
                 }
             )
 
-            binding.imageView.setImageResource(
-                when (data.category) {
-                    "health" -> R.drawable.lion
-                    "workout" -> R.drawable.icon_workout
-                    "reading" -> R.drawable.icon_reading
-                    "learning" -> R.drawable.icon_learning
-                    "general" -> R.drawable.icon_smilingface
-                    else -> {
-                        R.drawable.icon_heart
-                    }
-                }
-            )
+//            binding.imageView.setImageResource(
+//                when (data.category) {
+//                    "health" -> R.drawable.lion
+//                    "workout" -> R.drawable.icon_workout
+//                    "reading" -> R.drawable.icon_reading
+//                    "learning" -> R.drawable.icon_learning
+//                    "general" -> R.drawable.icon_smilingface
+//                    else -> {
+//                        R.drawable.icon_heart
+//                    }
+//                }
+//            )
 
             binding.root.setOnClickListener {
                 onClickListener.onClick(data)

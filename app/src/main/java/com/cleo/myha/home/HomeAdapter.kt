@@ -38,15 +38,8 @@ class HomeAdapter(val onClickListener: HomeListener, val viewModel: HomeViewMode
 
             binding.textTask.text = data.task
             binding.textTaskReminder.text = toFormat(time)
-            binding.imageHabit.setImageResource(
-                when(data.category){
-                    "health" -> R.drawable.icon_health
-                    "workout" -> R.drawable.icon_workout
-                    "reading" -> R.drawable.icon_reading
-                    "learning" -> R.drawable.icon_learning
-                    "general" -> R.drawable.icon_smilingface
-                    else -> { R.drawable.icon_heart}
-                })
+            binding.textTaskTimer.text = "${data.timer} minutes"
+
 
 //            binding.checkBox.setOnClickListener {
 //                viewModel.sendCompletedTask(data)
