@@ -37,6 +37,7 @@
             android:ems="20"
             android:hint="Edit bio"
             android:inputType="textMultiLine"
+            android:fontFamily="@font/k2d"
             android:text="才能は開花させるもの、センスは磨くもの！"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -62,7 +63,6 @@
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
-        android:background="@drawable/profile_rounded"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_user">
 
@@ -105,9 +105,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/light_blue"
-        android:contentDescription="TODO"
         android:src="@drawable/ic_add"
+        app:fabCustomSize="40dp"
+        android:backgroundTint="@color/light_blue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
