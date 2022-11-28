@@ -6,18 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/navy_blue">
 
-<!--    <TextView-->
-<!--        android:id="@+id/header"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:fontFamily="@font/alegreya_sans_sc_medium"-->
-<!--        android:text="Your Group Card"-->
-<!--        android:textSize="24sp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/groupRecycler"
         android:layout_width="match_parent"

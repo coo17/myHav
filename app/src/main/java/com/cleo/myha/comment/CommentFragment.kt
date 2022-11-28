@@ -64,6 +64,7 @@ class CommentFragment : Fragment() {
         }
         binding.textTitle.text = posts!!.title
         binding.textContent.text = posts!!.content
+//        binding.postUser.text = posts.author.trim()
 
 
 

@@ -23,35 +23,25 @@ class CommunityAdapter(val onClickListener: OnClickListener, val viewModel: Comm
 
         fun bind(data: Habits){
 
-            val radius = 50.0f
-            binding.imageView4.shapeAppearanceModel = binding.imageView4.shapeAppearanceModel
-                .toBuilder()
-                .setTopRightCorner(CornerFamily.ROUNDED, radius)
-                .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
-                .setTopLeftCorner(CornerFamily.ROUNDED, radius)
-                .setBottomRightCorner(CornerFamily.ROUNDED, radius)
-                .build()
-
-
             binding.userTaskTitle.text = data.task
             binding.layoutCommunity.setBackgroundResource(
                 when(data.category){
-                    "health" -> R.drawable.cart_rounded_health
-                    "workout" -> R.drawable.cart_rounded_workout
-                    "reading" -> R.drawable.cart_rounded_reading
-                    "learning" -> R.drawable.cart_rounded_learning
-                    "general" -> R.drawable.cart_rounded_general
+                    "Health" -> R.drawable.cart_rounded_health
+                    "Workout" -> R.drawable.cart_rounded_workout
+                    "Reading" -> R.drawable.cart_rounded_reading
+                    "Learning" -> R.drawable.cart_rounded_learning
+                    "General" -> R.drawable.cart_rounded_general
                     else -> { R.drawable.cart_rounded_other}
                 })
 
             binding.imageView4.setImageResource(
                 when(data.category){
-                    "health" -> R.drawable.ic_reading
-                    "workout" -> R.drawable.ic_reading
-                    "reading" -> R.drawable.ic_reading
-                    "learning" -> R.drawable.ic_reading
-                    "general" -> R.drawable.ic_reading
-                    else -> { R.drawable.icon_heart}
+                    "Health" -> R.drawable.group_health
+                    "Workout" -> R.drawable.group_workout
+                    "Reading" -> R.drawable.group_reading
+                    "Learning" -> R.drawable.ic_learning
+                    "General" -> R.drawable.group_other
+                    else -> { R.drawable.group_other}
                 })
 
             binding.imageView4.setOnClickListener {

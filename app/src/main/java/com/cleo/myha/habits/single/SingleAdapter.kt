@@ -2,18 +2,13 @@ package com.cleo.myha.habits.single
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.res.ResourcesCompat
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cleo.myha.R
 import com.cleo.myha.data.Habits
 import com.cleo.myha.databinding.ItemSingleTaskBinding
-import com.cleo.myha.habits.group.GroupAdapter
-import com.cleo.myha.habits.group.GroupViewModel
-import com.google.android.material.shape.CornerFamily
-import kotlinx.coroutines.joinAll
+import convertDurationToDate
 
 
 class SingleAdapter() : ListAdapter<Habits, SingleAdapter.SingleViewHolder>(SingleDiffCallBack()) {
@@ -27,17 +22,18 @@ class SingleAdapter() : ListAdapter<Habits, SingleAdapter.SingleViewHolder>(Sing
 
             binding.userTaskCategory.text = data.category
             binding.userTaskTitle.text = data.task
-            binding.userTaskDuration.text = data.duration
+            binding.startedDate.text = data.startedDate.convertDurationToDate()
+            binding.endDate.text = "~ ${data.endDate.convertDurationToDate()}"
 
             binding.imageBackground.setBackgroundResource(
                 when (data.category) {
-                    "health" -> R.drawable.ic_reading
-                    "workout" -> R.drawable.cart_rounded_workout
-                    "reading" -> R.drawable.ic_reading
-                    "learning" -> R.drawable.cart_rounded_learning
-                    "general" -> R.drawable.cart_rounded_general
+                    "Health" -> R.drawable.group_health
+                    "Workout" -> R.drawable.group_workout
+                    "Reading" -> R.drawable.ic_reading
+                    "Learning" -> R.drawable.ic_learning
+                    "General" -> R.drawable.ic_other
                     else -> {
-                        R.drawable.cart_rounded_other
+                        R.drawable.ic_other
                     }
                 }
             )

@@ -53,7 +53,7 @@ class ChatRoomAdapter : ListAdapter<UserType, RecyclerView.ViewHolder>(DiffCallB
 
             Glide.with(itemView.context)
                 .load(data.user.senderImage)
-                .placeholder(R.drawable.lion)
+                .placeholder(R.drawable.man)
                 .into(binding.imageProfile)
 
             //set rounded image

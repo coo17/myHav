@@ -15,6 +15,14 @@ fun Long.convertToTime(): String {
     return format.format(date)
 }
 
+fun Long.convertDurationToDate(): String {
+    val date = Date(this)
+    val format = SimpleDateFormat("MMM d yyyy", Locale.getDefault())
+    return format.format(date)
+}
+
+
+
 
 fun Fragment.hideKeyboard(view: View) {
     val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

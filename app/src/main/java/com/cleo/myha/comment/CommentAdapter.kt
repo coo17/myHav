@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cleo.myha.R
 import com.cleo.myha.data.CommentsInfo
 import com.cleo.myha.databinding.ItemCommentBinding
+import com.google.android.material.shape.CornerFamily
 import convertToTime
 
 
@@ -24,15 +25,16 @@ class CommentAdapter(val viewModel: CommentViewModel): ListAdapter<CommentsInfo,
 
             binding.textComment.text = item.content
 
+
             if (createdTime != null) {
                 binding.textTime.text = createdTime.convertToTime()
             }
 
             binding.userName.text = item.userName
-            binding.avatarUser.setImageResource(R.drawable.lion)
+            binding.avatarUser.setImageResource(R.drawable.man)
 
 //            val radius = 50.0f
-//            binding.imageView.shapeAppearanceModel = binding.imageView.shapeAppearanceModel
+//            binding.avatarUser.shapeAppearanceModel = binding.avatarUser.shapeAppearanceModel
 //                .toBuilder()
 //                .setTopRightCorner(CornerFamily.ROUNDED, radius)
 //                .setBottomLeftCorner(CornerFamily.ROUNDED, radius)

@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/navy_blue">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/groupCard"
@@ -27,9 +26,8 @@
                 android:id="@+id/imageBackground"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="-70dp"
-                android:layout_marginBottom="-30dp"
-                android:src="@drawable/cart_rounded_general"
+                android:layout_marginEnd="-80dp"
+                android:layout_marginBottom="-20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
@@ -39,10 +37,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
-                android:fontFamily="@font/k2d"
+                android:fontFamily="@font/k2d_bold"
                 android:text="To Do List"
                 android:textSize="20sp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,16 +55,26 @@
 
 
             <TextView
-                android:id="@+id/userTaskDuration"
+                android:id="@+id/startedDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/k2d"
-                android:text="-17Days"
-                android:textSize="20sp"
-                android:layout_marginStart="25dp"
-                android:textStyle="bold"
+                android:fontFamily="@font/k2d_bold"
+                android:text="Nov 23 2022"
+                android:layout_marginTop="10dp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@id/groupTaskCategory"
                 app:layout_constraintTop_toBottomOf="@id/groupTaskCategory" />
+
+
+            <TextView
+                android:id="@+id/endDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/k2d_bold"
+                android:text="~ Nov 23 2022"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/startedDate"
+                app:layout_constraintTop_toBottomOf="@id/startedDate" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

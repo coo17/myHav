@@ -15,11 +15,10 @@
 
         <TextView
             android:id="@+id/header"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/alegreya_sans_sc_medium"
-            android:text="Habit Card"
-            android:rotation="-90"
+            android:text="Habit\nCard"
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_marginTop="20dp"
@@ -29,28 +28,27 @@
 
             <TextView
                 android:id="@+id/text1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Yours"
-                android:rotation="-90"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="Y \no\nu\nr\ns"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:layout_marginTop="350dp"
+                android:layout_marginTop="300dp"
                 android:fontFamily="@font/alegreya_sans_sc_medium"
+               app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/header"/>
 
 
         <TextView
             android:id="@+id/text2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
             android:fontFamily="@font/alegreya_sans_sc_medium"
-            android:text="Group"
-            android:rotation="-90"
+            android:text="G\nr\no\nu\np"
             android:textSize="20dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text1"/>

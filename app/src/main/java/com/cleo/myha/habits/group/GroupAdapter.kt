@@ -2,16 +2,13 @@ package com.cleo.myha.habits.group
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cleo.myha.R
 import com.cleo.myha.data.Habits
-import com.cleo.myha.data.Posts
 import com.cleo.myha.databinding.ItemGroupTaskBinding
-import com.cleo.myha.discover.DiscoverAdapter
-import com.cleo.myha.discover.DiscoverViewModel
+import convertDurationToDate
 
 class GroupAdapter(val onClickListener: OnClickListener, val viewModel: GroupViewModel): ListAdapter<Habits, GroupAdapter.GroupViewHolder>(GroupDiffCallBack()) {
 
@@ -22,15 +19,18 @@ class GroupAdapter(val onClickListener: OnClickListener, val viewModel: GroupVie
             binding.groupTaskTitle.text = data.task
             binding.groupTaskCategory.text = data.category
 
+            binding.startedDate.text = data.startedDate.convertDurationToDate()
+            binding.endDate.text = "~ ${data.endDate.convertDurationToDate()}"
+
             binding.imageBackground.setBackgroundResource(
                 when (data.category) {
-                    "health" -> R.drawable.yoga1
-                    "workout" -> R.drawable.cart_rounded_workout
-                    "reading" -> R.drawable.cart_rounded_reading
-                    "learning" -> R.drawable.cart_rounded_learning
-                    "general" -> R.drawable.cart_rounded_general
+                    "Health" -> R.drawable.group_health
+                    "Workout" -> R.drawable.group_workout
+                    "Reading" -> R.drawable.group_reading
+                    "Learning" -> R.drawable.cart_rounded_learning
+                    "General" -> R.drawable.group_other
                     else -> {
-                        R.drawable.cart_rounded_other
+                        R.drawable.group_other
                     }
                 }
             )

@@ -56,17 +56,26 @@
 
 
         <TextView
-            android:id="@+id/userTaskDuration"
+            android:id="@+id/startedDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/k2d"
-            android:text="-17Days"
-            android:textSize="20sp"
-            android:layout_marginStart="25dp"
-            android:textStyle="bold"
+            android:fontFamily="@font/k2d_bold"
+            android:text="Nov 23 2022"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/userTaskCategory"
             app:layout_constraintTop_toBottomOf="@id/userTaskCategory" />
 
+
+        <TextView
+            android:id="@+id/endDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/k2d_bold"
+            android:text="~ Nov 23 2022"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/startedDate"
+            app:layout_constraintTop_toBottomOf="@id/startedDate" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

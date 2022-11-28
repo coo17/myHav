@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.createViewModelLazy
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.cleo.myha.chatroom.currentuser.CurrentUserAdapter
 import com.cleo.myha.data.Habits
@@ -59,6 +60,11 @@ class ChatRoomFragment : Fragment() {
             addComment(
                 binding.textInput.text.toString()
             )
+        }
+
+
+        binding.dotBtn.setOnClickListener {
+            findNavController().navigate(ChatRoomFragmentDirections.actionGlobalBlockDialog())
         }
 
 

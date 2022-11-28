@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.cleo.myha.R
 import com.cleo.myha.data.Posts
 import com.cleo.myha.databinding.ItemProfilePostBinding
 
@@ -38,9 +39,10 @@ class ProfilePostAdapter(private val context: Context, private val users: List<P
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val user = users[position]
         holder.userName.text = user.title
-        Glide.with(context)
+        Glide.with(holder.itemView.context)
             .load(user.photo)
             .into(holder.userImage)
+
     }
 
 //    class CommentListener(val checkListener:(collection: Posts) -> Unit){
