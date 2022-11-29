@@ -51,7 +51,7 @@ class ChatRoomViewModel : ViewModel() {
                     uList.add(uData.ownerId)
                     val userLists = mutableListOf<User>()
 
-                    for(email in uList){
+                    for (email in uList) {
                         Log.d("CIV", "$email")
                         db.collection("users").document(email)
                             .get()
@@ -59,12 +59,6 @@ class ChatRoomViewModel : ViewModel() {
                                 val uAllData = it.toObject(User::class.java)
 
                                 Log.d("CIV", "get $userLists")
-//                                    val userAData = User(
-//                                        it.get("id").toString(),
-//                                        it.get("name").toString(),
-//                                        it.get("photo").toString(),
-//                                        it.get("email").toString()
-//                                    )
 
                                 uAllData?.let {
                                     userLists.add(it)
@@ -76,9 +70,7 @@ class ChatRoomViewModel : ViewModel() {
                             }.addOnFailureListener {
 
                             }
-
                     }
-
 
                 }
                 .addOnFailureListener {
@@ -115,25 +107,6 @@ class ChatRoomViewModel : ViewModel() {
 
 
                     }
-
-//                    val myMessage = list.filter {
-//                        it.senderEmail == auth.currentUser?.email
-//                    }.map {
-//                        UserType.Sender(it)
-//                    }
-//
-//
-//                    val otherMessage = list.filter {
-//                        it.senderEmail != auth.currentUser?.email
-//                    }.map {
-//                        UserType.Receiver(it)
-//                    }
-//
-//
-//
-//                    myList.addAll(myMessage)
-//                    myList.addAll(otherMessage)
-
                     _sender.value = myList
                 }
             }

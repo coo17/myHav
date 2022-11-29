@@ -113,7 +113,7 @@ class HomeViewModel : ViewModel() {
                     today > it.startedDate && today < it.endDate && it.repeatedDays.get(dayOfWeek-1) == true
                 }
                 Log.d("kkk", "${toDoList}")
-//                kkk.sortBy { it.reminder }
+
                 _todayTasks.value = toDoList
             }
             .addOnFailureListener { exception ->

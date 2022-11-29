@@ -17,18 +17,6 @@ import java.util.*
 
 class HomeAdapter(val onClickListener: HomeListener, val viewModel: HomeViewModel): ListAdapter<Habits, HomeAdapter.TaskViewHolder>(HomeDiffCallBack()) {
 
-//    private var isSelectedAll = false
-
-//    val checkBoxes = ArrayList<CheckBox>()
-//    checkBoxes.checkAll(true)
-//    checkBoxse.checkAll(false)
-//
-//    fun selectAll() {
-//        Log.e("onClickSelectAll", "yes")
-//        isSelectedAll = true
-//        notifyDataSetChanged()
-//    }
-
 
     inner class TaskViewHolder(private var binding:ItemTodayTasksBinding): RecyclerView.ViewHolder(binding.root) {
 
@@ -47,8 +35,6 @@ class HomeAdapter(val onClickListener: HomeListener, val viewModel: HomeViewMode
 //            }
 
             binding.checkBox.isChecked = viewModel.completedList.get(data.id)  ?: false
-            Log.d("Viccc", "id = ${data.id}  is ${viewModel.completedList.get(data.id)}")
-
 
             binding.checkBox.setOnClickListener {
                 onClickListener.onClick(binding.checkBox.isChecked)
@@ -57,27 +43,19 @@ class HomeAdapter(val onClickListener: HomeListener, val viewModel: HomeViewMode
 
             }
 
-//            if(data.mode == 0){
-//                binding.dailyLayout.background = ResourcesCompat.getDrawable(itemView.resources,R.drawable.ic_reading, null)
-//            }
-//            else{
-//                binding.dailyLayout.background = ResourcesCompat.getDrawable(itemView.resources,R.drawable.cart_rounded_workout, null)
-//            }
-
-
-
             binding.dailyLayout.setBackgroundResource(
                 when (data.category) {
-                    "health" -> R.drawable.cart_rounded_workout
-                    "workout" -> R.drawable.cart_rounded_workout
-                    "reading" -> R.drawable.cart_rounded_reading
-                    "learning" -> R.drawable.cart_rounded_learning
-                    "general" -> R.drawable.cart_rounded_general
+                    "Health" -> R.drawable.cart_rounded_workout
+                    "Workout" -> R.drawable.cart_rounded_workout
+                    "Reading" -> R.drawable.cart_rounded_reading
+                    "Learning" -> R.drawable.cart_rounded_learning
+                    "General" -> R.drawable.cart_rounded_general
                     else -> {
                         R.drawable.cart_rounded_other
                     }
                 }
             )
+//
 //            binding.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
 //
 //                if(isChecked == true){
@@ -90,8 +68,6 @@ class HomeAdapter(val onClickListener: HomeListener, val viewModel: HomeViewMode
 //                    onClickListener.onClick(false)
 //                }
 //            }
-
-
         }
 
         fun toFormat(millis: Long): String? {

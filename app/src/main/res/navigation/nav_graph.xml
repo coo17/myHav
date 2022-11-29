@@ -104,7 +104,11 @@
         android:label="HabitDetailFragment" /><action android:id="@+id/action_global_habitDetailFragment" app:destination="@id/habitDetailFragment"/>
     <dialog
         android:id="@+id/blockDialog"
-        android:name="com.cleo.myha.chatroom.BlockDialog"
-        android:label="BlockDialog" />
+        android:name="com.cleo.myha.comment.blocklist.BlockDialog"
+        android:label="BlockDialog" >
+        <argument
+            android:name="email"
+            app:argType="string" />
+    </dialog>
     <action android:id="@+id/action_global_blockDialog" app:destination="@id/blockDialog"/>
 </navigation>

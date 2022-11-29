@@ -106,7 +106,7 @@
                 tools:listitem="@layout/item_comment" />
 
             <ImageButton
-                android:id="@+id/imageButton2"
+                android:id="@+id/blockBtn"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="16dp"

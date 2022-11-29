@@ -7,12 +7,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cleo.myha.R
 import com.cleo.myha.data.CommentsInfo
+import com.cleo.myha.data.Posts
 import com.cleo.myha.databinding.ItemCommentBinding
+import com.cleo.myha.discover.DiscoverAdapter
 import com.google.android.material.shape.CornerFamily
 import convertToTime
 
 
-class CommentAdapter(val viewModel: CommentViewModel): ListAdapter<CommentsInfo, CommentAdapter.CommentViewHolder>(CommentDiffCallBack()) {
+class CommentAdapter(val onClickListener: OnClickListener): ListAdapter<CommentsInfo, CommentAdapter.CommentViewHolder>(CommentDiffCallBack()) {
 
 
 
@@ -32,6 +34,10 @@ class CommentAdapter(val viewModel: CommentViewModel): ListAdapter<CommentsInfo,
 
             binding.userName.text = item.userName
             binding.avatarUser.setImageResource(R.drawable.man)
+
+            binding.btnBlock.setOnClickListener {
+                onClickListener.onClick(item.senderId)
+            }
 
 //            val radius = 50.0f
 //            binding.avatarUser.shapeAppearanceModel = binding.avatarUser.shapeAppearanceModel
@@ -69,4 +75,7 @@ class CommentAdapter(val viewModel: CommentViewModel): ListAdapter<CommentsInfo,
         }
     }
 
+    class OnClickListener(val clickListener: (email: String) -> Unit) {
+        fun onClick(email: String) = clickListener(email)
+    }
 }

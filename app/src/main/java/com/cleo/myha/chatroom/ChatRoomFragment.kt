@@ -45,13 +45,14 @@ class ChatRoomFragment : Fragment() {
         binding.userRecyclerView.adapter = userAdapter
 
 
+        binding.textTitle.text = habit.task
 
-
+        //顯示聊天室內容
         viewModel.sender.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
 
-
+        //顯示所有加入此habit的會員
         viewModel.userInfo.observe(viewLifecycleOwner, Observer {
             userAdapter.submitList(it)
         })
@@ -60,11 +61,6 @@ class ChatRoomFragment : Fragment() {
             addComment(
                 binding.textInput.text.toString()
             )
-        }
-
-
-        binding.dotBtn.setOnClickListener {
-            findNavController().navigate(ChatRoomFragmentDirections.actionGlobalBlockDialog())
         }
 
 

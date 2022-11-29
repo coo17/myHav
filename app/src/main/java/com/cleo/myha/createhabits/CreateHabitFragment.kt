@@ -145,26 +145,7 @@ class CreateHabitFragment : Fragment() {
             val format = SimpleDateFormat("MMM d yyyy", Locale.getDefault())
             return format.format(date)
         }
-
-
-//        fun showStartedDay(){
-//    val startDay = binding.textSelectedDuration
-//     val c = Calendar.getInstance()
-//    val year = c.get(Calendar.YEAR)
-//    val month = c.get(Calendar.MONTH)
-//    val day = c.get(Calendar.DAY_OF_MONTH)
-//    val dpd =
-//        context?.let { it1 ->
-//            DatePickerDialog(it1, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-//                startDay.setText("" + dayOfMonth + " " + month + ", " + year)
-//            }, year, month, day)
-//        }
-//
-//    if (dpd != null) {
-//        dpd.show()
-//    }
-//        }
-
+        
         var startDate = 0L
         var endDate = 0L
 
