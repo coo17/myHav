@@ -145,7 +145,7 @@ class CreateHabitFragment : Fragment() {
             val format = SimpleDateFormat("MMM d yyyy", Locale.getDefault())
             return format.format(date)
         }
-        
+
         var startDate = 0L
         var endDate = 0L
 
