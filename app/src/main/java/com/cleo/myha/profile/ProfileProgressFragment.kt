@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import com.cleo.myha.databinding.FragmentProfileProgressBinding
 
 
@@ -19,14 +20,15 @@ class ProfileProgressFragment : Fragment() {
 
 
 
-     binding.barChart.apply {
-
-
-     }
 
 
         return binding.root
     }
 
 
+//    private fun updatedProgressBar(){
+//        ProgressBar
+//    }
+
 }
+

@@ -1,24 +1,27 @@
 package com.cleo.myha.home
 
+
+
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleOwner
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import com.applandeo.materialcalendarview.EventDay
 import com.cleo.myha.NavGraphDirections
+import com.cleo.myha.R
 import com.cleo.myha.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
-import java.util.Calendar
+import java.util.*
 
 
 class HomeFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,14 +40,10 @@ class HomeFragment : Fragment() {
         }, viewModel)
 
         binding.taskRecyclerView.adapter = adapter
-//        auth = FirebaseAuth.getInstance()
-//        val user = auth.currentUser
-//
-//        if (user != null) {
-//            binding.textHelloUser.text = auth.currentUser?.displayName ?: ""
-//        }else{
-//            binding.textHelloUser.text = "User"
-//        }
+        auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
+
+        binding.textHelloUser.text = "Hello, ${auth.currentUser?.displayName}" ?: "User"
 
         viewModel.doneList.observe(viewLifecycleOwner, Observer {
             adapter.notifyDataSetChanged()
@@ -54,7 +53,23 @@ class HomeFragment : Fragment() {
             adapter.submitList(it)
         })
 
+
+
+        val d1 = GregorianCalendar(2022,10,9)
+        val d2 = GregorianCalendar(2022,10,10)
+        val d3 = GregorianCalendar(2022,10,11)
+        val d4 = GregorianCalendar(2022,10,16)
+        val d5 = GregorianCalendar(2022,10,17)
+        val d6 = GregorianCalendar(2022,10,22)
+        val d7 = GregorianCalendar(2022,10,28)
+
+
+        binding.calendarView.selectedDates = listOf(d1,d2,d3,d4,d5,d6,d7)
+
+
         return binding.root
     }
+
+    
 
 }

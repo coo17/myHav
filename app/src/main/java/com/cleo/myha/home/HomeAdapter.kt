@@ -5,6 +5,7 @@ package com.cleo.myha.home
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -16,18 +17,6 @@ import java.util.*
 
 class HomeAdapter(val onClickListener: HomeListener, val viewModel: HomeViewModel): ListAdapter<Habits, HomeAdapter.TaskViewHolder>(HomeDiffCallBack()) {
 
-//    private var isSelectedAll = false
-
-//    val checkBoxes = ArrayList<CheckBox>()
-//    checkBoxes.checkAll(true)
-//    checkBoxse.checkAll(false)
-//
-//    fun selectAll() {
-//        Log.e("onClickSelectAll", "yes")
-//        isSelectedAll = true
-//        notifyDataSetChanged()
-//    }
-
 
     inner class TaskViewHolder(private var binding:ItemTodayTasksBinding): RecyclerView.ViewHolder(binding.root) {
 
@@ -38,29 +27,35 @@ class HomeAdapter(val onClickListener: HomeListener, val viewModel: HomeViewMode
 
             binding.textTask.text = data.task
             binding.textTaskReminder.text = toFormat(time)
-            binding.imageHabit.setImageResource(
-                when(data.category){
-                    "health" -> R.drawable.icon_health
-                    "workout" -> R.drawable.icon_workout
-                    "reading" -> R.drawable.icon_reading
-                    "learning" -> R.drawable.icon_learning
-                    "general" -> R.drawable.icon_smilingface
-                    else -> { R.drawable.icon_heart}
-                })
+            binding.textTaskTimer.text = "${data.timer} minutes"
+
 
 //            binding.checkBox.setOnClickListener {
 //                viewModel.sendCompletedTask(data)
 //            }
 
             binding.checkBox.isChecked = viewModel.completedList.get(data.id)  ?: false
-            Log.d("Viccc", "id = ${data.id}  is ${viewModel.completedList.get(data.id)}")
 
             binding.checkBox.setOnClickListener {
                 onClickListener.onClick(binding.checkBox.isChecked)
-                viewModel.sendCompletedTask(data, true)
+               viewModel.sendCompletedTask(data, true)
                 itemView.isClickable = false
 
             }
+
+            binding.dailyLayout.setBackgroundResource(
+                when (data.category) {
+                    "Health" -> R.drawable.cart_rounded_workout
+                    "Workout" -> R.drawable.cart_rounded_workout
+                    "Reading" -> R.drawable.cart_rounded_reading
+                    "Learning" -> R.drawable.cart_rounded_learning
+                    "General" -> R.drawable.cart_rounded_general
+                    else -> {
+                        R.drawable.cart_rounded_other
+                    }
+                }
+            )
+//
 //            binding.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
 //
 //                if(isChecked == true){
@@ -73,8 +68,6 @@ class HomeAdapter(val onClickListener: HomeListener, val viewModel: HomeViewMode
 //                    onClickListener.onClick(false)
 //                }
 //            }
-
-
         }
 
         fun toFormat(millis: Long): String? {

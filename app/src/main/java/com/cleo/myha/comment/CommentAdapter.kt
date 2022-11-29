@@ -5,26 +5,48 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.cleo.myha.R
 import com.cleo.myha.data.CommentsInfo
 import com.cleo.myha.data.Posts
 import com.cleo.myha.databinding.ItemCommentBinding
+import com.cleo.myha.discover.DiscoverAdapter
+import com.google.android.material.shape.CornerFamily
+import convertToTime
 
-import com.cleo.myha.discover.DiscoverViewModel
-import java.text.SimpleDateFormat
-import java.util.*
 
-class CommentAdapter(val viewModel: CommentViewModel): ListAdapter<CommentsInfo, CommentAdapter.CommentViewHolder>(CommentDiffCallBack()) {
+class CommentAdapter(val onClickListener: OnClickListener): ListAdapter<CommentsInfo, CommentAdapter.CommentViewHolder>(CommentDiffCallBack()) {
+
 
 
     inner class CommentViewHolder(val binding: ItemCommentBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: CommentsInfo){
 
+            val currentTime = item.updatedTime
+            val createdTime = currentTime?.toDate()?.let { (it.time) }
 
             binding.textComment.text = item.content
-            binding.textTime.text = item.createdTime
-//            binding.avatarUser.setImageResource
+
+
+            if (createdTime != null) {
+                binding.textTime.text = createdTime.convertToTime()
+            }
+
+            binding.userName.text = item.userName
+            binding.avatarUser.setImageResource(R.drawable.man)
+
+            binding.btnBlock.setOnClickListener {
+                onClickListener.onClick(item.senderId)
+            }
+
+//            val radius = 50.0f
+//            binding.avatarUser.shapeAppearanceModel = binding.avatarUser.shapeAppearanceModel
+//                .toBuilder()
+//                .setTopRightCorner(CornerFamily.ROUNDED, radius)
+//                .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
+//                .setTopLeftCorner(CornerFamily.ROUNDED,radius)
+//                .setBottomRightCorner(CornerFamily.ROUNDED,radius)
+//                .build()
 
         }
     }
@@ -33,7 +55,7 @@ class CommentAdapter(val viewModel: CommentViewModel): ListAdapter<CommentsInfo,
         parent: ViewGroup,
         viewType: Int
     ): CommentViewHolder {
-        return CommentViewHolder(ItemCommentBinding.inflate(LayoutInflater.from(parent.context)))
+        return CommentViewHolder(ItemCommentBinding.inflate(LayoutInflater.from(parent.context),parent, false))
     }
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
@@ -53,4 +75,7 @@ class CommentAdapter(val viewModel: CommentViewModel): ListAdapter<CommentsInfo,
         }
     }
 
+    class OnClickListener(val clickListener: (email: String) -> Unit) {
+        fun onClick(email: String) = clickListener(email)
+    }
 }

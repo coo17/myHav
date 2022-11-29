@@ -6,38 +6,31 @@
     android:layout_height="match_parent"
     tools:context=".chatroom.ChatRoomFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/textView2"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/userRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="this is chat room" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/rounded"
-        android:clipToOutline="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars" />
-
-    <LinearLayout
-        android:id="@+id/layout_header"
-        android:layout_width="236dp"
-        android:layout_height="65dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="68dp"
-        android:background="@color/light_grey"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginTop="20dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/backBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/item_current_user"/>
 
-    </LinearLayout>
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/alegreya_sans_sc_medium"
+        android:textSize="16dp"
+        app:layout_constraintStart_toEndOf="@id/backBtn"
+        app:layout_constraintEnd_toStartOf="@id/dotBtn"
+        app:layout_constraintTop_toTopOf="@id/backBtn"/>
+
+
 
     <ImageView
         android:id="@+id/backBtn"
@@ -49,17 +42,84 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:id="@+id/view_user"
+    <ImageButton
+        android:id="@+id/dotBtn"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/white"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_dots" />
+
+
+    <View
+            android:id="@+id/view_support"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/light_grey"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:layout_constraintTop_toBottomOf="@+id/userRecyclerView" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chatRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingStart="10dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="10dp"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/view_support"
+        app:layout_constraintBottom_toTopOf="@id/layout_chatRoom"/>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_chatRoom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
+        <EditText
+            android:id="@+id/textInput"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rounded"
+            android:ems="20"
+            android:hint="Type a message"
+            android:inputType="textPersonName"
+            android:paddingStart="20dp"
+            android:textSize="14dp"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/sendBtn"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/sendBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/cart_rounded_general"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_send_24" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,7 +7,6 @@
     tools:context=".MainActivity">
 
 
-
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/my_nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -23,14 +22,14 @@
         android:id="@+id/bottomNav"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        app:itemIconSize="30dp"
-        app:labelVisibilityMode="unlabeled"
+        app:itemIconSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/my_nav_host_fragment"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_menu"/>
 
+<!--    app:labelVisibilityMode="unlabeled"-->
 <!--    <com.google.android.gms.common.SignInButton-->
 <!--        android:id="@+id/btnSignIn"-->
 <!--        android:layout_width="wrap_content"-->

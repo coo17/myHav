@@ -2,13 +2,13 @@ package com.cleo.myha.habits.single
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cleo.myha.R
 import com.cleo.myha.data.Habits
 import com.cleo.myha.databinding.ItemSingleTaskBinding
+import convertDurationToDate
 
 
 class SingleAdapter() : ListAdapter<Habits, SingleAdapter.SingleViewHolder>(SingleDiffCallBack()) {
@@ -18,32 +18,49 @@ class SingleAdapter() : ListAdapter<Habits, SingleAdapter.SingleViewHolder>(Sing
 
         fun bind(data: Habits) {
 
+
+
+            binding.userTaskCategory.text = data.category
             binding.userTaskTitle.text = data.task
-            binding.layoutTask.setBackgroundResource(
+            binding.startedDate.text = data.startedDate.convertDurationToDate()
+            binding.endDate.text = "~ ${data.endDate.convertDurationToDate()}"
+
+            binding.imageBackground.setBackgroundResource(
                 when (data.category) {
-                    "health" -> R.drawable.cart_rounded_health
-                    "workout" -> R.drawable.cart_rounded_workout
-                    "reading" -> R.drawable.cart_rounded_reading
-                    "learning" -> R.drawable.cart_rounded_learning
-                    "general" -> R.drawable.cart_rounded_general
+                    "Health" -> R.drawable.group_health
+                    "Workout" -> R.drawable.group_workout
+                    "Reading" -> R.drawable.ic_reading
+                    "Learning" -> R.drawable.ic_learning
+                    "General" -> R.drawable.ic_other
                     else -> {
-                        R.drawable.cart_rounded_other
+                        R.drawable.ic_other
                     }
                 }
             )
 
-            binding.imageView.setImageResource(
-                when (data.category) {
-                    "health" -> R.drawable.icon_health
-                    "workout" -> R.drawable.icon_workout
-                    "reading" -> R.drawable.icon_reading
-                    "learning" -> R.drawable.icon_learning
-                    "general" -> R.drawable.icon_smilingface
-                    else -> {
-                        R.drawable.icon_heart
-                    }
-                }
-            )
+//            binding.layoutTask.foreground = ResourcesCompat.getDrawable(itemView.resources,R.drawable.ic_reading, null)
+
+//            val radius = 50.0f
+//            binding.imageView.shapeAppearanceModel = binding.imageView.shapeAppearanceModel
+//                .toBuilder()
+//                .setTopRightCorner(CornerFamily.ROUNDED, radius)
+//                .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
+//                .setTopLeftCorner(CornerFamily.ROUNDED,radius)
+//                .setBottomRightCorner(CornerFamily.ROUNDED,radius)
+//                .build()
+
+//            binding.imageView.setImageResource(
+//                when (data.category) {
+//                    "health" -> R.drawable.lion
+//                    "workout" -> R.drawable.icon_workout
+//                    "reading" -> R.drawable.icon_reading
+//                    "learning" -> R.drawable.icon_learning
+//                    "general" -> R.drawable.icon_smilingface
+//                    else -> {
+//                        R.drawable.icon_heart
+//                    }
+//                }
+//            )
 
         }
     }
@@ -60,11 +77,11 @@ class SingleAdapter() : ListAdapter<Habits, SingleAdapter.SingleViewHolder>(Sing
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
-        return SingleViewHolder(
-            ItemSingleTaskBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
+       return SingleViewHolder(
+                    ItemSingleTaskBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
             )
         )
     }
@@ -73,4 +90,8 @@ class SingleAdapter() : ListAdapter<Habits, SingleAdapter.SingleViewHolder>(Sing
         val singleTaskData = getItem(position)
         holder.bind(singleTaskData)
     }
+//
+//    class OnClickListener(val clickListener: (habit: Habits) -> Unit) {
+//        fun onClick(habit: Habits) = clickListener(habit)
+//    }
 }

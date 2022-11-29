@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cleo.myha.data.Habits
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class CommunityViewModel : ViewModel() {
@@ -14,6 +15,9 @@ class CommunityViewModel : ViewModel() {
     private val _groupTasks = MutableLiveData<List<Habits>>()
     val groupTasks: LiveData<List<Habits>>
         get() = _groupTasks
+
+    val auth = FirebaseAuth.getInstance()
+    val user = auth.currentUser
 
     init {
         getGroupTasks()
@@ -27,7 +31,6 @@ class CommunityViewModel : ViewModel() {
                 val list = documents.toObjects(Habits::class.java)
 
                 Log.d("VIC","${documents.size()}")
-
 
                 val joinHabits = list.filter {
                     it.mode == 1

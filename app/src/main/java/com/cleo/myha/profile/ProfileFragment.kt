@@ -35,6 +35,11 @@ class ProfileFragment : Fragment() {
         setUpTabLayoutWithViewPager()
 
 
+        binding.userAvatar.setImageResource(R.drawable.woman)
+
+
+
+
         binding.createPost.setOnClickListener {
             findNavController().navigate(NavGraphDirections.actionGlobalPublishFragment())
         }

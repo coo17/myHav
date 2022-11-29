@@ -16,6 +16,7 @@ import com.cleo.myha.data.Habits
 import com.cleo.myha.data.Posts
 import com.cleo.myha.databinding.DialogTaskBinding
 import com.cleo.myha.habits.group.GroupViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -50,10 +51,12 @@ class TaskDialog : AppCompatDialogFragment() {
     }
 
     fun addCard() {
+        val auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
 
         val db = FirebaseFirestore.getInstance().collection("habits")
         val habitId = habits.id
-        val mId = "Cleo@gmail.com"
+        val mId = user?.email
 
         db.document(habitId)
             .update("members", FieldValue.arrayUnion(mId))

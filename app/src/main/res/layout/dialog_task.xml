@@ -8,7 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="400dp"
         android:layout_height="400dp"
-        android:background="@drawable/rounded"
+        android:background="@drawable/cart_rounded_learning"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +22,7 @@
             android:layout_marginTop="30dp"
             android:fontFamily="@font/alegreya_sans_sc_medium"
             android:text="Group Habit"
-            android:textSize="26sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -130,9 +130,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            android:fontFamily="@font/k2d_bold"
             android:text="Join"
-            android:textSize="14sp"
+            android:textSize="12sp"
+
             app:backgroundTint="@color/slate_grey"
+            app:cornerRadius="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

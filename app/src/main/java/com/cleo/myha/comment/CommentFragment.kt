@@ -6,16 +6,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.cleo.myha.R
+import com.cleo.myha.chatroom.ChatRoomFragmentDirections
+import com.cleo.myha.data.CommentsInfo
+import com.cleo.myha.data.MessagesInfo
 import com.cleo.myha.data.Posts
+import com.cleo.myha.data.User
 import com.cleo.myha.databinding.FragmentCommentBinding
-import com.cleo.myha.home.HomeViewModel
+import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import java.sql.Timestamp
+import hideKeyboard
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -23,21 +26,32 @@ import java.util.*
 class CommentFragment : Fragment() {
     private var firebase = FirebaseFirestore.getInstance()
     private lateinit var posts: Posts
+    private lateinit var bUser: User
+    private lateinit var auth: FirebaseAuth
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentCommentBinding.inflate(inflater, container, false)
-
+        auth= FirebaseAuth.getInstance()
         val viewModel = ViewModelProvider(this)[CommentViewModel::class.java]
         posts = arguments?.getParcelable<Posts>("postsKey")!!
         Log.d("post", "$posts")
         viewModel.setPosts(posts)
-        val adapter = CommentAdapter(viewModel)
+
+
+        val adapter = CommentAdapter(CommentAdapter.OnClickListener{
+            findNavController().navigate(ChatRoomFragmentDirections.actionGlobalBlockDialog(it))
+        })
         binding.commentRecycler.adapter = adapter
 
 
+        viewModel.blockUserList.observe(viewLifecycleOwner, androidx.lifecycle.Observer{
+            Log.d("ATTO", "123 $it")
+            viewModel.getComments(it)
+        })
 
         viewModel.userComments.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             adapter.submitList(it)
@@ -47,25 +61,33 @@ class CommentFragment : Fragment() {
         if (posts != null) {
             Glide.with(requireContext())
                 .load(posts.photo)
-//                .error(R.drawable.ic_iu)
                 .into(binding.postImage)
         }
         binding.textTitle.text = posts!!.title
         binding.textContent.text = posts!!.content
 
 
-
-
         binding.backBtn.setOnClickListener {
             this.findNavController().navigateUp()
+        }
+
+        binding.blockBtn.setOnClickListener {
+
         }
 
 
 
         binding.sendBtn.setOnClickListener {
+
+        binding.editTextComment.text.toString()
+
             addComment(
-                binding.editTextComment.text.toString()
+                binding.editTextComment.text.toString(),
             )
+
+            binding.editTextComment.setText("")
+
+            hideKeyboard(binding.editTextComment)
         }
 
 
@@ -80,17 +102,23 @@ class CommentFragment : Fragment() {
 
     private fun addComment(content: String) {
 
-        val senderId = "IU@gmail.com"
+        val senderId = auth.currentUser?.let {
+            it.email
+        }
+
         val currentTime = Date().time
         val createdTime = convertLongToTime(currentTime)
 
         val data = hashMapOf(
             "content" to content,
             "senderId" to senderId,
-            "createdTime" to createdTime
+            "createdTime" to Timestamp.now(),
+            "userName" to auth.currentUser?.let {
+                it.displayName
+            }!!,
         )
 
-        Log.d("OMG", "comment ${currentTime}")
+
 
         firebase.collection("posts")
             .document(posts.id)
@@ -103,6 +131,4 @@ class CommentFragment : Fragment() {
                 Log.d("CLEOOO", "add fail")
             }
     }
-
-
 }

@@ -6,8 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="400dp"
-        android:layout_height="400dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/cart_rounded_learning"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +34,7 @@
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/alegreya_sans_sc_medium"
             android:text="Good Job!"
-            android:textSize="22sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/textCongrats"
             app:layout_constraintEnd_toEndOf="parent"
@@ -48,17 +48,24 @@
             android:layout_marginBottom="20dp"
             android:text="You just completed daily task!"
             android:textSize="18sp"
+            android:fontFamily="@font/k2d"
             app:layout_constraintTop_toBottomOf="@id/header"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/postBtn"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:backgroundTint="@color/soil"
+            android:fontFamily="@font/k2d_bold"
             android:text="Add your Post"
+            android:textSize="12sp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
+            app:cornerRadius="15dp"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/slate_grey"
+            app:layout_constraintTop_toBottomOf="@id/textCongrats"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>

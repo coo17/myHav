@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.cleo.myha.data.User
 import com.cleo.myha.databinding.ActivityMainBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -38,30 +41,31 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        auth = FirebaseAuth.getInstance()
-        var user = auth.currentUser
 
-        val options = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.webClient_id))
-            .requestEmail()
-            .build()
+        val navHomeFragment = supportFragmentManager.findFragmentById(R.id.my_nav_host_fragment)
+        val navController = navHomeFragment!!.findNavController()
 
-        val signInClient = GoogleSignIn.getClient(this, options)
+        navController.addOnDestinationChangedListener { controller, destination, argument ->
+            when (destination.id) {
+                R.id.homeFragment -> {
+                    binding.bottomNav.visibility = View.VISIBLE
+                }
+                R.id.habitFragment -> {
+                    binding.bottomNav.visibility = View.VISIBLE
+                }
+                R.id.discoverFragment -> {
+                    binding.bottomNav.visibility = View.VISIBLE
+                }
+                R.id.profileFragment -> {
+                    binding.bottomNav.visibility = View.VISIBLE
+                }
+                R.id.loginFragment -> {
+                    binding.bottomNav.visibility = View.GONE
+                }
 
+            }
 
-//        binding.btnSignIn.setOnClickListener {
-//            signInClient.signInIntent.also {
-//                startActivityForResult(it, REQUEST_CODE_SIGN_IN)
-//            }
-//
-//        }
-//
-//        binding.btnSignout.setOnClickListener {
-//            signInClient.signOut()
-//                .addOnCompleteListener(this, OnCompleteListener {
-//                    signOutFun()
-//                })
-//        }
+        }
 
 
 
@@ -90,76 +94,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    }
 
-    private fun googleAuthForFirebase(account: GoogleSignInAccount) {
-        val credentials = GoogleAuthProvider.getCredential(account.idToken, null)
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                auth.signInWithCredential(credentials).await()
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(this@MainActivity, "Successfully logged in", Toast.LENGTH_SHORT)
-                        .show()
-                }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
+
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_SIGN_IN) {
-            val account = GoogleSignIn.getSignedInAccountFromIntent(data).result
-            account?.let {
-                googleAuthForFirebase(it)
-
-                val newUser = User(it.id.toString(), it.displayName.toString(), it.photoUrl.toString(), it.email.toString())
-                db.collection("users")
-                    .document(it.email.toString())
-                    .set(newUser)
-                    .addOnSuccessListener {
-                        Log.d("Vic", "i dont know")
-                    }.addOnFailureListener {
-                        Log.d("Vic", "Long Island")
-                    }
-
-            }
-
-        }
-    }
-
-    private fun signOutFun() {
-        Toast.makeText(this@MainActivity, "Successfully Signed Out", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun addUserDetail() {
-        val user = auth.currentUser
-
-        user?.let {
-            for (profile in it.providerData) {
-                val providerId = profile.providerId
-                val uId = profile.uid
-                val name = profile.displayName
-                val email = profile.email
-                val photoUrl = profile.photoUrl
-            }
-
-        }
-
-
-        if (user != null) {
-            db.collection("users").document()
-                .set(user)
-                .addOnSuccessListener {
-                    Log.d("Cleooo", "Success!!")
-                }
-                .addOnFailureListener { e ->
-                    Log.d("Cleooo", "add fail")
-                }
-        }
-    }
 }

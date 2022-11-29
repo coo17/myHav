@@ -15,17 +15,19 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.lottieAnimationView1.apply {
-            animate().setDuration(6000).alpha(1f).withEndAction{
-                val i = Intent(context, MainActivity::class.java)
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(i)
-                finish()
+            animate().setDuration(6000).alpha(1f).withEndAction {
+//                val i = Intent(context, MainActivity::class.java)
+//                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+//                startActivity(i)
+//                finish()
+
             }
         }
 
-//        binding.button.setOnClickListener {
-//            val i = Intent(this, MainActivity::class.java)
-//            startActivity(i)
+        binding.button.setOnClickListener {
+            val i = Intent(this, MainActivity::class.java)
+            startActivity(i)
         }
 
     }
+}

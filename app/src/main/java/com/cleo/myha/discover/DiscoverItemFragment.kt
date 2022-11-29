@@ -42,7 +42,7 @@ class DiscoverItemFragment : Fragment() {
         val adapter = DiscoverAdapter(onClickListener = DiscoverAdapter.OnClickListener { Posts ->
             this.findNavController()
                 .navigate(DiscoverItemFragmentDirections.actionGlobalCommentFragment(Posts))
-        },viewModel)
+        })
 
 
         binding.discoverPostRecycler.adapter = adapter

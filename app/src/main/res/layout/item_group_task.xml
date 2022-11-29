@@ -2,67 +2,84 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="30dp"
-    android:paddingBottom="20dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_task"
-        android:layout_width="200dp"
-        android:layout_height="240dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginStart="40dp"
-        android:background="@drawable/bottom_rounded"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/groupCard"
+        android:layout_width="270dp"
+        android:layout_height="180dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/groupTaskTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
-            android:text="TextView"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.505"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/groupTaskProgress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="80%"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="40dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
 
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_task"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/rounded"
-            android:clipToOutline="true"
-            tools:srcCompat="@tools:sample/avatars" />
+            <ImageView
+                android:id="@+id/imageBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="-80dp"
+                android:layout_marginBottom="-20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-    </FrameLayout>
+            <TextView
+                android:id="@+id/groupTaskTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/k2d_bold"
+                android:text="To Do List"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/groupTaskCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/k2d"
+                android:text="Health"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@id/groupTaskTitle"
+                app:layout_constraintTop_toBottomOf="@id/groupTaskTitle" />
 
 
+            <TextView
+                android:id="@+id/startedDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/k2d_bold"
+                android:text="Nov 23 2022"
+                android:layout_marginTop="10dp"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/groupTaskCategory"
+                app:layout_constraintTop_toBottomOf="@id/groupTaskCategory" />
+
+
+            <TextView
+                android:id="@+id/endDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/k2d_bold"
+                android:text="~ Nov 23 2022"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/startedDate"
+                app:layout_constraintTop_toBottomOf="@id/startedDate" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

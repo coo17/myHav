@@ -44,6 +44,10 @@ class LoginFragment : Fragment() {
         var user = auth.currentUser
 
 
+        if(user != null){
+            findNavController().navigate(NavGraphDirections.actionGlobalHomeFragment())
+        }
+
 
         binding.btnSignIn.setOnClickListener {
 
@@ -59,7 +63,6 @@ class LoginFragment : Fragment() {
             }
 
         }
-
 
 
         return binding.root
@@ -94,9 +97,9 @@ class LoginFragment : Fragment() {
                     .document(it.email.toString())
                     .set(newUser)
                     .addOnSuccessListener {
-                        Log.d("Vic", "i dont know")
+
                     }.addOnFailureListener {
-                        Log.d("Vic", "Long Island")
+
                     }
 
 

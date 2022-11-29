@@ -15,6 +15,7 @@ import com.cleo.myha.data.Posts
 import com.cleo.myha.databinding.FragmentHomeBinding
 import com.cleo.myha.databinding.FragmentPublishBinding
 import com.cleo.myha.home.HomeViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
@@ -23,12 +24,15 @@ import java.util.*
 class PublishFragment : Fragment() {
 
     private val db = FirebaseFirestore.getInstance()
+    private lateinit var auth: FirebaseAuth
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentPublishBinding.inflate(inflater, container, false)
+        auth = FirebaseAuth.getInstance()
         val viewModel = ViewModelProvider(this)[PublishViewModel::class.java]
 
 
@@ -70,16 +74,18 @@ class PublishFragment : Fragment() {
     private fun addData(title:String, content:String, tag: String) {
         val articles = FirebaseFirestore.getInstance().collection("posts")
         val postId = articles.document().id
-
-        val author = "IU@gmail.com"
+        val authorEmail = auth.currentUser?.let {
+            it.email
+        }
         val createdTime = Date().time
+
         val lastUpdatedTime = convertLongToTime(createdTime)
         val data = hashMapOf(
             "title" to title,
             "content" to content,
             "id" to postId,
+            "author" to authorEmail,
             "tag" to tag,
-            "author" to author,
             "lastUpdatedTime" to lastUpdatedTime
         )
 

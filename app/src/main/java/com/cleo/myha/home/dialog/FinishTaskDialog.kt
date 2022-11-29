@@ -24,10 +24,6 @@ class FinishTaskDialog : AppCompatDialogFragment() {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         binding = DialogFinishTaskBinding.inflate(inflater, container, false)
 
-//        binding.lottieAnimationView.setAnimation("complete.json")
-//        binding.lottieAnimationView.playAnimation()
-//
-
 
         binding.postBtn.setOnClickListener {
             findNavController().navigate(NavGraphDirections.actionGlobalPublishFragment())
