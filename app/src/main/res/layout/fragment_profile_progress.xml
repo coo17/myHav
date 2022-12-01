@@ -5,22 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/header"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginStart="30dp"-->
-    <!--        android:layout_marginTop="30dp"-->
-    <!--        android:fontFamily="@font/alegreya_sans_sc_medium"-->
-    <!--        android:gravity="center"-->
-    <!--        android:text="Progress"-->
-    <!--        android:textSize="24sp"-->
-    <!--        android:textStyle="bold"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_tag"
         android:layout_width="match_parent"
@@ -31,7 +15,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -56,42 +39,40 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    style="?android:attr/progressBarStyle"
-                    android:layout_width="180dp"
-                    android:layout_height="180dp"
+                <com.db.williamchart.view.DonutChartView
+                    android:id="@+id/donutChart"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
                     android:layout_marginTop="50dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/textPercent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@id/progressBar"
-                    app:layout_constraintEnd_toEndOf="@id/progressBar"
-                    app:layout_constraintStart_toStartOf="@id/progressBar"
-                    app:layout_constraintTop_toTopOf="@id/progressBar"
-                    android:text="80%"
-                    android:textStyle="bold"
                     android:fontFamily="@font/k2d_bold"
-                    android:textSize="20dp"/>
-                
+                    android:text="80%"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/donutChart"
+                    app:layout_constraintEnd_toEndOf="@id/donutChart"
+                    app:layout_constraintStart_toStartOf="@id/donutChart"
+                    app:layout_constraintTop_toTopOf="@id/donutChart" />
+
 
                 <TextView
                     android:id="@+id/totalHabit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/k2d"
                     android:text="20 tasks in total"
                     android:textSize="16dp"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintEnd_toEndOf="@id/progressBar"
-                    app:layout_constraintStart_toStartOf="@id/progressBar"
-                    app:layout_constraintTop_toBottomOf="@id/progressBar" />
+                    app:layout_constraintEnd_toEndOf="@id/donutChart"
+                    app:layout_constraintStart_toStartOf="@id/donutChart"
+                    app:layout_constraintTop_toBottomOf="@id/donutChart" />
 
                 <TextView
                     android:id="@+id/finishedHabit"
@@ -108,16 +89,15 @@
                     android:id="@+id/unfinishedTask"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
                     android:fontFamily="@font/k2d"
                     android:text="5 task uncompleted"
                     android:textSize="16dp"
-                    android:layout_marginBottom="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@id/finishedHabit"
                     app:layout_constraintTop_toBottomOf="@id/finishedHabit" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,5 +1,6 @@
 package com.cleo.myha.profile
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,11 +9,11 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.cleo.myha.databinding.FragmentProfileProgressBinding
-import kotlin.math.roundToInt
 
 
 class ProfileProgressFragment : Fragment() {
 
+    private val animationDuration = 1000L
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,14 +39,27 @@ class ProfileProgressFragment : Fragment() {
             binding.textPercent.text = "${it.toInt()}%"
         })
 
+        viewModel.donutSet.observe(viewLifecycleOwner, Observer {
+            binding.donutChart.animate(it)
+        })
+
+        //display donut chart
+        binding.donutChart.donutColors = intArrayOf(
+            Color.parseColor("#102F55"),
+            Color.parseColor("#CCD2CC"),
+        )
+        binding.donutChart.animation.duration = animationDuration
+
+        val donutSet = listOf(
+            0f,
+            100f
+        )
+
+        binding.donutChart.animate(donutSet)
+
 
         return binding.root
     }
-
-
-//    private fun updatedProgressBar(){
-//        ProgressBar
-//    }
 
 }
 

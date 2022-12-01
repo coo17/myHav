@@ -50,6 +50,10 @@ class ProfileViewModel : ViewModel() {
     val percentTask: LiveData<Float>
         get() = _percentTask
 
+    private var _donutSet= MutableLiveData<List<Float>>()
+    val donutSet: LiveData<List<Float>>
+        get() = _donutSet
+
     init {
         getAllHabits()
     }
@@ -92,9 +96,21 @@ class ProfileViewModel : ViewModel() {
                                     habitCompleted += sortList
                                     _completedTasks.value = habitCompleted.toFloat()
                                     val percentage = (habitCompleted.toFloat()/totalTaks.toFloat()) * 100
-                                    Log.d("MFK","this is $percentage")
+
                                     _percentTask.value = percentage
 
+                                    val uncompleted = totalTaks.minus(habitCompleted)
+                                    Log.d("MFK","this is $uncompleted")
+                                    val donutList = listOf(
+                                        percentage,
+                                        100F
+
+
+                                    )
+                                    Log.d("MFK","this is $donutList")
+
+
+                                    _donutSet.value = donutList
                                 }
                             }
                     }
