@@ -55,17 +55,20 @@ class HomeFragment : Fragment() {
 
 
 
-        val d1 = GregorianCalendar(2022,10,9)
-        val d2 = GregorianCalendar(2022,10,10)
-        val d3 = GregorianCalendar(2022,10,11)
-        val d4 = GregorianCalendar(2022,10,16)
-        val d5 = GregorianCalendar(2022,10,17)
-        val d6 = GregorianCalendar(2022,10,22)
-        val d7 = GregorianCalendar(2022,10,28)
+        val d1 = GregorianCalendar(2022,11,9)
+        val d2 = GregorianCalendar(2022,11,10)
+        val d3 = GregorianCalendar(2022,11,11)
+        val d4 = GregorianCalendar(2022,11,16)
+        val d5 = GregorianCalendar(2022,11,17)
+        val d6 = GregorianCalendar(2022,11,22)
+        val d7 = GregorianCalendar(2022,11,28)
 
+//        val events: List<EventDay> = ArrayList()
+//        val calendar = Calendar.getInstance()
+//        events.add(EventDay(calendar, com.cleo.myha.R.drawable.ic_add))
 
         binding.calendarView.selectedDates = listOf(d1,d2,d3,d4,d5,d6,d7)
-
+        binding.calendarView
 
         return binding.root
     }

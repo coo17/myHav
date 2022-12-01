@@ -70,6 +70,7 @@ dependencies {
 
 //    //calendar
     implementation 'com.applandeo:material-calendar-view:1.7.0'
+
 //    implementation 'com.applandeo:material-calendar-view:1.9.0-rc03'
 
     // Lottie Animation Library
