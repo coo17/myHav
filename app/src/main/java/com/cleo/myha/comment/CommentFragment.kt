@@ -71,10 +71,6 @@ class CommentFragment : Fragment() {
             this.findNavController().navigateUp()
         }
 
-        binding.blockBtn.setOnClickListener {
-
-        }
-
 
 
         binding.sendBtn.setOnClickListener {

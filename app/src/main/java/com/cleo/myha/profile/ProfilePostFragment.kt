@@ -31,7 +31,7 @@ class ProfilePostFragment : Fragment() {
         val binding = FragmentProfilePostBinding.inflate(inflater, container, false)
         auth= FirebaseAuth.getInstance()
 
-        val viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
+//        val viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
 
         binding.profilePostRecycler.apply{
             layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)

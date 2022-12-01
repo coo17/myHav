@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.cleo.myha.databinding.FragmentProfileProgressBinding
+import kotlin.math.roundToInt
 
 
 class ProfileProgressFragment : Fragment() {
@@ -29,6 +30,13 @@ class ProfileProgressFragment : Fragment() {
             binding.finishedHabit.text = "${it.toInt()} total tasks"
         })
 
+        viewModel.completedTasks.observe(viewLifecycleOwner, Observer {
+            binding.unfinishedTask.text = "${it.toInt()} finished"
+        })
+
+        viewModel.percentTask.observe(viewLifecycleOwner, Observer {
+            binding.textPercent.text = "${it.toInt()}%"
+        })
 
 
         return binding.root
