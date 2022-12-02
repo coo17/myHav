@@ -2,6 +2,7 @@ package com.cleo.myha.home
 
 
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import com.cleo.myha.R
 import com.cleo.myha.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class HomeFragment : Fragment() {
@@ -54,7 +56,6 @@ class HomeFragment : Fragment() {
         })
 
 
-
         val d1 = GregorianCalendar(2022,11,9)
         val d2 = GregorianCalendar(2022,11,10)
         val d3 = GregorianCalendar(2022,11,11)
@@ -63,12 +64,16 @@ class HomeFragment : Fragment() {
         val d6 = GregorianCalendar(2022,11,22)
         val d7 = GregorianCalendar(2022,11,28)
 
-//        val events: List<EventDay> = ArrayList()
-//        val calendar = Calendar.getInstance()
-//        events.add(EventDay(calendar, com.cleo.myha.R.drawable.ic_add))
+        val events : MutableList<EventDay> = ArrayList()
+        val calendar = Calendar.getInstance()
+        calendar.set(2022,10,10)
+        events.add(EventDay(calendar, R.drawable.ic_add))
+
 
         binding.calendarView.selectedDates = listOf(d1,d2,d3,d4,d5,d6,d7)
-        binding.calendarView
+        binding.calendarView.setEvents(events)
+
+
 
         return binding.root
     }

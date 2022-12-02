@@ -29,22 +29,23 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/task_review_cardView"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="30dp"
-                android:background="@drawable/post_rounded"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/profile_rounded"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.db.williamchart.view.DonutChartView
                     android:id="@+id/donutChart"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="50dp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="40dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -66,13 +67,13 @@
                     android:id="@+id/totalHabit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/k2d"
                     android:text="20 tasks in total"
                     android:textSize="16dp"
-                    app:layout_constraintEnd_toEndOf="@id/donutChart"
-                    app:layout_constraintStart_toStartOf="@id/donutChart"
-                    app:layout_constraintTop_toBottomOf="@id/donutChart" />
+                    android:layout_marginStart="25dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/donutChart"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
                     android:id="@+id/finishedHabit"
@@ -93,13 +94,43 @@
                     android:fontFamily="@font/k2d"
                     android:text="5 task uncompleted"
                     android:textSize="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@id/finishedHabit"
                     app:layout_constraintTop_toBottomOf="@id/finishedHabit" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <TextView
+                android:id="@+id/textHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Category Tracking"
+                android:fontFamily="@font/k2d_bold"
+                android:textSize="18sp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textColor="@color/white"
+                android:background="@drawable/cart_rounded_general"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/task_review_cardView"/>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/trackerRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@+id/textHeader"
+                tools:listitem="@layout/item_tracker_category"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </ScrollView>
 

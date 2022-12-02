@@ -7,16 +7,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cleo.myha.data.*
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import convertDurationToCertain
-import convertDurationToDate
-import java.time.Instant
-import java.time.LocalDate
-import java.time.Year
-import java.time.ZoneId
-import java.time.temporal.ChronoUnit
+import java.lang.IllegalArgumentException
 import java.util.*
-import kotlin.math.roundToInt
+import kotlin.collections.List
 
 
 class ProfileViewModel : ViewModel() {
@@ -29,6 +25,7 @@ class ProfileViewModel : ViewModel() {
 
     //    private lateinit var habit: Habits
     private var myHabit: Habits? = null
+    private  var userList : User ? = null
 
     private var _myPosts = MutableLiveData<List<Posts>>()
     val myPosts: LiveData<List<Posts>>
@@ -50,12 +47,26 @@ class ProfileViewModel : ViewModel() {
     val percentTask: LiveData<Float>
         get() = _percentTask
 
-    private var _donutSet= MutableLiveData<List<Float>>()
+    private var _donutSet = MutableLiveData<List<Float>>()
     val donutSet: LiveData<List<Float>>
         get() = _donutSet
 
+    private var _userSingleHabit = MutableLiveData<List<Habits>>()
+    val userSinglerHabit: LiveData<List<Habits>>
+        get() = _userSingleHabit
+
+    private var _userGroupHabit = MutableLiveData<List<List<Habits>>>()
+    val userGroupHabit: LiveData<List<List<Habits>>>
+        get() = _userGroupHabit
+
+
+    private var _categoryList = MutableLiveData<List<HabitTracker>>()
+    val categoryList: LiveData<List<HabitTracker>>
+        get() = _categoryList
+
     init {
         getAllHabits()
+        getUserHabits()
     }
 
     private fun getAllHabits() {
@@ -67,6 +78,8 @@ class ProfileViewModel : ViewModel() {
                 .get()
                 .addOnSuccessListener { documents ->
                     val list = documents.toObjects(Habits::class.java)
+
+
 
                     //計算所有tasks
                     var totalTaks = 0
@@ -95,19 +108,20 @@ class ProfileViewModel : ViewModel() {
 
                                     habitCompleted += sortList
                                     _completedTasks.value = habitCompleted.toFloat()
-                                    val percentage = (habitCompleted.toFloat()/totalTaks.toFloat()) * 100
+                                    val percentage =
+                                        (habitCompleted.toFloat() / totalTaks.toFloat()) * 100
 
                                     _percentTask.value = percentage
 
                                     val uncompleted = totalTaks.minus(habitCompleted)
-                                    Log.d("MFK","this is $uncompleted")
+                                    Log.d("MFK", "this is $uncompleted")
                                     val donutList = listOf(
                                         percentage,
                                         100F
 
 
                                     )
-                                    Log.d("MFK","this is $donutList")
+                                    Log.d("MFK", "this is $donutList")
 
 
                                     _donutSet.value = donutList
@@ -174,4 +188,111 @@ class ProfileViewModel : ViewModel() {
         return taskDay
 
     }
+
+    private fun getHabitCategory(list: List<Habits>, email: String){
+
+        val habitTracker = mutableListOf<HabitTracker>()
+
+
+
+        val healthList = list.filter {
+            (it.category == "Health") && ((it.mode == 0 && it.ownerId == email) || (it.mode == 1 && it.members!!.contains(
+                email
+            )) || (it.mode == 1 && it.ownerId == email))
+        }.size
+
+        val workoutList = list.filter {
+            (it.category == "Workout") && ((it.mode == 0 && it.ownerId == email) || (it.mode == 1 && it.members!!.contains(
+                email
+            )) || (it.mode == 1 && it.ownerId == email))
+        }.size
+
+        val readingList = list.filter {
+            (it.category == "Reading") && ((it.mode == 0 && it.ownerId == email) || (it.mode == 1 && it.members!!.contains(
+                email
+            )) || (it.mode == 1 && it.ownerId == email))
+        }.size
+
+        val learningList = list.filter {
+            (it.category == "Learning") && ((it.mode == 0 && it.ownerId == email) || (it.mode == 1 && it.members!!.contains(
+                email
+            )) || (it.mode == 1 && it.ownerId == email))
+        }.size
+
+        val generalList = list.filter {
+            (it.category == "General") && ((it.mode == 0 && it.ownerId == email) || (it.mode == 1 && it.members!!.contains(
+                email
+            )) || (it.mode == 1 && it.ownerId == email))
+        }.size
+
+        habitTracker.add(HabitTracker("Health", healthList))
+        habitTracker.add(HabitTracker("Workout",workoutList))
+        habitTracker.add(HabitTracker("Reading",readingList))
+        habitTracker.add(HabitTracker("Learning",learningList))
+        habitTracker.add(HabitTracker("General",generalList))
+
+        _categoryList.value = habitTracker
+
+    }
+
+    private fun getUserHabits() {
+
+        user?.let { remoteUser ->
+            db.collection("habits")
+                .get()
+                .addOnSuccessListener { documents ->
+                    val list = documents.toObjects(Habits::class.java)
+
+                    remoteUser.email?.let {
+                        getHabitCategory(list,it)
+                    }
+                    Log.d("JOMALONE", "Size: ${documents.size()}")
+
+//                    val healthList = list.filter {
+//                        (it.category == "Health") && ((it.mode == 0 && it.ownerId == remoteUser.email) || (it.mode == 1 && it.members!!.contains(
+//                            remoteUser.email
+//                        )) || (it.mode == 1 && it.ownerId == remoteUser.email))
+//                    }
+//
+//                    Log.d("JOMALONE", "Health: $healthList")
+//
+//                    val workoutList = list.filter {
+//                        (it.category == "Workout") && ((it.mode == 0 && it.ownerId == remoteUser.email) || (it.mode == 1 && it.members!!.contains(
+//                            remoteUser.email
+//                        )) || (it.mode == 1 && it.ownerId == remoteUser.email))
+//                    }
+//
+//                    val readingList = list.filter {
+//                        (it.category == "Reading") && ((it.mode == 0 && it.ownerId == remoteUser.email) || (it.mode == 1 && it.members!!.contains(
+//                            remoteUser.email
+//                        )) || (it.mode == 1 && it.ownerId == remoteUser.email))
+//                    }
+//
+//                    val learningList = list.filter {
+//                        (it.category == "Learning") && ((it.mode == 0 && it.ownerId == remoteUser.email) || (it.mode == 1 && it.members!!.contains(
+//                            remoteUser.email
+//                        )) || (it.mode == 1 && it.ownerId == remoteUser.email))
+//                    }
+//
+//                    val generalList = list.filter {
+//                        (it.category == "General") && ((it.mode == 0 && it.ownerId == remoteUser.email) || (it.mode == 1 && it.members!!.contains(
+//                            remoteUser.email
+//                        )) || (it.mode == 1 && it.ownerId == remoteUser.email))
+//                    }
+//
+//                    val allLists = mutableListOf<List<Habits>>()
+//                    allLists.add(healthList)
+//                    allLists.add(workoutList)
+//                    allLists.add(readingList)
+//                    allLists.add(learningList)
+//                    allLists.add(generalList)
+//
+//                    _userGroupHabit.value = allLists
+
+                }.addOnFailureListener {
+                    Log.d("Cleooo", "get fail")
+                }
+        }
+    }
+
 }

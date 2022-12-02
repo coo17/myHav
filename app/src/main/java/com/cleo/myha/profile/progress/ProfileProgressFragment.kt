@@ -1,4 +1,4 @@
-package com.cleo.myha.profile
+package com.cleo.myha.profile.progress
 
 import android.graphics.Color
 import android.os.Bundle
@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.cleo.myha.databinding.FragmentProfileProgressBinding
+import com.cleo.myha.profile.ProfileViewModel
 
 
 class ProfileProgressFragment : Fragment() {
@@ -21,6 +22,17 @@ class ProfileProgressFragment : Fragment() {
     ): View? {
         val binding = FragmentProfileProgressBinding.inflate(inflater, container, false)
         val viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
+
+        val adapter = ProfileProgressAdapter()
+        binding.trackerRecyclerView.adapter = adapter
+
+//        viewModel.userGroupHabit.observe(viewLifecycleOwner, Observer {
+//            adapter.submitList(it)
+//        })
+
+        viewModel.categoryList.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it)
+        })
 
 
         viewModel.allHabits.observe(viewLifecycleOwner, Observer {
