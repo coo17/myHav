@@ -1,7 +1,6 @@
 package com.cleo.myha.home
 
 
-
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -18,13 +17,14 @@ import com.cleo.myha.databinding.FragmentHomeBinding
 import com.github.sundeepk.compactcalendarview.CompactCalendarView.CompactCalendarViewListener
 import com.github.sundeepk.compactcalendarview.domain.Event
 import com.google.firebase.auth.FirebaseAuth
+import convertToTime
 import java.util.*
+import kotlin.time.Duration.Companion.seconds
 
 
 class HomeFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,26 +56,44 @@ class HomeFragment : Fragment() {
             adapter.submitList(it)
         })
 
+        viewModel.monthOfList.observe(viewLifecycleOwner, Observer {
+            Log.d("BBBBB", "${it.size}")
+            val list = mutableListOf<Event>()
+
+            for(item in it){
+                Log.d("BBBBB", "${item.value}")
+                if(item.value == true){
+                val ev1 = Event(
+                    Color.YELLOW,
+                    item.key.timeInMillis,
+                    "i don't know why"
+                )
+                list.add(ev1)
+
+            }}
+
+            binding.compactcalendarView.addEvents(list)
+        })
+
+
 
         val compactCalendar = Calendar.getInstance()
-        compactCalendar.set(2022,11,5)
-        val ev1 = Event(Color.GREEN, compactCalendar.timeInMillis, "Some extra data that I want to store.")
-        val ev2 = Event(Color.BLACK, compactCalendar.timeInMillis, "Some extra data that I want to store.")
+        compactCalendar.set(2022, 11, 5)
 
-        binding.compactcalendarView.displayOtherMonthDays(true)
+
         binding.compactcalendarView.setEventIndicatorStyle(1)
-//        binding.compactcalendarView.setEventIndicatorStyle(1)
-
-        binding.compactcalendarView.addEvent(ev1)
-        binding.compactcalendarView.addEvent(ev2)
-        Log.d("TAG", "today $ev1")
 
 
-        // define a listener to receive callbacks when certain events happen.
-       binding.compactcalendarView.setListener(object : CompactCalendarViewListener {
+        // display certain daily tasks
+        binding.compactcalendarView.setListener(object : CompactCalendarViewListener {
             override fun onDayClick(dateClicked: Date) {
                 val events: List<Event> = binding.compactcalendarView.getEvents(dateClicked)
-                Toast.makeText(context,"Day was clicked: $dateClicked with events $events",Toast.LENGTH_SHORT).show()
+                viewModel.setDate(dateClicked)
+                Toast.makeText(
+                    context,
+                    "Day was clicked: $dateClicked with events $events",
+                    Toast.LENGTH_SHORT
+                ).show()
                 Log.d("TAG", "Day was clicked: $dateClicked with events $events")
             }
 
@@ -84,28 +102,8 @@ class HomeFragment : Fragment() {
             }
         })
 
-//        val d1 = GregorianCalendar(2022,11,9)
-//        val d2 = GregorianCalendar(2022,11,10)
-//        val d3 = GregorianCalendar(2022,11,11)
-//        val d4 = GregorianCalendar(2022,11,16)
-//        val d5 = GregorianCalendar(2022,11,17)
-//        val d6 = GregorianCalendar(2022,11,22)
-//        val d7 = GregorianCalendar(2022,11,28)
-//
-//        val events : MutableList<EventDay> = ArrayList()
-//        val calendar = Calendar.getInstance()
-//        calendar.set(2022,10,10)
-//        events.add(EventDay(calendar, R.drawable.ic_add))
-//
-
-//        binding.calendarView.selectedDates = listOf(d1,d2,d3,d4,d5,d6,d7)
-//        binding.calendarView.setEvents(events)
-//
-
-
         return binding.root
     }
 
-    
 
 }
