@@ -2,6 +2,7 @@ package com.cleo.myha.publish
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -10,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +21,7 @@ import com.cleo.myha.databinding.FragmentPublishBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import java.text.SimpleDateFormat
 import java.util.*
@@ -33,10 +36,11 @@ class PublishFragment : Fragment() {
 
     private val db = FirebaseFirestore.getInstance()
     private lateinit var auth: FirebaseAuth
-    private val storage = Firebase.storage.reference
+    private lateinit var firebaseStorage: FirebaseStorage
 
-    private lateinit var imageView: ImageView
-    private var imageUri: Uri? = null
+    private var selectedImg: Uri? = null
+    private var selectedBitMap: Bitmap? = null
+    private val storage = Firebase.storage.reference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,18 +50,10 @@ class PublishFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         val viewModel = ViewModelProvider(this)[PublishViewModel::class.java]
 
-//        val intent = Intent()
-//        intent.type = "image/*"
-//        intent.action = Intent.ACTION_GET_CONTENT
-//        startActivityForResult(intent, 1);
-
-//        viewModel.postData.observe(viewLifecycleOwner, Observer {
-//
-//        })
+        firebaseStorage = FirebaseStorage.getInstance()
 
 
         binding.btnPublish.setOnClickListener {
-
             val tag = when (binding.chipGroup.checkedChipId) {
                 R.id.chip1 -> "health"
                 R.id.chip2 -> "workout"
@@ -68,25 +64,83 @@ class PublishFragment : Fragment() {
                     ""
                 }
             }
+
+            val imageRoot = selectedImg
+            Log.d("LOUIS", "Image $selectedImg")
+
             addData(
                 binding.textPostTitle.text.toString(),
                 binding.textPostContent.text.toString(),
-                tag
+                tag,
+                imageRoot!!
             )
             findNavController().navigateUp()
 
-            //開啟相簿
-            binding.btnUpload.setOnClickListener {
+        }
+        //開啟相簿
+        binding.btnSelected.setOnClickListener {
                 val gallery =
                     Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
                 startActivityForResult(gallery, PICTUREFROMGALLERY)
-                permissionPhoto()
-            }
+            selectImage()
 
         }
 
+        binding.btnUpload.setOnClickListener {
+            uploadData()
+            binding.imageUpload.setImageURI(selectedImg)
+        }
+
+
+
         return binding.root
     }
+
+    private fun selectImage() {
+
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(intent, 1)
+
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == 1 && resultCode == Activity.RESULT_OK){
+
+            selectedImg = data?.data!!
+
+
+        }
+    }
+
+
+    fun uploadData() {
+
+        val formatter = SimpleDateFormat(
+            "yyyy_MM_dd_HH_mm_ss", Locale.getDefault()
+        )
+        val now = Date()
+        val fileName = formatter.format(now)
+        val storageReference = FirebaseStorage.getInstance().getReference("images/$fileName")
+
+
+        selectedImg?.let {
+            storageReference.putFile(it)
+                .addOnSuccessListener {
+
+                    Toast.makeText(context, "Successfully Uploaded", Toast.LENGTH_SHORT).show()
+                    Log.d("MFG", "OKK")
+                }
+                .addOnFailureListener {
+                    Log.d("MFG", "FAILED")
+                }
+        }
+    }
+
 
     //詢問user權限
     fun permissionPhoto() {
@@ -99,16 +153,6 @@ class PublishFragment : Fragment() {
         )
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == PICTUREFROMGALLERY) {
-            imageUri = data?.data
-            imageView.setImageURI(imageUri)
-        }
-
-    }
-
 
     fun convertLongToTime(time: Long): String {
         val date = Date(time)
@@ -116,7 +160,7 @@ class PublishFragment : Fragment() {
         return format.format(date)
     }
 
-    fun addData(title: String, content: String, tag: String) {
+    fun addData(title: String, content: String, tag: String, photo: Uri) {
         val articles = FirebaseFirestore.getInstance().collection("posts")
         val postId = articles.document().id
         val authorEmail = auth.currentUser?.let {
@@ -131,7 +175,9 @@ class PublishFragment : Fragment() {
             "id" to postId,
             "author" to authorEmail,
             "tag" to tag,
-            "lastUpdatedTime" to lastUpdatedTime
+            "lastUpdatedTime" to lastUpdatedTime,
+            "photo" to photo
+
         )
 
 
@@ -146,5 +192,4 @@ class PublishFragment : Fragment() {
             }
     }
 }
-
 
