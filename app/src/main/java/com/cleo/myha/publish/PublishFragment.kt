@@ -10,8 +10,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -41,6 +39,8 @@ class PublishFragment : Fragment() {
     private var selectedImg: Uri? = null
     private var selectedBitMap: Bitmap? = null
     private val storage = Firebase.storage.reference
+    private lateinit var photoFileName : String
+    private lateinit var viewModel : PublishViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +48,7 @@ class PublishFragment : Fragment() {
     ): View? {
         val binding = FragmentPublishBinding.inflate(inflater, container, false)
         auth = FirebaseAuth.getInstance()
-        val viewModel = ViewModelProvider(this)[PublishViewModel::class.java]
+        viewModel = ViewModelProvider(this)[PublishViewModel::class.java]
 
         firebaseStorage = FirebaseStorage.getInstance()
 
@@ -65,18 +65,30 @@ class PublishFragment : Fragment() {
                 }
             }
 
-            val imageRoot = selectedImg
-            Log.d("LOUIS", "Image $selectedImg")
+            val imageRoot = selectedImg.toString()
+            Log.d("LOUIS", "Image $imageRoot")
+
+            val formatter = SimpleDateFormat(
+                "yyyy_MM_dd_HH_mm_ss", Locale.getDefault()
+            )
+            val now = Date()
+            val fileName = formatter.format(now)
+            val storageReference = FirebaseStorage.getInstance().getReference("images/$fileName")
+
+            val photoUri = FirebaseStorage.getInstance().reference.child("image/$fileName.jpg")
+            Log.d("LOUIS", "photoUri $photoUri")
 
             addData(
                 binding.textPostTitle.text.toString(),
                 binding.textPostContent.text.toString(),
                 tag,
-                imageRoot!!
+                photoUri.toString()
             )
+            uploadData(fileName)
             findNavController().navigateUp()
 
         }
+
         //開啟相簿
         binding.btnSelected.setOnClickListener {
                 val gallery =
@@ -86,10 +98,16 @@ class PublishFragment : Fragment() {
 
         }
 
-        binding.btnUpload.setOnClickListener {
-            uploadData()
+        viewModel.photo.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+
             binding.imageUpload.setImageURI(selectedImg)
-        }
+        })
+
+
+//        val localFile = File.createTempFile("tempImage", "jpg")
+//
+//        val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+
 
 
 
@@ -113,29 +131,35 @@ class PublishFragment : Fragment() {
 
             selectedImg = data?.data!!
 
+         viewModel.displayPhoto(selectedImg!!)
 
         }
     }
 
 
-    fun uploadData() {
+    fun uploadData(fileName: String) {
 
-        val formatter = SimpleDateFormat(
-            "yyyy_MM_dd_HH_mm_ss", Locale.getDefault()
-        )
-        val now = Date()
-        val fileName = formatter.format(now)
-        val storageReference = FirebaseStorage.getInstance().getReference("images/$fileName")
+//        val progressDialog = ProgressDialog(requireContext())
+//        progressDialog.setMessage("Uploading File ...")
+//        progressDialog.setCancelable(false)
+//        progressDialog.show()
 
+//        val formatter = SimpleDateFormat(
+//            "yyyy_MM_dd_HH_mm_ss", Locale.getDefault()
+//        )
+//        val now = Date()
+//        val fileName = formatter.format(now)
+        val storageReference = FirebaseStorage.getInstance().getReference("images/$fileName.jpg")
 
         selectedImg?.let {
             storageReference.putFile(it)
-                .addOnSuccessListener {
-
-                    Toast.makeText(context, "Successfully Uploaded", Toast.LENGTH_SHORT).show()
-                    Log.d("MFG", "OKK")
+                .addOnSuccessListener { Task ->
+//                    Toast.makeText(context, "Successfully Uploaded", Toast.LENGTH_SHORT).show()
+//                    if(progressDialog.isShowing) progressDialog.dismiss()
+                    Log.d("Louis ", "Task ${Task.task}")
                 }
                 .addOnFailureListener {
+//                    if(progressDialog.isShowing) progressDialog.dismiss()
                     Log.d("MFG", "FAILED")
                 }
         }
@@ -160,12 +184,14 @@ class PublishFragment : Fragment() {
         return format.format(date)
     }
 
-    fun addData(title: String, content: String, tag: String, photo: Uri) {
+    fun addData(title: String, content: String, tag: String, Uri: String) {
         val articles = FirebaseFirestore.getInstance().collection("posts")
         val postId = articles.document().id
         val authorEmail = auth.currentUser?.let {
             it.email
         }
+
+
         val createdTime = Date().time
 
         val lastUpdatedTime = convertLongToTime(createdTime)
@@ -176,7 +202,7 @@ class PublishFragment : Fragment() {
             "author" to authorEmail,
             "tag" to tag,
             "lastUpdatedTime" to lastUpdatedTime,
-            "photo" to photo
+            "photo" to Uri
 
         )
 

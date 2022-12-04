@@ -64,8 +64,8 @@ class HomeFragment : Fragment() {
                 Log.d("BBBBB", "${item.value}")
                 if(item.value == true){
                 val ev1 = Event(
-                    Color.YELLOW,
-                    item.key.timeInMillis,
+                    Color.parseColor("#ABD3D6"),
+                    item.key,
                     "i don't know why"
                 )
                 list.add(ev1)
@@ -76,11 +76,6 @@ class HomeFragment : Fragment() {
         })
 
 
-
-        val compactCalendar = Calendar.getInstance()
-        compactCalendar.set(2022, 11, 5)
-
-
         binding.compactcalendarView.setEventIndicatorStyle(1)
 
 
@@ -89,11 +84,6 @@ class HomeFragment : Fragment() {
             override fun onDayClick(dateClicked: Date) {
                 val events: List<Event> = binding.compactcalendarView.getEvents(dateClicked)
                 viewModel.setDate(dateClicked)
-                Toast.makeText(
-                    context,
-                    "Day was clicked: $dateClicked with events $events",
-                    Toast.LENGTH_SHORT
-                ).show()
                 Log.d("TAG", "Day was clicked: $dateClicked with events $events")
             }
 

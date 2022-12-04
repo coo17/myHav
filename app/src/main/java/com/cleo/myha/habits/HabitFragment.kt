@@ -1,5 +1,6 @@
 package com.cleo.myha.habits
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,19 +33,36 @@ class HabitFragment : Fragment() {
         binding.viewPager.adapter = HabitViewPagerAdapter(childFragmentManager, lifecycle)
 
 
+        val positionButton1 = binding.layoutSingle
+        val positionButton2 = binding.layoutGroup
 
-
-
-        binding.text1.setOnClickListener {
+        binding.layoutSingle.setOnClickListener {
+            ObjectAnimator.ofFloat(positionButton1, "TranslationX", -20f).apply {
+                duration = 200
+                start()
+            }
+            ObjectAnimator.ofFloat(positionButton2, "TranslationX", 10f).apply {
+                duration = 200
+                start()
+            }
             binding.viewPager.post {
-                binding.viewPager.setCurrentItem(0,true)
+                binding.viewPager.setCurrentItem(0, true)
 
             }
         }
 
-        binding.text2.setOnClickListener {
+        binding.layoutGroup.setOnClickListener {
+            ObjectAnimator.ofFloat(positionButton1, "TranslationX", 10f).apply {
+                duration = 200
+                start()
+            }
+            ObjectAnimator.ofFloat(positionButton2, "TranslationX", -20f).apply {
+                duration = 200
+                start()
+            }
+
             binding.viewPager.post {
-                binding.viewPager.setCurrentItem(1,true)
+                binding.viewPager.setCurrentItem(1, true)
 
             }
         }
@@ -53,10 +71,6 @@ class HabitFragment : Fragment() {
             findNavController().navigate(NavGraphDirections.actionGlobalCreateHabitFragment())
         }
 
-
-
         return binding.root
     }
-
-
 }

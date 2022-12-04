@@ -32,8 +32,8 @@ class HomeViewModel : ViewModel() {
     val doneList: LiveData<Map<String, Boolean>>
         get() = _doneList
 
-    private var _monthOfList = MutableLiveData<Map<Calendar, Boolean>>()
-    val monthOfList: LiveData<Map<Calendar, Boolean>>
+    private var _monthOfList = MutableLiveData<Map<Long, Boolean>>()
+    val monthOfList: LiveData<Map<Long, Boolean>>
         get() = _monthOfList
 
     var completedList = mutableMapOf<String, Boolean>()
@@ -145,14 +145,16 @@ class HomeViewModel : ViewModel() {
 //        val firstDateOfMonth = LocalDate.of(year, month, 1)
 //        Log.d("JOMALONE", "$dayOfWeeks")
         val firstDayOfMonth = Calendar.getInstance()
-        firstDayOfMonth.set(Calendar.DAY_OF_MONTH, 1)
+        firstDayOfMonth.set(Calendar.DAY_OF_YEAR, 1)
 
         val today = Date()
         val calendar = Calendar.getInstance()
 
-        calendar.add(Calendar.MONTH, 1)
-        calendar[Calendar.DAY_OF_MONTH] = 1
-        calendar.add(Calendar.DATE, -1)
+
+        calendar.add(Calendar.YEAR, 1) // 2023-12-3
+        calendar[Calendar.DAY_OF_YEAR] = 1  // 2023-1-1
+        calendar.add(Calendar.DATE, -1) // 2022-12-31
+
         val lastDayOfMonth = calendar.time
         val sdf: DateFormat = SimpleDateFormat("yyyy-MM-dd")
 
@@ -164,10 +166,10 @@ class HomeViewModel : ViewModel() {
         val totalCal = Calendar.getInstance()
         totalCal.time = firstDayOfMonth.time
 
-        val monthList = mutableMapOf<Calendar, Boolean>()
+        val monthList = mutableMapOf<Long, Boolean>()
         Log.d("X哥", "b${monthList.values}")
         while (totalCal.toInstant().epochSecond <= lastDayOfMonth.toInstant().epochSecond) {
-//        while (totalCal.time.time <= lastDayOfMonth.time) {
+
             val dayOfWeek =
                 Instant.ofEpochSecond(totalCal.timeInMillis).atZone(ZoneId.systemDefault())
                     .toLocalDate().dayOfWeek.value
@@ -180,10 +182,10 @@ class HomeViewModel : ViewModel() {
 
             if (toDoList.isNotEmpty()) {
 
-                monthList.put(totalCal, true)
+                monthList.put(totalCal.timeInMillis, true)
 
             } else {
-                monthList.put(totalCal, false)
+                monthList.put(totalCal.timeInMillis, false)
             }
 
             totalCal.add(Calendar.DATE, 1)

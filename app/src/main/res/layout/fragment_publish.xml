@@ -5,6 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
     <TextView
         android:id="@+id/header"
         android:layout_width="wrap_content"
@@ -20,53 +29,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
-
     <androidx.cardview.widget.CardView
         android:id="@+id/imageCardView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="40dp"
         app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/header">
 
         <ImageView
             android:id="@+id/imageUpload"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/image_brunch" />
+            android:layout_gravity="center"/>
+
+        <ImageButton
+            android:id="@+id/btnSelected"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="104dp"
+            android:layout_marginBottom="56dp"
+            android:background="@drawable/profile_rounded"
+            app:srcCompat="@drawable/ic_add" />
 
     </androidx.cardview.widget.CardView>
 
-
-    <ImageButton
-        android:id="@+id/btnSelected"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="104dp"
-        android:layout_marginBottom="56dp"
-        android:background="@drawable/profile_rounded"
-        app:layout_constraintBottom_toBottomOf="@+id/imageCardView"
-        app:layout_constraintStart_toEndOf="@+id/imageCardView"
-        app:srcCompat="@drawable/ic_add" />
-
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:id="@+id/layout_content"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/imageCardView">-->
 
         <EditText
             android:id="@+id/text_post_title"

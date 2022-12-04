@@ -40,9 +40,9 @@ class ProfileFragment : Fragment() {
 
 
 
-        binding.createPost.setOnClickListener {
-            findNavController().navigate(NavGraphDirections.actionGlobalPublishFragment())
-        }
+//        binding.createPost.setOnClickListener {
+//            findNavController().navigate(NavGraphDirections.actionGlobalPublishFragment())
+//        }
 
         return binding.root
     }
