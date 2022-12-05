@@ -22,7 +22,7 @@ import java.util.*
 
 class DiscoverAdapter(val onClickListener: OnClickListener): ListAdapter<Posts, DiscoverAdapter.DiscoverViewHolder>(DiscoverDiffCallBack()) {
 
-    val storageReference = FirebaseStorage.getInstance().reference
+    val storageReference = FirebaseStorage.getInstance()
 
 
     inner class DiscoverViewHolder(val binding: ItemProfilePostBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -31,10 +31,16 @@ class DiscoverAdapter(val onClickListener: OnClickListener): ListAdapter<Posts, 
         fun bind(item: Posts){
             binding.textView3.text = item.title
 
-            Glide.with(itemView.context)
-                .load(item.photo)
-                .error(R.drawable.man)
-                .into(binding.imageView3)
+            item.photo?.let { it ->
+                storageReference.getReferenceFromUrl(it).downloadUrl.addOnSuccessListener {imgPhoto->
+                    Glide.with(itemView.context)
+                        .load(imgPhoto)
+                        .error(R.drawable.man)
+                        .into(binding.imageView3)
+                }
+
+            }
+
 
             binding.imageView3.setOnClickListener {
                 onClickListener.onClick(item)

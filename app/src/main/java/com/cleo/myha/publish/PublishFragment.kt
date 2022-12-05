@@ -75,7 +75,7 @@ class PublishFragment : Fragment() {
             val fileName = formatter.format(now)
             val storageReference = FirebaseStorage.getInstance().getReference("images/$fileName")
 
-            val photoUri = FirebaseStorage.getInstance().reference.child("image/$fileName.jpg")
+            val photoUri = FirebaseStorage.getInstance().reference.child("images/$fileName.jpg")
             Log.d("LOUIS", "photoUri $photoUri")
 
             addData(

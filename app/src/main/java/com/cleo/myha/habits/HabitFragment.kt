@@ -41,7 +41,7 @@ class HabitFragment : Fragment() {
                 duration = 200
                 start()
             }
-            ObjectAnimator.ofFloat(positionButton2, "TranslationX", 10f).apply {
+            ObjectAnimator.ofFloat(positionButton2, "TranslationX", 20f).apply {
                 duration = 200
                 start()
             }
@@ -52,7 +52,7 @@ class HabitFragment : Fragment() {
         }
 
         binding.layoutGroup.setOnClickListener {
-            ObjectAnimator.ofFloat(positionButton1, "TranslationX", 10f).apply {
+            ObjectAnimator.ofFloat(positionButton1, "TranslationX", 20f).apply {
                 duration = 200
                 start()
             }
