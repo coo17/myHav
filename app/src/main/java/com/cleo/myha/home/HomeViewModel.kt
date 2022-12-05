@@ -7,8 +7,12 @@ import androidx.lifecycle.ViewModel
 import com.cleo.myha.data.Habits
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import convertDurationToDate
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.Instant
+import java.time.LocalDate
+import java.time.YearMonth
 import java.time.ZoneId
 import java.util.*
 
@@ -22,25 +26,30 @@ class HomeViewModel : ViewModel() {
 
     private var _completedTask = MutableLiveData<List<Habits>>()
     val completedTask: LiveData<List<Habits>>
-    get() = _completedTask
+        get() = _completedTask
 
     private var _doneList = MutableLiveData<Map<String, Boolean>>()
     val doneList: LiveData<Map<String, Boolean>>
-    get() = _doneList
+        get() = _doneList
+
+    private var _monthOfList = MutableLiveData<Map<Long, Boolean>>()
+    val monthOfList: LiveData<Map<Long, Boolean>>
+        get() = _monthOfList
 
     var completedList = mutableMapOf<String, Boolean>()
 
     val auth = FirebaseAuth.getInstance()
     val user = auth.currentUser
-    val userEmail = user?.email.toString()
+    private val userEmail = user?.email.toString()
+
+    var selectedDate: Long? = null
 
     init {
         getTodayTasks()
     }
 
     fun queryTest(habitId: String) {
-//        val habitId = "30l3lmRirwifxWmrydox"
-//        val todayString = "2022-11-10"
+
         val todayString = Date().time
         val date = convertLongToTime(todayString)
 
@@ -51,18 +60,18 @@ class HomeViewModel : ViewModel() {
             .get()
             .addOnCompleteListener {
                 if (it.isSuccessful) {
-                    Log.d("Cleoo","count: ${it.result?.data?.size}")
+                    Log.d("Cleoo", "count: ${it.result?.data?.size}")
                     it.result?.data?.let {
                         (it["isDone"] as Boolean?)?.let {
-                           completedList.put(habitId, it)
+                            completedList.put(habitId, it)
                             _doneList.value = completedList
-                            Log.d("VIC","isDone: ${completedList}")
-                            Log.d("VICC","isDone: $it")
+                            Log.d("VIC", "isDone: ${completedList}")
+                            Log.d("VICC", "isDone: $it")
                         }
-                        Log.d("Cleoo","isDone: ${it["isDone"]}")
+                        Log.d("Cleoo", "isDone: ${it["isDone"]}")
                     }
                 } else {
-                    Log.d("Cleoo","fail")
+                    Log.d("Cleoo", "fail")
                 }
             }
     }
@@ -76,10 +85,10 @@ class HomeViewModel : ViewModel() {
             .addOnSuccessListener { result ->
 //                Log.d("Cleooo", "get success ,${result.documents}")
                 val list = mutableListOf<Habits>()
-                Log.d("Cleoo","${result.size()}")
+                Log.d("Cleoo", "${result.size()}")
 
                 for (i in result) {
-                    Log.d("Cleoo","id=${i.get("id").toString()}")
+                    Log.d("Cleoo", "id=${i.get("id").toString()}")
 
                     val members = i.get("members") as List<String>
                     val repeatedDays = i.get("repeatedDays") as List<Boolean>
@@ -100,19 +109,26 @@ class HomeViewModel : ViewModel() {
                         i.get("mode").toString().toInt()
                     )
                     queryTest(todayTaskData.id)
-                    Log.d("OMG","${ i.get("endDate").toString().toLong()}")
                     list.add(todayTaskData)
                 }
 
-                Log.d("Cleoo","${list.size}")
-                var today = Date().time
-                var dayOfWeek = Instant.ofEpochMilli(today).atZone(ZoneId.systemDefault()).toLocalDate().dayOfWeek.value
-                Log.d("VICC", "cleooo ${dayOfWeek}")
+                getMonthDataList(list)
 
-                val toDoList =  list.filter{
-                    today > it.startedDate && today < it.endDate && it.repeatedDays.get(dayOfWeek-1) == true
+                val shownDate = if (selectedDate == null) {
+                    Date().time
+                } else {
+                    selectedDate
                 }
-                Log.d("kkk", "${toDoList}")
+
+//                val dayOfWeek = Instant.ofEpochMilli(today).atZone(ZoneId.systemDefault()).toLocalDate().dayOfWeek.value
+                val dayOfWeek = Instant.ofEpochSecond(shownDate!!).atZone(ZoneId.systemDefault())
+                    .toLocalDate().dayOfWeek.value
+                val toDoList = list.filter {
+                    shownDate > it.startedDate && shownDate < it.endDate && it.repeatedDays.get(
+                        dayOfWeek - 1
+                    ) == true
+                }
+                Log.d("kkk", "${toDoList.size}")
 
                 _todayTasks.value = toDoList
             }
@@ -122,21 +138,76 @@ class HomeViewModel : ViewModel() {
             }
     }
 
+    private fun getMonthDataList(list: MutableList<Habits>) {
 
-    fun convertLongToTime(time: Long): String{
+        val month = LocalDate.now().month
+        val year = LocalDate.now().year
+//        val firstDateOfMonth = LocalDate.of(year, month, 1)
+//        Log.d("JOMALONE", "$dayOfWeeks")
+        val firstDayOfMonth = Calendar.getInstance()
+        firstDayOfMonth.set(Calendar.DAY_OF_YEAR, 1)
+
+        val today = Date()
+        val calendar = Calendar.getInstance()
+
+
+        calendar.add(Calendar.YEAR, 1) // 2023-12-3
+        calendar[Calendar.DAY_OF_YEAR] = 1  // 2023-1-1
+        calendar.add(Calendar.DATE, -1) // 2022-12-31
+
+        val lastDayOfMonth = calendar.time
+        val sdf: DateFormat = SimpleDateFormat("yyyy-MM-dd")
+
+        Log.d("JOMALONE", "Today is ${sdf.format(today)}")
+        Log.d("JOMALONE", "First Day of Month ${firstDayOfMonth.time.time.convertDurationToDate()}")
+        Log.d("JOMALONE", "Last Day of Month ${sdf.format(lastDayOfMonth)}")
+
+
+        val totalCal = Calendar.getInstance()
+        totalCal.time = firstDayOfMonth.time
+
+        val monthList = mutableMapOf<Long, Boolean>()
+        Log.d("X哥", "b${monthList.values}")
+        while (totalCal.toInstant().epochSecond <= lastDayOfMonth.toInstant().epochSecond) {
+
+            val dayOfWeek =
+                Instant.ofEpochSecond(totalCal.timeInMillis).atZone(ZoneId.systemDefault())
+                    .toLocalDate().dayOfWeek.value
+
+            val toDoList = list.filter {
+                totalCal.time.time > it.startedDate && totalCal.time.time <= it.endDate && it.repeatedDays.get(
+                    dayOfWeek - 1
+                ) == true
+            }
+
+            if (toDoList.isNotEmpty()) {
+
+                monthList.put(totalCal.timeInMillis, true)
+
+            } else {
+                monthList.put(totalCal.timeInMillis, false)
+            }
+
+            totalCal.add(Calendar.DATE, 1)
+
+        }
+
+        _monthOfList.value = monthList
+    }
+
+
+    fun convertLongToTime(time: Long): String {
         val date = Date(time)
         val format = SimpleDateFormat("yyyy-MM-d", Locale.getDefault())
         return format.format(date)
     }
 
-
-    fun sendCompletedTask(data: Habits, isDone: Boolean){
+    fun sendCompletedTask(data: Habits, isDone: Boolean) {
 
         val document = data.id
         val userEmail = user?.email.toString()
         val nowTime = Date().time
         val date = convertLongToTime(nowTime)
-//        val taskState : Boolean = isDone ?: false
 
         val dailyTask: MutableMap<String, Any> = HashMap()
         dailyTask["email"] = userEmail
@@ -144,14 +215,13 @@ class HomeViewModel : ViewModel() {
         dailyTask["completedTime"] = date
         dailyTask["isDone"] = isDone
 
-                db.collection("habits")
-                    .document(document)
-                    .collection("Test")
-                    .document(date)
-                    .set(dailyTask)
-
+        db.collection("habits")
+            .document(document)
+            .collection("Test")
+            .document(date)
+            .set(dailyTask)
             .addOnSuccessListener {
-                Log.d("Cleooo","Success! ${nowTime}")
+                Log.d("Cleooo", "Success! ${nowTime}")
             }
             .addOnFailureListener {
                 Log.d("Cleooo", "oh, it's fail")
@@ -160,13 +230,16 @@ class HomeViewModel : ViewModel() {
         completedList.set(data.id, isDone)
     }
 
-    fun checkAllList():Boolean {
+    fun checkAllList(): Boolean {
 
-//       var maxValue =0
-        //filter出一樣的size
         return completedList.filter {
             it.value == true
         }.size == completedList.size
+    }
+
+    fun setDate(dateClicked: Date) {
+        selectedDate = dateClicked.toInstant().toEpochMilli()
+        getTodayTasks()
     }
 
 }

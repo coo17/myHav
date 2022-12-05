@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="200dp"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_community"
+        android:layout_width="160dp"
+        android:layout_height="180dp"
+        android:backgroundTint="@color/light_blue"
+        android:background="@drawable/bottom_rounded"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/k2d_bold"
+            android:text="Health"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <FrameLayout
+            android:id="@+id/layout"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="-10dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/cart_rounded_workout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/totalHabitCreated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/k2d_bold"
+            android:text="20 habits created"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="@id/category"
+            app:layout_constraintTop_toBottomOf="@id/category"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

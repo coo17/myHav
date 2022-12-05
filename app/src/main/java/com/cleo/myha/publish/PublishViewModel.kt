@@ -1,5 +1,6 @@
 package com.cleo.myha.publish
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,15 +15,24 @@ class PublishViewModel: ViewModel() {
 
     private val db = FirebaseFirestore.getInstance()
 
-    private val _postData = MutableLiveData<List<Posts>>()
+    private var _postData = MutableLiveData<List<Posts>>()
     val postData: LiveData<List<Posts>>
         get() = _postData
+
+    private var _photo = MutableLiveData<Uri>()
+    val photo: LiveData<Uri>
+    get() = _photo
 
 
     init {
 //        addPost("","")
 
     }
+
+    fun displayPhoto(image:Uri){
+        _photo.value = image
+    }
+
 
 //    fun addPost(title: String, content: String){
 //        val user: MutableMap<String, Any> = HashMap()

@@ -38,38 +38,48 @@
             app:layout_constraintStart_toStartOf="@id/text_helloUser"
             app:layout_constraintTop_toBottomOf="@id/text_helloUser" />
 
-<!--        <CalendarView-->
-<!--            android:id="@+id/calendarView"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginBottom="20dp"-->
-<!--            app:layout_constraintBottom_toTopOf="@id/text_todayTasks"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"/>-->
-
-
-        <com.applandeo.materialcalendarview.CalendarView
-            android:id="@+id/calendarView"
+        <com.github.sundeepk.compactcalendarview.CompactCalendarView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/compactcalendar_view"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:padding="15dp"
-            app:headerColor="@color/white"
-            app:headerLabelColor="@color/slate_grey"
-            app:selectionColor="@color/light_blue"
-            app:selectionLabelColor="@color/slate_grey"
-            android:layout_marginBottom="10dp"
-            app:type="many_days_picker"
+            android:layout_height="220dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            app:compactCalendarTargetHeight="250dp"
+            app:compactCalendarTextSize="12sp"
+            app:compactCalendarBackgroundColor="@color/white"
+            app:compactCalendarTextColor="@color/slate_grey"
+            app:compactCalendarShouldSelectFirstDayOfMonthOnScroll="false"
+            app:compactCalendarCurrentSelectedDayBackgroundColor="@color/light_brown"
+            app:compactCalendarCurrentDayBackgroundColor="@color/light_blue"
+            app:compactCalendarMultiEventIndicatorColor="@color/navy_blue"
             app:layout_constraintBottom_toTopOf="@+id/text_todayTasks"
             app:layout_constraintTop_toBottomOf="@+id/textClock"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+<!--        <com.applandeo.materialcalendarview.CalendarView-->
+<!--            android:id="@+id/calendarView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:padding="15dp"-->
+<!--            app:headerColor="@color/white"-->
+<!--            app:headerLabelColor="@color/slate_grey"-->
+<!--            app:selectionColor="@color/light_blue"-->
+<!--            app:selectionLabelColor="@color/slate_grey"-->
+<!--            android:layout_marginBottom="10dp"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/text_todayTasks"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/textClock"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"/>-->
 
         <TextView
             android:id="@+id/text_todayTasks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:text="Today Tasks"
+            android:text="Daily Tasks"
             android:textSize="24sp"
             android:textStyle="bold"
             android:fontFamily="@font/alegreya_sans_sc_medium"

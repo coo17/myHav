@@ -4,8 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.cleo.myha.habits.HabitFragment
-import com.cleo.myha.home.HomeFragment
+import com.cleo.myha.profile.progress.ProfileProgressFragment
 import java.lang.IllegalArgumentException
 
 class ProfileViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle):

@@ -10,10 +10,10 @@ data class ChatRooms(
     var messages: List<MessagesInfo> ? = null
 )
 
-data class MessagesInfo(
-    var senderEmail: String = "",
-    var senderName: String = "",
-    var senderImage: String = "",
-    var message: String = "",
-    var textTime: Timestamp? = null ,
-)
+//data class MessagesInfo(
+//    var senderEmail: String = "",
+//    var senderName: String = "",
+//    var senderImage: String = "",
+//    var message: String = "",
+//    var textTime: Timestamp? = null ,
+//)

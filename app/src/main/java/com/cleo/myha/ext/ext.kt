@@ -21,7 +21,11 @@ fun Long.convertDurationToDate(): String {
     return format.format(date)
 }
 
-
+fun Long.convertDurationToCertain(): String {
+    val date = Date(this)
+    val format = SimpleDateFormat("MM,d,yyyy", Locale.getDefault())
+    return format.format(date)
+}
 
 
 fun Fragment.hideKeyboard(view: View) {

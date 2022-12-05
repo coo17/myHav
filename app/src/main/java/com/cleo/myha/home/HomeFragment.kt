@@ -1,27 +1,30 @@
 package com.cleo.myha.home
 
 
-
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.applandeo.materialcalendarview.EventDay
 import com.cleo.myha.NavGraphDirections
-import com.cleo.myha.R
 import com.cleo.myha.databinding.FragmentHomeBinding
+import com.github.sundeepk.compactcalendarview.CompactCalendarView.CompactCalendarViewListener
+import com.github.sundeepk.compactcalendarview.domain.Event
 import com.google.firebase.auth.FirebaseAuth
+import convertToTime
 import java.util.*
+import kotlin.time.Duration.Companion.seconds
 
 
 class HomeFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,23 +56,44 @@ class HomeFragment : Fragment() {
             adapter.submitList(it)
         })
 
+        viewModel.monthOfList.observe(viewLifecycleOwner, Observer {
+            Log.d("BBBBB", "${it.size}")
+            val list = mutableListOf<Event>()
+
+            for(item in it){
+                Log.d("BBBBB", "${item.value}")
+                if(item.value == true){
+                val ev1 = Event(
+                    Color.parseColor("#ABD3D6"),
+                    item.key,
+                    "i don't know why"
+                )
+                list.add(ev1)
+
+            }}
+
+            binding.compactcalendarView.addEvents(list)
+        })
 
 
-        val d1 = GregorianCalendar(2022,10,9)
-        val d2 = GregorianCalendar(2022,10,10)
-        val d3 = GregorianCalendar(2022,10,11)
-        val d4 = GregorianCalendar(2022,10,16)
-        val d5 = GregorianCalendar(2022,10,17)
-        val d6 = GregorianCalendar(2022,10,22)
-        val d7 = GregorianCalendar(2022,10,28)
+        binding.compactcalendarView.setEventIndicatorStyle(1)
 
 
-        binding.calendarView.selectedDates = listOf(d1,d2,d3,d4,d5,d6,d7)
+        // display certain daily tasks
+        binding.compactcalendarView.setListener(object : CompactCalendarViewListener {
+            override fun onDayClick(dateClicked: Date) {
+                val events: List<Event> = binding.compactcalendarView.getEvents(dateClicked)
+                viewModel.setDate(dateClicked)
+                Log.d("TAG", "Day was clicked: $dateClicked with events $events")
+            }
 
+            override fun onMonthScroll(firstDayOfNewMonth: Date) {
+                Log.d("TAG", "Month was scrolled to: $firstDayOfNewMonth")
+            }
+        })
 
         return binding.root
     }
 
-    
 
 }

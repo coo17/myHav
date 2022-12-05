@@ -12,7 +12,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
-
         <TextView
             android:id="@+id/header"
             android:layout_width="wrap_content"
@@ -26,107 +25,66 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_single"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="300dp"
+            android:layout_marginEnd="-70dp"
+            android:background="@drawable/cart_single_layout"
+             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header">
+
             <TextView
                 android:id="@+id/text1"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:text="Y \no\nu\nr\ns"
-                android:textSize="20dp"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                android:layout_marginTop="300dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="20dp"
                 android:fontFamily="@font/alegreya_sans_sc_medium"
                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/header"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_group"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cart_group_layout"
+            android:layout_marginEnd="-70dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_single">
 
         <TextView
             android:id="@+id/text2"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/alegreya_sans_sc_medium"
             android:text="G\nr\no\nu\np"
-            android:textSize="20dp"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:layout_marginTop="50dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="20dp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text1"/>
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-<!--    <View-->
-<!--        android:id="@+id/viewSingle"-->
-<!--        android:layout_width="350dp"-->
-<!--        android:layout_height="2dp"-->
-<!--        android:layout_marginTop="100dp"-->
-<!--        android:background="@color/light_grey"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"/>-->
-
-<!--    <View-->
-<!--        android:id="@+id/viewSingle2"-->
-<!--        android:layout_width="1dp"-->
-<!--        android:layout_height="650dp"-->
-<!--        android:background="@color/light_grey"-->
-<!--        app:layout_constraintTop_toTopOf="@id/viewSingle"-->
-<!--        app:layout_constraintStart_toEndOf="@id/viewSingle"/>-->
-
-
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:id="@+id/textView1"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="200dp"-->
-<!--        android:layout_marginEnd="10dp"-->
-<!--        android:background="@drawable/bookmark_shape"-->
-<!--        app:layout_constraintTop_toTopOf="@id/viewSingle"-->
-<!--        app:layout_constraintStart_toEndOf="@id/viewSingle"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        android:visibility="visible">-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/text1"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Yours"-->
-<!--        android:rotation="90"-->
-<!--        android:textSize="18dp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:fontFamily="@font/alegreya_sans_sc_medium"-->
-<!--        android:textColor="@color/navy_blue"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"/>-->
-
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-
-
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:id="@+id/textView2"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="200dp"-->
-<!--        android:layout_marginEnd="10dp"-->
-<!--        android:background="@drawable/bookmark_shape2"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/textView1"-->
-<!--        app:layout_constraintStart_toEndOf="@id/viewSingle"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        android:visibility="visible">-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/text2"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Group"-->
-<!--            android:textSize="18dp"-->
-<!--            android:fontFamily="@font/alegreya_sans_sc_medium"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:rotation="90"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"/>-->
-
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
