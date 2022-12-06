@@ -1,11 +1,13 @@
 package com.cleo.myha.chatroom
 
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cleo.myha.data.*
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -27,6 +29,9 @@ class ChatRoomViewModel : ViewModel() {
     private var _sender = MutableLiveData<List<UserType>>()
     val sender: LiveData<List<UserType>>
         get() = _sender
+
+    var textInput = ""
+
 
     val auth = FirebaseAuth.getInstance()
     val user = auth.currentUser
@@ -52,7 +57,7 @@ class ChatRoomViewModel : ViewModel() {
                     val userLists = mutableListOf<User>()
 
                     for (email in uList) {
-                        Log.d("CIV", "$email")
+
                         db.collection("users").document(email)
                             .get()
                             .addOnSuccessListener {
@@ -60,18 +65,19 @@ class ChatRoomViewModel : ViewModel() {
 
                                 Log.d("CIV", "get $userLists")
 
-                                uAllData?.let {
-                                    userLists.add(it)
+                                uAllData?.let { User ->
+                                    userLists.add(User)
+
                                     Log.d("CIV", "oh $userLists")
                                 }
 
                                 _userInfo.value = userLists
 
-                            }.addOnFailureListener {
+                            }.addOnFailureListener{
+
 
                             }
                     }
-
                 }
                 .addOnFailureListener {
                     Log.d("Cleooo", "get fail")
@@ -113,9 +119,47 @@ class ChatRoomViewModel : ViewModel() {
     }
 
 
+    fun addComment() {
+
+        val senderId = auth.currentUser?.let {
+            it.email
+        }
+
+        val data = MessagesInfo(
+            senderEmail = senderId.toString(),
+            senderName = auth.currentUser?.let {
+                it.displayName
+            }!!,
+            senderImage = auth.currentUser?.photoUrl.toString(),
+            message = textInput,
+            textTime =  Timestamp.now()
+        )
+
+        Log.d("C", "comment ${senderId}")
+
+        db.collection("habits")
+            .document(habit.id)
+            .collection("messages")
+            .add(data)
+            .addOnSuccessListener {
+
+
+                Log.d("Cleo", "Get Comment Success!!")
+            }
+            .addOnFailureListener { e ->
+                Log.d("Cleo", "add fail")
+            }
+    }
+
+
     fun setHabits(newHabit: Habits) {
         habit = newHabit
         getReceivedMessage()
         getUserData()
+    }
+
+    fun sendTextInput(content: String){
+        textInput = content
+        addComment()
     }
 }

@@ -1,23 +1,15 @@
 package com.cleo.myha.discover
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cleo.myha.R
-import com.cleo.myha.comment.blocklist.BlockDialogArgs
 import com.cleo.myha.data.Posts
 import com.cleo.myha.databinding.ItemProfilePostBinding
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.ktx.storage
-import kotlinx.coroutines.withContext
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class DiscoverAdapter(val onClickListener: OnClickListener): ListAdapter<Posts, DiscoverAdapter.DiscoverViewHolder>(DiscoverDiffCallBack()) {
@@ -38,7 +30,6 @@ class DiscoverAdapter(val onClickListener: OnClickListener): ListAdapter<Posts, 
                         .error(R.drawable.man)
                         .into(binding.imageView3)
                 }
-
             }
 
 

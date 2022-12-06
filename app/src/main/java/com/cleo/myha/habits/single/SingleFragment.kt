@@ -58,9 +58,9 @@ class SingleFragment: Fragment() {
         itemTouchHelper.attachToRecyclerView(binding.singleRecycler)
 
 
-        viewModel.yourHabits.observe(viewLifecycleOwner, Observer {
+        viewModel.yourHabits.observe(viewLifecycleOwner) {
             adapter.submitList(it)
-        })
+        }
 
         binding.root.setOnClickListener {
             findNavController().navigate(NavGraphDirections.actionGlobalHabitDetailFragment())

@@ -38,29 +38,6 @@ class SingleAdapter() : ListAdapter<Habits, SingleAdapter.SingleViewHolder>(Sing
                 }
             )
 
-//            binding.layoutTask.foreground = ResourcesCompat.getDrawable(itemView.resources,R.drawable.ic_reading, null)
-
-//            val radius = 50.0f
-//            binding.imageView.shapeAppearanceModel = binding.imageView.shapeAppearanceModel
-//                .toBuilder()
-//                .setTopRightCorner(CornerFamily.ROUNDED, radius)
-//                .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
-//                .setTopLeftCorner(CornerFamily.ROUNDED,radius)
-//                .setBottomRightCorner(CornerFamily.ROUNDED,radius)
-//                .build()
-
-//            binding.imageView.setImageResource(
-//                when (data.category) {
-//                    "health" -> R.drawable.lion
-//                    "workout" -> R.drawable.icon_workout
-//                    "reading" -> R.drawable.icon_reading
-//                    "learning" -> R.drawable.icon_learning
-//                    "general" -> R.drawable.icon_smilingface
-//                    else -> {
-//                        R.drawable.icon_heart
-//                    }
-//                }
-//            )
 
         }
     }

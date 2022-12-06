@@ -1,11 +1,9 @@
 package com.cleo.myha.discover
 
-import android.opengl.ETC1.getHeight
-import android.opengl.ETC1.getWidth
+
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.cleo.myha.data.Category
 

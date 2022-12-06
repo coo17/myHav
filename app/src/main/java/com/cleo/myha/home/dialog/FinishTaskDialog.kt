@@ -14,7 +14,7 @@ import com.cleo.myha.databinding.DialogFinishTaskBinding
 
 class FinishTaskDialog : AppCompatDialogFragment() {
 
-    private lateinit var binding : DialogFinishTaskBinding
+    private lateinit var binding: DialogFinishTaskBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,14 +37,4 @@ class FinishTaskDialog : AppCompatDialogFragment() {
         return binding.root
     }
 
-//    fun setupAnimation(){
-//        val animation = findViewById<LottieAnimationView>(R.id.progressBar)
-//        animation.speed = 2.0F // How fast does the animation play
-//        animation.progress = 50F // Starts the animation from 50% of the beginning
-//        animation.addAnimatorUpdateListener {
-//// Called every time the frame of the animation changes
-//        }
-//        animation.repeatMode = LottieDrawable.RESTART // Restarts the animation (you can choose to reverse it as well)
-//        animation.cancelAnimation() // Cancels the animation
-//    }
 }

@@ -34,9 +34,6 @@ class GroupViewModel : ViewModel() {
                 .addOnSuccessListener { documents ->
                     val list = documents.toObjects(Habits::class.java)
 
-                    Log.d("VIC","${documents.size()}")
-
-
                     val habits = list.filter {
                         var today = Date().time
 

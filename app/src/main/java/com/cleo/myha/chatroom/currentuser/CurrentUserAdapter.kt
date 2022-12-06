@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cleo.myha.R
-import com.cleo.myha.data.MessagesInfo
 import com.cleo.myha.data.User
 import com.cleo.myha.databinding.ItemCurrentUserBinding
 import com.google.android.material.shape.CornerFamily

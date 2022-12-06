@@ -32,10 +32,6 @@ const val REQUEST_CODE_SIGN_IN = 0
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var auth: FirebaseAuth
-    private var db = FirebaseFirestore.getInstance()
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)

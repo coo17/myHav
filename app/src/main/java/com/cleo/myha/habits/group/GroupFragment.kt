@@ -23,7 +23,6 @@ class GroupFragment: Fragment(){
     ): View? {
         val binding = FragmentGroupBinding.inflate(inflater, container, false)
         val viewModel = ViewModelProvider(this)[GroupViewModel::class.java]
-//        val adapter = GroupAdapter()
 
         val adapter = GroupAdapter(onClickListener = GroupAdapter.OnClickListener { Habits ->
             this.findNavController()
@@ -31,7 +30,6 @@ class GroupFragment: Fragment(){
         },viewModel)
 
         binding.groupRecycler.adapter = adapter
-
 
 
         viewModel.groupHabits.observe(viewLifecycleOwner, Observer {

@@ -39,15 +39,12 @@ class LoginFragment : Fragment() {
     ): View? {
         val binding = FragmentLoginBinding.inflate(inflater, container, false)
 
-
         auth = FirebaseAuth.getInstance()
-        var user = auth.currentUser
-
+        val user = auth.currentUser
 
         if(user != null){
             findNavController().navigate(NavGraphDirections.actionGlobalHomeFragment())
         }
-
 
         binding.btnSignIn.setOnClickListener {
 
@@ -64,9 +61,9 @@ class LoginFragment : Fragment() {
 
         }
 
-
         return binding.root
     }
+
     private fun googleAuthForFirebase(account: GoogleSignInAccount) {
         val credentials = GoogleAuthProvider.getCredential(account.idToken, null)
         CoroutineScope(Dispatchers.IO).launch {
@@ -82,7 +79,6 @@ class LoginFragment : Fragment() {
                 }
             }
         }
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -102,12 +98,9 @@ class LoginFragment : Fragment() {
 
                     }
 
-
                 findNavController().navigate(NavGraphDirections.actionGlobalHomeFragment())
 
-
             }
-
         }
     }
 }

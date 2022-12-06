@@ -2,10 +2,8 @@ package com.cleo.myha.home
 
 
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -24,18 +22,13 @@ class HomeAdapter(val onClickListener: HomeListener, val viewModel: HomeViewMode
 
             val time = data.reminder
             Calendar.getInstance().timeInMillis = time
+//            val timer = data.timer
 
             binding.textTask.text = data.task
             binding.textTaskReminder.text = toFormat(time)
             binding.textTaskTimer.text = "${data.timer} minutes"
 
-
-//            binding.checkBox.setOnClickListener {
-//                viewModel.sendCompletedTask(data)
-//            }
-
             binding.checkBox.isChecked = viewModel.completedList.get(data.id)  ?: false
-
             binding.checkBox.setOnClickListener {
                 onClickListener.onClick(binding.checkBox.isChecked)
                viewModel.sendCompletedTask(data, true)
@@ -55,22 +48,9 @@ class HomeAdapter(val onClickListener: HomeListener, val viewModel: HomeViewMode
                     }
                 }
             )
-//
-//            binding.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
-//
-//                if(isChecked == true){
-//                    onClickListener.onClick(true)
-//                    viewModel.sendCompletedTask(data, true)
-//                    buttonView.isClickable = false
-//
-//                }else{
-//                    buttonView.isClickable = true
-//                    onClickListener.onClick(false)
-//                }
-//            }
         }
 
-        fun toFormat(millis: Long): String? {
+        private fun toFormat(millis: Long): String {
             val hours = millis/(1000*60*60)
             val minutes = millis/(1000*60) - (hours*60)
             val newHour = if (hours == -1L){
@@ -103,7 +83,6 @@ class HomeAdapter(val onClickListener: HomeListener, val viewModel: HomeViewMode
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val todayTaskData = getItem(position)
         holder.bind(todayTaskData)
-
     }
 
     class HomeListener(val checkListener:(checkbox: Boolean) -> Unit){

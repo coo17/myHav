@@ -15,43 +15,26 @@ import com.cleo.myha.databinding.FragmentDiscoverItemBinding
 
 class DiscoverItemFragment : Fragment() {
 
-
-    companion object {
-
-        fun newInstance(category: Category): DiscoverItemFragment {
-            val fragment = DiscoverItemFragment()
-            val args = Bundle()
-            args.putString("post", category.type)
-            fragment.arguments = args
-            return fragment
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentDiscoverItemBinding.inflate(inflater, container, false)
+        val viewModel = ViewModelProvider(this)[DiscoverViewModel::class.java]
 
         binding.discoverPostRecycler.apply{
             layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
         }
 
-        val viewModel = ViewModelProvider(this)[DiscoverViewModel::class.java]
         val adapter = DiscoverAdapter(onClickListener = DiscoverAdapter.OnClickListener { Posts ->
             this.findNavController()
                 .navigate(DiscoverItemFragmentDirections.actionGlobalCommentFragment(Posts))
         })
 
-
         binding.discoverPostRecycler.adapter = adapter
 
-
-
         val type = requireArguments().getString("post")
-
-
         if (type != null) {
             viewModel.setPost(type)
         }
@@ -62,5 +45,16 @@ class DiscoverItemFragment : Fragment() {
         })
 
         return binding.root
+    }
+
+    companion object {
+
+        fun newInstance(category: Category): DiscoverItemFragment {
+            val fragment = DiscoverItemFragment()
+            val args = Bundle()
+            args.putString("post", category.type)
+            fragment.arguments = args
+            return fragment
+        }
     }
 }

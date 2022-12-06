@@ -3,9 +3,7 @@ package com.cleo.myha
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.view.ContentInfoCompat.Flags
 import com.cleo.myha.databinding.ActivityLoginBinding
-import com.cleo.myha.databinding.ActivityMainBinding
 
 class LoginActivity : AppCompatActivity() {
 
@@ -20,7 +18,6 @@ class LoginActivity : AppCompatActivity() {
 //                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
 //                startActivity(i)
 //                finish()
-
             }
         }
 
