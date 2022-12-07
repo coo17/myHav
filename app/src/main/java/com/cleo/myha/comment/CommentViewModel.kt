@@ -1,18 +1,13 @@
 package com.cleo.myha.comment
 
-import android.annotation.SuppressLint
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cleo.myha.data.CommentsInfo
-import com.cleo.myha.data.Habits
 import com.cleo.myha.data.Posts
 import com.cleo.myha.data.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
-import java.text.SimpleDateFormat
 import java.util.*
 
 class CommentViewModel : ViewModel() {
@@ -27,15 +22,14 @@ class CommentViewModel : ViewModel() {
 
     private var _blockUserList = MutableLiveData<List<String>>()
     val blockUserList: LiveData<List<String>>
-    get() = _blockUserList
+        get() = _blockUserList
 
     val auth = FirebaseAuth.getInstance()
     val user = auth.currentUser
 
     init {
         getBlockList()
-}
-
+    }
 
     fun getComments(blockLists: List<String>) {
 
@@ -45,17 +39,16 @@ class CommentViewModel : ViewModel() {
         articles.document(postId).collection("messages")
             .addSnapshotListener { value, error ->
                 value?.let {
-                val list = it.toObjects(CommentsInfo::class.java)
+                    val list = it.toObjects(CommentsInfo::class.java)
 
-                _userComments.value = list.filter {
-                    !blockLists.contains(it.senderId)
+                    _userComments.value = list.filter {
+                        !blockLists.contains(it.senderId)
+                    }
                 }
-                }
-
-        }
+            }
     }
 
-    fun getBlockList(){
+    fun getBlockList() {
 
         val email = user?.email.toString()
 
@@ -69,7 +62,6 @@ class CommentViewModel : ViewModel() {
                 }
             }
             .addOnFailureListener {
-
             }
     }
 

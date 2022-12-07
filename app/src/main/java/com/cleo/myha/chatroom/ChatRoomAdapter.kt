@@ -13,17 +13,13 @@ import com.cleo.myha.databinding.ItemSentMessageBinding
 import com.google.android.material.shape.CornerFamily
 import convertToTime
 
-
 private const val ITEM_SENT_MESSAGE = 0X00
 private const val ITEM_RECEIVED_MESSAGE = 0X01
 
-
 class ChatRoomAdapter : ListAdapter<UserType, RecyclerView.ViewHolder>(DiffCallBack()) {
-
 
     class SentMessageViewHolder(private var binding: ItemSentMessageBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
 
         fun bind(data: UserType.Sender) {
 
@@ -35,7 +31,6 @@ class ChatRoomAdapter : ListAdapter<UserType, RecyclerView.ViewHolder>(DiffCallB
             if (createdTime != null) {
                 binding.textDateTime.text = createdTime.convertToTime()
             }
-
         }
     }
 
@@ -56,7 +51,7 @@ class ChatRoomAdapter : ListAdapter<UserType, RecyclerView.ViewHolder>(DiffCallB
                 .placeholder(R.drawable.man)
                 .into(binding.imageProfile)
 
-            //set rounded image
+            // set rounded image
             val radius = 40.0f
             binding.imageProfile.shapeAppearanceModel = binding.imageProfile.shapeAppearanceModel
                 .toBuilder()
@@ -65,11 +60,8 @@ class ChatRoomAdapter : ListAdapter<UserType, RecyclerView.ViewHolder>(DiffCallB
                 .setTopLeftCorner(CornerFamily.ROUNDED, radius)
                 .setBottomRightCorner(CornerFamily.ROUNDED, radius)
                 .build()
-
         }
-
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -77,7 +69,8 @@ class ChatRoomAdapter : ListAdapter<UserType, RecyclerView.ViewHolder>(DiffCallB
                 ItemSentMessageBinding.inflate(
                     LayoutInflater.from(
                         parent.context
-                    ), parent, false
+                    ),
+                    parent, false
                 )
             )
             ITEM_RECEIVED_MESSAGE -> ReceivedMessageViewHolder(
@@ -89,7 +82,6 @@ class ChatRoomAdapter : ListAdapter<UserType, RecyclerView.ViewHolder>(DiffCallB
             )
             else -> throw ClassCastException("Unknown viewType $viewType")
         }
-
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -113,7 +105,6 @@ class ChatRoomAdapter : ListAdapter<UserType, RecyclerView.ViewHolder>(DiffCallB
         }
     }
 
-
     class DiffCallBack : DiffUtil.ItemCallback<UserType>() {
         override fun areItemsTheSame(oldItem: UserType, newItem: UserType): Boolean {
             return oldItem === newItem
@@ -123,5 +114,4 @@ class ChatRoomAdapter : ListAdapter<UserType, RecyclerView.ViewHolder>(DiffCallB
             return oldItem == newItem
         }
     }
-
 }

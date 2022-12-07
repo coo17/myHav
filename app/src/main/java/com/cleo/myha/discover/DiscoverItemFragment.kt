@@ -23,14 +23,16 @@ class DiscoverItemFragment : Fragment() {
         val binding = FragmentDiscoverItemBinding.inflate(inflater, container, false)
         val viewModel = ViewModelProvider(this)[DiscoverViewModel::class.java]
 
-        binding.discoverPostRecycler.apply{
+        binding.discoverPostRecycler.apply {
             layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
         }
 
-        val adapter = DiscoverAdapter(onClickListener = DiscoverAdapter.OnClickListener { Posts ->
-            this.findNavController()
-                .navigate(DiscoverItemFragmentDirections.actionGlobalCommentFragment(Posts))
-        })
+        val adapter = DiscoverAdapter(
+            onClickListener = DiscoverAdapter.OnClickListener { Posts ->
+                this.findNavController()
+                    .navigate(DiscoverItemFragmentDirections.actionGlobalCommentFragment(Posts))
+            }
+        )
 
         binding.discoverPostRecycler.adapter = adapter
 
@@ -39,10 +41,12 @@ class DiscoverItemFragment : Fragment() {
             viewModel.setPost(type)
         }
 
-
-        viewModel.allPost.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
+        viewModel.allPost.observe(
+            viewLifecycleOwner,
+            Observer {
+                adapter.submitList(it)
+            }
+        )
 
         return binding.root
     }

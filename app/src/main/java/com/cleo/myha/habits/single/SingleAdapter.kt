@@ -10,15 +10,12 @@ import com.cleo.myha.data.Habits
 import com.cleo.myha.databinding.ItemSingleTaskBinding
 import convertDurationToDate
 
-
 class SingleAdapter() : ListAdapter<Habits, SingleAdapter.SingleViewHolder>(SingleDiffCallBack()) {
 
     class SingleViewHolder(private var binding: ItemSingleTaskBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: Habits) {
-
-
 
             binding.userTaskCategory.text = data.category
             binding.userTaskTitle.text = data.task
@@ -37,8 +34,6 @@ class SingleAdapter() : ListAdapter<Habits, SingleAdapter.SingleViewHolder>(Sing
                     }
                 }
             )
-
-
         }
     }
 
@@ -50,15 +45,14 @@ class SingleAdapter() : ListAdapter<Habits, SingleAdapter.SingleViewHolder>(Sing
         override fun areContentsTheSame(oldItem: Habits, newItem: Habits): Boolean {
             return oldItem == newItem
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
-       return SingleViewHolder(
-                    ItemSingleTaskBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
+        return SingleViewHolder(
+            ItemSingleTaskBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
             )
         )
     }

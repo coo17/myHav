@@ -1,11 +1,9 @@
 package com.cleo.myha.comment.blocklist
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cleo.myha.data.User
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
 class BlockViewModel : ViewModel() {
@@ -18,15 +16,10 @@ class BlockViewModel : ViewModel() {
     val allUser: LiveData<List<User>>
         get() = _allUser
 
-
     init {
         addNewBlockUser()
     }
 
-
     private fun addNewBlockUser() {
-
-
-
     }
 }

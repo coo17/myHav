@@ -1,11 +1,9 @@
 package com.cleo.myha.discover.dialog
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cleo.myha.data.Habits
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
 class TaskViewModel : ViewModel() {
@@ -17,9 +15,7 @@ class TaskViewModel : ViewModel() {
     val joinCardToMine: LiveData<List<Habits>>
         get() = _joinCardToMine
 
-
     init {
-
     }
 
 //    fun addCard() {

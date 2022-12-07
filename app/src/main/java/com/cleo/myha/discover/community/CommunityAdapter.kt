@@ -9,10 +9,8 @@ import com.cleo.myha.R
 import com.cleo.myha.data.Habits
 import com.cleo.myha.databinding.ItemDiscoverBinding
 
-
 class CommunityAdapter(val onClickListener: OnClickListener, val viewModel: CommunityViewModel) :
     ListAdapter<Habits, CommunityAdapter.GroupViewHolder>(GroupDiffCallBack()) {
-
 
     inner class GroupViewHolder(private var binding: ItemDiscoverBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -49,7 +47,6 @@ class CommunityAdapter(val onClickListener: OnClickListener, val viewModel: Comm
             binding.imageView4.setOnClickListener {
                 onClickListener.onClick(data)
             }
-
         }
     }
 
@@ -61,7 +58,6 @@ class CommunityAdapter(val onClickListener: OnClickListener, val viewModel: Comm
         override fun areContentsTheSame(oldItem: Habits, newItem: Habits): Boolean {
             return oldItem == newItem
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
@@ -69,7 +65,8 @@ class CommunityAdapter(val onClickListener: OnClickListener, val viewModel: Comm
             ItemDiscoverBinding.inflate(
                 LayoutInflater.from(
                     parent.context
-                ), parent, false
+                ),
+                parent, false
             )
         )
     }

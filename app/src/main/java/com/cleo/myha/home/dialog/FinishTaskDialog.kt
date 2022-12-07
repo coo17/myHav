@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDialogFragment
-import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.cleo.myha.NavGraphDirections
 import com.cleo.myha.databinding.DialogFinishTaskBinding
@@ -24,7 +23,6 @@ class FinishTaskDialog : AppCompatDialogFragment() {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         binding = DialogFinishTaskBinding.inflate(inflater, container, false)
 
-
         binding.postBtn.setOnClickListener {
             findNavController().navigate(NavGraphDirections.actionGlobalPublishFragment())
         }
@@ -33,8 +31,6 @@ class FinishTaskDialog : AppCompatDialogFragment() {
             findNavController().navigateUp()
         }
 
-
         return binding.root
     }
-
 }

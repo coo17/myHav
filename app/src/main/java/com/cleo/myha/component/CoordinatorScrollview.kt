@@ -1,12 +1,6 @@
 package com.cleo.myha.component
 
-import android.content.Context
-import android.util.AttributeSet
-import android.view.View
-import androidx.core.view.NestedScrollingParent2
-import androidx.core.widget.NestedScrollView
-
-//class CoordinatorScrollview : NestedScrollView, NestedScrollingParent2 {
+// class CoordinatorScrollview : NestedScrollView, NestedScrollingParent2 {
 //    private var maxScrollY = 0
 //
 //    constructor(context: Context?) : super(context!!)
@@ -58,4 +52,4 @@ import androidx.core.widget.NestedScrollView
 //            consumed[1] = dy
 //        }
 //    }
-//}
+// }

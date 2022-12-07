@@ -8,7 +8,6 @@ import com.cleo.myha.data.Category
 import com.cleo.myha.data.Posts
 import com.google.firebase.firestore.FirebaseFirestore
 
-
 class DiscoverViewModel : ViewModel() {
 
     private var db = FirebaseFirestore.getInstance()
@@ -22,7 +21,6 @@ class DiscoverViewModel : ViewModel() {
     fun setPost(filterPost: String) {
         category = filterPost
     }
-
 
     init {
         addPost()

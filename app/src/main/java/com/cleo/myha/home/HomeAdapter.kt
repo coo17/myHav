@@ -1,7 +1,5 @@
 package com.cleo.myha.home
 
-
-
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -12,13 +10,11 @@ import com.cleo.myha.data.Habits
 import com.cleo.myha.databinding.ItemTodayTasksBinding
 import java.util.*
 
+class HomeAdapter(val onClickListener: HomeListener, val viewModel: HomeViewModel) : ListAdapter<Habits, HomeAdapter.TaskViewHolder>(HomeDiffCallBack()) {
 
-class HomeAdapter(val onClickListener: HomeListener, val viewModel: HomeViewModel): ListAdapter<Habits, HomeAdapter.TaskViewHolder>(HomeDiffCallBack()) {
+    inner class TaskViewHolder(private var binding: ItemTodayTasksBinding) : RecyclerView.ViewHolder(binding.root) {
 
-
-    inner class TaskViewHolder(private var binding:ItemTodayTasksBinding): RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(data: Habits){
+        fun bind(data: Habits) {
 
             val time = data.reminder
             Calendar.getInstance().timeInMillis = time
@@ -28,12 +24,11 @@ class HomeAdapter(val onClickListener: HomeListener, val viewModel: HomeViewMode
             binding.textTaskReminder.text = toFormat(time)
             binding.textTaskTimer.text = "${data.timer} minutes"
 
-            binding.checkBox.isChecked = viewModel.completedList.get(data.id)  ?: false
+            binding.checkBox.isChecked = viewModel.completedList.get(data.id) ?: false
             binding.checkBox.setOnClickListener {
                 onClickListener.onClick(binding.checkBox.isChecked)
-               viewModel.sendCompletedTask(data, true)
+                viewModel.sendCompletedTask(data, true)
                 itemView.isClickable = false
-
             }
 
             binding.dailyLayout.setBackgroundResource(
@@ -51,21 +46,20 @@ class HomeAdapter(val onClickListener: HomeListener, val viewModel: HomeViewMode
         }
 
         private fun toFormat(millis: Long): String {
-            val hours = millis/(1000*60*60)
-            val minutes = millis/(1000*60) - (hours*60)
-            val newHour = if (hours == -1L){
+            val hours = millis / (1000 * 60 * 60)
+            val minutes = millis / (1000 * 60) - (hours * 60)
+            val newHour = if (hours == -1L) {
                 "00"
-            }else hours
+            } else hours
 
-            val newMinutes = if (minutes == -1L || minutes == 0L ){
+            val newMinutes = if (minutes == -1L || minutes == 0L) {
                 "00"
-            }else minutes
-            return "${newHour}:${newMinutes}"
+            } else minutes
+            return "$newHour:$newMinutes"
         }
-
     }
 
-    class HomeDiffCallBack: DiffUtil.ItemCallback<Habits>() {
+    class HomeDiffCallBack : DiffUtil.ItemCallback<Habits>() {
         override fun areItemsTheSame(oldItem: Habits, newItem: Habits): Boolean {
             return oldItem == newItem
         }
@@ -73,11 +67,10 @@ class HomeAdapter(val onClickListener: HomeListener, val viewModel: HomeViewMode
         override fun areContentsTheSame(oldItem: Habits, newItem: Habits): Boolean {
             return oldItem == newItem
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        return TaskViewHolder(ItemTodayTasksBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return TaskViewHolder(ItemTodayTasksBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
@@ -85,8 +78,7 @@ class HomeAdapter(val onClickListener: HomeListener, val viewModel: HomeViewMode
         holder.bind(todayTaskData)
     }
 
-    class HomeListener(val checkListener:(checkbox: Boolean) -> Unit){
+    class HomeListener(val checkListener: (checkbox: Boolean) -> Unit) {
         fun onClick(check: Boolean) = checkListener(check)
     }
 }
-

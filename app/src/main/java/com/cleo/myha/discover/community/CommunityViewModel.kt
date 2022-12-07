@@ -36,11 +36,9 @@ class CommunityViewModel : ViewModel() {
                     it.mode == 1
                 }
                 _groupTasks.value = joinHabits
-
             }
             .addOnFailureListener {
                 Log.d("Cleooo", "get fail")
             }
     }
-
 }

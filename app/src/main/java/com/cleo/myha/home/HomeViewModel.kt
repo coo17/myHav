@@ -12,7 +12,6 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDate
-import java.time.YearMonth
 import java.time.ZoneId
 import java.util.*
 
@@ -65,7 +64,7 @@ class HomeViewModel : ViewModel() {
                         (it["isDone"] as Boolean?)?.let {
                             completedList.put(habitId, it)
                             _doneList.value = completedList
-                            Log.d("VIC", "isDone: ${completedList}")
+                            Log.d("VIC", "isDone: $completedList")
                             Log.d("VICC", "isDone: $it")
                         }
                         Log.d("Cleoo", "isDone: ${it["isDone"]}")
@@ -78,7 +77,6 @@ class HomeViewModel : ViewModel() {
 
     private fun getTodayTasks() {
 
-
         db.collection("habits")
             .whereEqualTo("ownerId", userEmail)
             .get()
@@ -88,7 +86,7 @@ class HomeViewModel : ViewModel() {
                 Log.d("Cleoo", "${result.size()}")
 
                 for (i in result) {
-                    Log.d("Cleoo", "id=${i.get("id").toString()}")
+                    Log.d("Cleoo", "id=${i.get("id")}")
 
                     val members = i.get("members") as List<String>
                     val repeatedDays = i.get("repeatedDays") as List<Boolean>
@@ -150,9 +148,8 @@ class HomeViewModel : ViewModel() {
         val today = Date()
         val calendar = Calendar.getInstance()
 
-
         calendar.add(Calendar.YEAR, 1) // 2023-12-3
-        calendar[Calendar.DAY_OF_YEAR] = 1  // 2023-1-1
+        calendar[Calendar.DAY_OF_YEAR] = 1 // 2023-1-1
         calendar.add(Calendar.DATE, -1) // 2022-12-31
 
         val lastDayOfMonth = calendar.time
@@ -161,7 +158,6 @@ class HomeViewModel : ViewModel() {
         Log.d("JOMALONE", "Today is ${sdf.format(today)}")
         Log.d("JOMALONE", "First Day of Month ${firstDayOfMonth.time.time.convertDurationToDate()}")
         Log.d("JOMALONE", "Last Day of Month ${sdf.format(lastDayOfMonth)}")
-
 
         val totalCal = Calendar.getInstance()
         totalCal.time = firstDayOfMonth.time
@@ -183,18 +179,15 @@ class HomeViewModel : ViewModel() {
             if (toDoList.isNotEmpty()) {
 
                 monthList.put(totalCal.timeInMillis, true)
-
             } else {
                 monthList.put(totalCal.timeInMillis, false)
             }
 
             totalCal.add(Calendar.DATE, 1)
-
         }
 
         _monthOfList.value = monthList
     }
-
 
     fun convertLongToTime(time: Long): String {
         val date = Date(time)
@@ -221,7 +214,7 @@ class HomeViewModel : ViewModel() {
             .document(date)
             .set(dailyTask)
             .addOnSuccessListener {
-                Log.d("Cleooo", "Success! ${nowTime}")
+                Log.d("Cleooo", "Success! $nowTime")
             }
             .addOnFailureListener {
                 Log.d("Cleooo", "oh, it's fail")
@@ -241,8 +234,4 @@ class HomeViewModel : ViewModel() {
         selectedDate = dateClicked.toInstant().toEpochMilli()
         getTodayTasks()
     }
-
 }
-
-
-

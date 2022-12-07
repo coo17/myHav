@@ -10,11 +10,11 @@ import com.cleo.myha.data.Habits
 import com.cleo.myha.databinding.ItemGroupTaskBinding
 import convertDurationToDate
 
-class GroupAdapter(val onClickListener: OnClickListener, val viewModel: GroupViewModel): ListAdapter<Habits, GroupAdapter.GroupViewHolder>(GroupDiffCallBack()) {
+class GroupAdapter(val onClickListener: OnClickListener, val viewModel: GroupViewModel) : ListAdapter<Habits, GroupAdapter.GroupViewHolder>(GroupDiffCallBack()) {
 
-    inner class GroupViewHolder(private var binding: ItemGroupTaskBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class GroupViewHolder(private var binding: ItemGroupTaskBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(data: Habits){
+        fun bind(data: Habits) {
 
             binding.groupTaskTitle.text = data.task
             binding.groupTaskCategory.text = data.category
@@ -41,7 +41,7 @@ class GroupAdapter(val onClickListener: OnClickListener, val viewModel: GroupVie
         }
     }
 
-    class GroupDiffCallBack: DiffUtil.ItemCallback<Habits>() {
+    class GroupDiffCallBack : DiffUtil.ItemCallback<Habits>() {
         override fun areItemsTheSame(oldItem: Habits, newItem: Habits): Boolean {
             return oldItem == newItem
         }
@@ -49,11 +49,10 @@ class GroupAdapter(val onClickListener: OnClickListener, val viewModel: GroupVie
         override fun areContentsTheSame(oldItem: Habits, newItem: Habits): Boolean {
             return oldItem == newItem
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
-        return GroupViewHolder(ItemGroupTaskBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return GroupViewHolder(ItemGroupTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {

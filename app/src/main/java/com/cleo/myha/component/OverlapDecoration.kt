@@ -20,9 +20,8 @@ class OverlapDecoration : RecyclerView.ItemDecoration() {
         }
     }
 
-
     companion object {
-        //Following code from : http://stackoverflow.com/questions/27633454/how-to-overlap-items-in-linearlayoutmanager-recyclerview-like-stacking-cards
+        // Following code from : http://stackoverflow.com/questions/27633454/how-to-overlap-items-in-linearlayoutmanager-recyclerview-like-stacking-cards
         private const val overlap = -100
     }
 }

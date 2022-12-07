@@ -6,20 +6,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cleo.myha.data.HabitTracker
-import com.cleo.myha.data.Habits
-import com.cleo.myha.databinding.ItemDiscoverBinding
 import com.cleo.myha.databinding.ItemTrackerCategoryBinding
 
-class ProfileProgressAdapter: ListAdapter<HabitTracker, ProfileProgressAdapter.ProgressViewHolder>(ProgressDiffCallBack()) {
+class ProfileProgressAdapter : ListAdapter<HabitTracker, ProfileProgressAdapter.ProgressViewHolder>(ProgressDiffCallBack()) {
 
-    inner class ProgressViewHolder(private var binding: ItemTrackerCategoryBinding): RecyclerView.ViewHolder(binding.root){
+    inner class ProgressViewHolder(private var binding: ItemTrackerCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: HabitTracker) {
             val habitSize = data.totalSize
             binding.category.text = data.category
-            binding.totalHabitCreated.text = "${habitSize} habits created"
-
-
+            binding.totalHabitCreated.text = "$habitSize habits created"
         }
     }
 
@@ -27,7 +23,7 @@ class ProfileProgressAdapter: ListAdapter<HabitTracker, ProfileProgressAdapter.P
         return ProgressViewHolder(
             ItemTrackerCategoryBinding.inflate(
                 LayoutInflater.from(parent.context),
-                parent,false
+                parent, false
             )
         )
     }
@@ -37,7 +33,7 @@ class ProfileProgressAdapter: ListAdapter<HabitTracker, ProfileProgressAdapter.P
         holder.bind(category)
     }
 
-    class ProgressDiffCallBack: DiffUtil.ItemCallback<HabitTracker>() {
+    class ProgressDiffCallBack : DiffUtil.ItemCallback<HabitTracker>() {
         override fun areItemsTheSame(oldItem: HabitTracker, newItem: HabitTracker): Boolean {
             return oldItem == newItem
         }
@@ -45,6 +41,5 @@ class ProfileProgressAdapter: ListAdapter<HabitTracker, ProfileProgressAdapter.P
         override fun areContentsTheSame(oldItem: HabitTracker, newItem: HabitTracker): Boolean {
             return oldItem == newItem
         }
-
     }
 }

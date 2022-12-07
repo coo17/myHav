@@ -24,7 +24,6 @@ import com.google.firebase.storage.ktx.storage
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class PublishFragment : Fragment() {
 
     companion object {
@@ -39,11 +38,12 @@ class PublishFragment : Fragment() {
     private var selectedImg: Uri? = null
     private var selectedBitMap: Bitmap? = null
     private val storage = Firebase.storage.reference
-    private lateinit var photoFileName : String
-    private lateinit var viewModel : PublishViewModel
+    private lateinit var photoFileName: String
+    private lateinit var viewModel: PublishViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentPublishBinding.inflate(inflater, container, false)
@@ -51,7 +51,6 @@ class PublishFragment : Fragment() {
         viewModel = ViewModelProvider(this)[PublishViewModel::class.java]
 
         firebaseStorage = FirebaseStorage.getInstance()
-
 
         binding.btnPublish.setOnClickListener {
             val tag = when (binding.chipGroup.checkedChipId) {
@@ -86,30 +85,27 @@ class PublishFragment : Fragment() {
             )
             uploadData(fileName)
             findNavController().navigateUp()
-
         }
 
-        //開啟相簿
+        // 開啟相簿
         binding.btnSelected.setOnClickListener {
-                val gallery =
-                    Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-                startActivityForResult(gallery, PICTUREFROMGALLERY)
+            val gallery =
+                Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+            startActivityForResult(gallery, PICTUREFROMGALLERY)
             selectImage()
-
         }
 
-        viewModel.photo.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        viewModel.photo.observe(
+            viewLifecycleOwner,
+            androidx.lifecycle.Observer {
 
-            binding.imageUpload.setImageURI(selectedImg)
-        })
-
+                binding.imageUpload.setImageURI(selectedImg)
+            }
+        )
 
 //        val localFile = File.createTempFile("tempImage", "jpg")
 //
 //        val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-
-
-
 
         return binding.root
     }
@@ -120,22 +116,18 @@ class PublishFragment : Fragment() {
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(intent, 1)
-
-
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == 1 && resultCode == Activity.RESULT_OK){
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
 
             selectedImg = data?.data!!
 
-         viewModel.displayPhoto(selectedImg!!)
-
+            viewModel.displayPhoto(selectedImg!!)
         }
     }
-
 
     fun uploadData(fileName: String) {
 
@@ -165,18 +157,18 @@ class PublishFragment : Fragment() {
         }
     }
 
-
-    //詢問user權限
+    // 詢問user權限
     fun permissionPhoto() {
         ActivityCompat.requestPermissions(
-            requireActivity(), arrayOf(
+            requireActivity(),
+            arrayOf(
 //                android.Manifest.permission.CAMERA,
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 android.Manifest.permission.READ_EXTERNAL_STORAGE
-            ), 0
+            ),
+            0
         )
     }
-
 
     fun convertLongToTime(time: Long): String {
         val date = Date(time)
@@ -190,7 +182,6 @@ class PublishFragment : Fragment() {
         val authorEmail = auth.currentUser?.let {
             it.email
         }
-
 
         val createdTime = Date().time
 
@@ -206,7 +197,6 @@ class PublishFragment : Fragment() {
 
         )
 
-
         db.collection("posts")
             .document(postId)
             .set(data)
@@ -218,4 +208,3 @@ class PublishFragment : Fragment() {
             }
     }
 }
-

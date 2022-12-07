@@ -1,23 +1,14 @@
 package com.cleo.myha.profile
 
 import android.os.Bundle
-
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.view.get
-import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import com.cleo.myha.NavGraphDirections
+import androidx.fragment.app.Fragment
 import com.cleo.myha.R
 import com.cleo.myha.databinding.FragmentProfileBinding
-import com.cleo.myha.home.HomeAdapter
-import com.cleo.myha.home.HomeViewModel
 import com.google.android.material.tabs.TabLayoutMediator
-
 
 class ProfileFragment : Fragment() {
 
@@ -25,7 +16,8 @@ class ProfileFragment : Fragment() {
     private val tabTitles = arrayListOf("Post", "Progress")
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
@@ -34,11 +26,7 @@ class ProfileFragment : Fragment() {
 
         setUpTabLayoutWithViewPager()
 
-
         binding.userAvatar.setImageResource(R.drawable.woman)
-
-
-
 
 //        binding.createPost.setOnClickListener {
 //            findNavController().navigate(NavGraphDirections.actionGlobalPublishFragment())

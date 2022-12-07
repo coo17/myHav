@@ -1,7 +1,15 @@
 buildscript {
+
+    ext {
+        version_ktlint = '10.2.0'
+    }
+
     repositories {
         google()
         mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
 
     }
     dependencies {
@@ -9,10 +17,18 @@ buildscript {
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3"
         classpath 'com.android.tools.build:gradle:3.4.0'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.2'
+        classpath("org.jlleitschuh.gradle:ktlint-gradle:$version_ktlint")
 
 //        classpath 'com.android.support:design:28.0.0'
     }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+//allprojects {
+//    repositories {
+//        google()
+//        mavenCentral()
+//    }
+//}
 plugins {
     id 'com.android.application' version '7.3.0' apply false
     id 'com.android.library' version '7.3.0' apply false

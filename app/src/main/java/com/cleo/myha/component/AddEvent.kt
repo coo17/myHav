@@ -1,13 +1,8 @@
 package com.cleo.myha.component
 
-import android.os.Parcel
-import android.os.Parcelable
-import android.os.Parcelable.Creator
-import com.applandeo.materialcalendarview.EventDay
 import java.util.*
 
-
-//class MyEventDay : EventDay, Parcelable {
+// class MyEventDay : EventDay, Parcelable {
 //
 //    var note: String?
 //        private set
@@ -25,7 +20,7 @@ import java.util.*
 //
 //    override fun writeToParcel(parcel: Parcel, i: Int) {
 //        parcel.writeSerializable(calendar)
-////        parcel.writeInt(getImageResource())
+// //        parcel.writeInt(getImageResource())
 //        parcel.writeString(note)
 //    }
 //
@@ -54,4 +49,4 @@ import java.util.*
 //            return arrayOfNulls(size)
 //        }
 //    }
-//}
+// }

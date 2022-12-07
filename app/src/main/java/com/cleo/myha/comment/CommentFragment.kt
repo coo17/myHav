@@ -2,16 +2,14 @@ package com.cleo.myha.comment
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.cleo.myha.chatroom.ChatRoomFragmentDirections
-import com.cleo.myha.data.CommentsInfo
-import com.cleo.myha.data.MessagesInfo
 import com.cleo.myha.data.Posts
 import com.cleo.myha.data.User
 import com.cleo.myha.databinding.FragmentCommentBinding
@@ -22,41 +20,45 @@ import hideKeyboard
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class CommentFragment : Fragment() {
     private var firebase = FirebaseFirestore.getInstance()
     private lateinit var posts: Posts
     private lateinit var bUser: User
     private lateinit var auth: FirebaseAuth
 
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentCommentBinding.inflate(inflater, container, false)
-        auth= FirebaseAuth.getInstance()
+        auth = FirebaseAuth.getInstance()
         val viewModel = ViewModelProvider(this)[CommentViewModel::class.java]
         posts = arguments?.getParcelable<Posts>("postsKey")!!
         Log.d("post", "$posts")
         viewModel.setPosts(posts)
 
-
-        val adapter = CommentAdapter(CommentAdapter.OnClickListener{
-            findNavController().navigate(ChatRoomFragmentDirections.actionGlobalBlockDialog(it))
-        })
+        val adapter = CommentAdapter(
+            CommentAdapter.OnClickListener {
+                findNavController().navigate(ChatRoomFragmentDirections.actionGlobalBlockDialog(it))
+            }
+        )
         binding.commentRecycler.adapter = adapter
 
+        viewModel.blockUserList.observe(
+            viewLifecycleOwner,
+            androidx.lifecycle.Observer {
+                Log.d("ATTO", "123 $it")
+                viewModel.getComments(it)
+            }
+        )
 
-        viewModel.blockUserList.observe(viewLifecycleOwner, androidx.lifecycle.Observer{
-            Log.d("ATTO", "123 $it")
-            viewModel.getComments(it)
-        })
-
-        viewModel.userComments.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            adapter.submitList(it)
-        })
-
+        viewModel.userComments.observe(
+            viewLifecycleOwner,
+            androidx.lifecycle.Observer {
+                adapter.submitList(it)
+            }
+        )
 
         if (posts != null) {
             Glide.with(requireContext())
@@ -66,16 +68,13 @@ class CommentFragment : Fragment() {
         binding.textTitle.text = posts!!.title
         binding.textContent.text = posts!!.content
 
-
         binding.backBtn.setOnClickListener {
             this.findNavController().navigateUp()
         }
 
-
-
         binding.sendBtn.setOnClickListener {
 
-        binding.editTextComment.text.toString()
+            binding.editTextComment.text.toString()
 
             addComment(
                 binding.editTextComment.text.toString(),
@@ -85,7 +84,6 @@ class CommentFragment : Fragment() {
 
             hideKeyboard(binding.editTextComment)
         }
-
 
         return binding.root
     }
@@ -113,8 +111,6 @@ class CommentFragment : Fragment() {
                 it.displayName
             }!!,
         )
-
-
 
         firebase.collection("posts")
             .document(posts.id)

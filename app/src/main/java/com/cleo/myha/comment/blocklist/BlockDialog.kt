@@ -8,17 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDialogFragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
-import com.cleo.myha.NavGraphDirections
-import com.cleo.myha.chatroom.ChatRoomAdapter
-import com.cleo.myha.chatroom.ChatRoomViewModel
-import com.cleo.myha.data.Habits
 import com.cleo.myha.data.User
 import com.cleo.myha.databinding.DialogBlockBinding
-import com.cleo.myha.databinding.DialogFinishTaskBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -39,12 +32,10 @@ class BlockDialog : AppCompatDialogFragment() {
         binding = DialogBlockBinding.inflate(inflater, container, false)
         val viewModel = ViewModelProvider(this)[BlockViewModel::class.java]
 
-
         val email = BlockDialogArgs.fromBundle(requireArguments()).email
         binding.searchBar.setText(email)
 
         val adapter = BlockAdapter()
-
 
         binding.blockBtn.setOnClickListener {
             Log.d("Cleo", "Hi")
@@ -65,7 +56,6 @@ class BlockDialog : AppCompatDialogFragment() {
                 it.email
             }.toString()
 
-
         val searchEmail = binding.searchBar.text.toString()
 
         Log.d("aesop", "$searchEmail")
@@ -74,11 +64,9 @@ class BlockDialog : AppCompatDialogFragment() {
             .document(senderId)
             .update("blockLists", FieldValue.arrayUnion(searchEmail))
             .addOnSuccessListener {
-                Log.d("Cleo","You blocked it!")
+                Log.d("Cleo", "You blocked it!")
             }.addOnFailureListener {
                 Log.d("Cleo", "fail")
             }
-
     }
 }
-

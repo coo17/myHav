@@ -1,6 +1,5 @@
 package com.cleo.myha.discover
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,16 +16,15 @@ import com.cleo.myha.discover.community.CommunityAdapter
 import com.cleo.myha.discover.community.CommunityViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 
-
 class DiscoverFragment : Fragment() {
 
     private lateinit var binding: FragmentDiscoverBinding
     private val tabTitles =
         arrayListOf("all", "health", "workout", "learning", "reading", "general")
 
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDiscoverBinding.inflate(inflater, container, false)
@@ -35,31 +33,31 @@ class DiscoverFragment : Fragment() {
         val viewModel = ViewModelProvider(this)[CommunityViewModel::class.java]
 
         val adapter =
-            CommunityAdapter(onClickListener = CommunityAdapter.OnClickListener { Habits ->
-                this.findNavController()
-                    .navigate(DiscoverFragmentDirections.actionGlobalTaskDialog(Habits))
-            }, viewModel)
-
-
-
+            CommunityAdapter(
+                onClickListener = CommunityAdapter.OnClickListener { Habits ->
+                    this.findNavController()
+                        .navigate(DiscoverFragmentDirections.actionGlobalTaskDialog(Habits))
+                },
+                viewModel
+            )
 
         binding.groupTaskRecycler.adapter = adapter
-
 
         val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(binding.groupTaskRecycler)
 
         binding.groupTaskRecycler.layoutManager = CenterZoomLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        viewModel.groupTasks.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
-
+        viewModel.groupTasks.observe(
+            viewLifecycleOwner,
+            Observer {
+                adapter.submitList(it)
+            }
+        )
 
         setUpTabLayoutWithViewPager()
 
         return binding.root
-
     }
 
     private fun setUpTabLayoutWithViewPager() {
@@ -68,4 +66,3 @@ class DiscoverFragment : Fragment() {
         }.attach()
     }
 }
-

@@ -1,7 +1,5 @@
 package com.cleo.myha.chatroom
 
-
-import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,7 +8,6 @@ import com.cleo.myha.data.*
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-
 
 class ChatRoomViewModel : ViewModel() {
 
@@ -31,7 +28,6 @@ class ChatRoomViewModel : ViewModel() {
         get() = _sender
 
     var textInput = ""
-
 
     val auth = FirebaseAuth.getInstance()
     val user = auth.currentUser
@@ -72,10 +68,7 @@ class ChatRoomViewModel : ViewModel() {
                                 }
 
                                 _userInfo.value = userLists
-
-                            }.addOnFailureListener{
-
-
+                            }.addOnFailureListener {
                             }
                     }
                 }
@@ -84,7 +77,6 @@ class ChatRoomViewModel : ViewModel() {
                 }
         }
     }
-
 
     private fun getReceivedMessage() {
 
@@ -110,14 +102,11 @@ class ChatRoomViewModel : ViewModel() {
                             UserType.Receiver(item)
                         }
                         myList.add(message)
-
-
                     }
                     _sender.value = myList
                 }
             }
     }
-
 
     private fun addComment() {
 
@@ -132,17 +121,16 @@ class ChatRoomViewModel : ViewModel() {
             }!!,
             senderImage = auth.currentUser?.photoUrl.toString(),
             message = textInput,
-            textTime =  Timestamp.now()
+            textTime = Timestamp.now()
         )
 
-        Log.d("C", "comment ${senderId}")
+        Log.d("C", "comment $senderId")
 
         db.collection("habits")
             .document(habit.id)
             .collection("messages")
             .add(data)
             .addOnSuccessListener {
-
 
                 Log.d("Cleo", "Get Comment Success!!")
             }
@@ -151,14 +139,13 @@ class ChatRoomViewModel : ViewModel() {
             }
     }
 
-
     fun setHabits(newHabit: Habits) {
         habit = newHabit
         getReceivedMessage()
         getUserData()
     }
 
-    fun sendTextInput(content: String){
+    fun sendTextInput(content: String) {
         textInput = content
         addComment()
     }

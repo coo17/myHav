@@ -1,8 +1,8 @@
 package com.cleo.myha
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.cleo.myha.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -24,8 +24,6 @@ class LoginActivity : AppCompatActivity() {
         binding.button.setOnClickListener {
             val i = Intent(this, MainActivity::class.java)
             startActivity(i)
-
         }
-
     }
 }

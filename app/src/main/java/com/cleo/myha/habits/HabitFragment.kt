@@ -6,24 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
 import com.cleo.myha.NavGraphDirections
 import com.cleo.myha.databinding.FragmentHabitBinding
-import com.cleo.myha.databinding.FragmentProfileBinding
-import com.cleo.myha.habits.single.SingleAdapter
-import com.cleo.myha.profile.ProfileViewPagerAdapter
-
 
 class HabitFragment : Fragment() {
 
     private lateinit var binding: FragmentHabitBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
@@ -31,7 +24,6 @@ class HabitFragment : Fragment() {
         val adapter = HabitViewPagerAdapter(childFragmentManager, lifecycle)
 
         binding.viewPager.adapter = HabitViewPagerAdapter(childFragmentManager, lifecycle)
-
 
         val positionButton1 = binding.layoutSingle
         val positionButton2 = binding.layoutGroup
@@ -47,7 +39,6 @@ class HabitFragment : Fragment() {
             }
             binding.viewPager.post {
                 binding.viewPager.setCurrentItem(0, true)
-
             }
         }
 
@@ -63,7 +54,6 @@ class HabitFragment : Fragment() {
 
             binding.viewPager.post {
                 binding.viewPager.setCurrentItem(1, true)
-
             }
         }
 

@@ -8,14 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDialogFragment
-import androidx.lifecycle.ViewModelProvider
-import com.cleo.myha.comment.CommentAdapter
-import com.cleo.myha.comment.CommentViewModel
-import com.cleo.myha.data.CommentsInfo
 import com.cleo.myha.data.Habits
-import com.cleo.myha.data.Posts
 import com.cleo.myha.databinding.DialogTaskBinding
-import com.cleo.myha.habits.group.GroupViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -42,7 +36,6 @@ class TaskDialog : AppCompatDialogFragment() {
         binding.textDuration.text = habits!!.duration
 //        binding.textRepeatedDays.text = habits.repeatedDays.toString()
 
-
         binding.joinBtn.setOnClickListener {
             addCard()
         }
@@ -61,14 +54,12 @@ class TaskDialog : AppCompatDialogFragment() {
         db.document(habitId)
             .update("members", FieldValue.arrayUnion(mId))
             .addOnSuccessListener {
-                Log.d("Cleooo", "get success ,${it}")
+                Log.d("Cleooo", "get success ,$it")
                 Log.d("TAG", "add success")
             }
             .addOnFailureListener {
                 Log.d("2022", "add fail")
                 Log.w("2022", "Error adding document", it)
             }
-
     }
-
 }

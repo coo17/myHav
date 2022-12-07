@@ -1,14 +1,12 @@
 package com.cleo.myha.home.login
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.cleo.myha.NavGraphDirections
 import com.cleo.myha.R
@@ -27,14 +25,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
-
 class LoginFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private var db = FirebaseFirestore.getInstance()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentLoginBinding.inflate(inflater, container, false)
@@ -42,7 +40,7 @@ class LoginFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         val user = auth.currentUser
 
-        if(user != null){
+        if (user != null) {
             findNavController().navigate(NavGraphDirections.actionGlobalHomeFragment())
         }
 
@@ -58,7 +56,6 @@ class LoginFragment : Fragment() {
             signInClient.signInIntent.also {
                 startActivityForResult(it, REQUEST_CODE_SIGN_IN)
             }
-
         }
 
         return binding.root
@@ -93,13 +90,10 @@ class LoginFragment : Fragment() {
                     .document(it.email.toString())
                     .set(newUser)
                     .addOnSuccessListener {
-
                     }.addOnFailureListener {
-
                     }
 
                 findNavController().navigate(NavGraphDirections.actionGlobalHomeFragment())
-
             }
         }
     }
