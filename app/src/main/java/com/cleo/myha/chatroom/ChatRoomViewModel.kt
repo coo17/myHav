@@ -119,7 +119,7 @@ class ChatRoomViewModel : ViewModel() {
     }
 
 
-    fun addComment() {
+    private fun addComment() {
 
         val senderId = auth.currentUser?.let {
             it.email
