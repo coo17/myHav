@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         val navHomeFragment = supportFragmentManager.findFragmentById(R.id.my_nav_host_fragment)
         val navController = navHomeFragment!!.findNavController()
 
-        navController.addOnDestinationChangedListener { controller, destination, argument ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.homeFragment -> {
                     binding.bottomNav.visibility = View.VISIBLE

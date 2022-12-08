@@ -11,7 +11,9 @@ import com.cleo.myha.data.Posts
 import com.cleo.myha.databinding.ItemProfilePostBinding
 import com.google.firebase.storage.FirebaseStorage
 
-class DiscoverAdapter(val onClickListener: OnClickListener) : ListAdapter<Posts, DiscoverAdapter.DiscoverViewHolder>(DiscoverDiffCallBack()) {
+class DiscoverAdapter(val onClickListener: OnClickListener) : ListAdapter<Posts, DiscoverAdapter.DiscoverViewHolder>(
+    DiscoverDiffCallBack()
+) {
 
     val storageReference = FirebaseStorage.getInstance()
 

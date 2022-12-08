@@ -19,7 +19,8 @@ class CurrentUserAdapter() :
 
         fun bind(item: User) {
 
-            val radius = 50.0f
+            val radius = USER_PHOTO_RADIUS
+
             binding.userPhoto.shapeAppearanceModel = binding.userPhoto.shapeAppearanceModel
                 .toBuilder()
                 .setTopRightCorner(CornerFamily.ROUNDED, radius)
@@ -60,5 +61,9 @@ class CurrentUserAdapter() :
         override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
             return oldItem == newItem
         }
+    }
+
+    companion object{
+        private const val USER_PHOTO_RADIUS = 50f
     }
 }

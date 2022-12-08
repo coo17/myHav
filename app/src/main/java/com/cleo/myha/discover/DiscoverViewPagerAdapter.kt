@@ -13,12 +13,24 @@ class DiscoverViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Life
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> { DiscoverItemFragment.newInstance(Category.All) }
-            1 -> { DiscoverItemFragment.newInstance(Category.Health) }
-            2 -> { DiscoverItemFragment.newInstance(Category.Workout) }
-            3 -> { DiscoverItemFragment.newInstance(Category.Learning) }
-            4 -> { DiscoverItemFragment.newInstance(Category.Reading) }
-            5 -> { DiscoverItemFragment.newInstance(Category.General) }
+            0 -> {
+                DiscoverItemFragment.newInstance(Category.All)
+            }
+            1 -> {
+                DiscoverItemFragment.newInstance(Category.Health)
+            }
+            2 -> {
+                DiscoverItemFragment.newInstance(Category.Workout)
+            }
+            3 -> {
+                DiscoverItemFragment.newInstance(Category.Learning)
+            }
+            4 -> {
+                DiscoverItemFragment.newInstance(Category.Reading)
+            }
+            5 -> {
+                DiscoverItemFragment.newInstance(Category.General)
+            }
             else -> {
                 throw IllegalArgumentException("Error Type")
             }
