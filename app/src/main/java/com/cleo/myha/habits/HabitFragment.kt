@@ -21,7 +21,7 @@ class HabitFragment : Fragment() {
     ): View? {
 
         binding = FragmentHabitBinding.inflate(inflater, container, false)
-        val adapter = HabitViewPagerAdapter(childFragmentManager, lifecycle)
+//        val adapter = HabitViewPagerAdapter(childFragmentManager, lifecycle)
 
         binding.viewPager.adapter = HabitViewPagerAdapter(childFragmentManager, lifecycle)
 
@@ -29,12 +29,12 @@ class HabitFragment : Fragment() {
         val positionButton2 = binding.layoutGroup
 
         binding.layoutSingle.setOnClickListener {
-            ObjectAnimator.ofFloat(positionButton1, "TranslationX", -20f).apply {
-                duration = 200
+            ObjectAnimator.ofFloat(positionButton1, TRANSITION_PROPERTY_NAME, POSITION_MOVE_TO_LEFT).apply {
+                duration = ANIMATOR_DURATION
                 start()
             }
-            ObjectAnimator.ofFloat(positionButton2, "TranslationX", 20f).apply {
-                duration = 200
+            ObjectAnimator.ofFloat(positionButton2, TRANSITION_PROPERTY_NAME, POSITION_MOVE_TO_RIGHT).apply {
+                duration = ANIMATOR_DURATION
                 start()
             }
             binding.viewPager.post {
@@ -43,12 +43,12 @@ class HabitFragment : Fragment() {
         }
 
         binding.layoutGroup.setOnClickListener {
-            ObjectAnimator.ofFloat(positionButton1, "TranslationX", 20f).apply {
-                duration = 200
+            ObjectAnimator.ofFloat(positionButton1, TRANSITION_PROPERTY_NAME, POSITION_MOVE_TO_RIGHT).apply {
+                duration = ANIMATOR_DURATION
                 start()
             }
-            ObjectAnimator.ofFloat(positionButton2, "TranslationX", -20f).apply {
-                duration = 200
+            ObjectAnimator.ofFloat(positionButton2, TRANSITION_PROPERTY_NAME, POSITION_MOVE_TO_LEFT).apply {
+                duration = ANIMATOR_DURATION
                 start()
             }
 
@@ -62,5 +62,15 @@ class HabitFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+
+    companion object{
+
+        private const val TRANSITION_PROPERTY_NAME = "TranslationX"
+        private const val POSITION_MOVE_TO_RIGHT = 20f
+        private const val POSITION_MOVE_TO_LEFT = -20f
+        private const val ANIMATOR_DURATION = 200L
+
     }
 }

@@ -20,14 +20,14 @@ class DiscoverAdapter(val onClickListener: OnClickListener) : ListAdapter<Posts,
         fun bind(item: Posts) {
             binding.textView3.text = item.title
 
-            item.photo?.let { it ->
-                storageReference.getReferenceFromUrl(it).downloadUrl.addOnSuccessListener { imgPhoto ->
+//            item.photo?.let { it ->
+//                storageReference.getReferenceFromUrl(it).downloadUrl.addOnSuccessListener { imgPhoto ->
                     Glide.with(itemView.context)
-                        .load(imgPhoto)
+                        .load(item.photo)
                         .error(R.drawable.man)
                         .into(binding.imageView3)
-                }
-            }
+//                }
+//            }
 
             binding.imageView3.setOnClickListener {
                 onClickListener.onClick(item)

@@ -32,7 +32,7 @@ class HomeFragment : Fragment() {
         val adapter = HomeAdapter(
             HomeAdapter.HomeListener { checkbox: Boolean ->
 
-                if (checkbox == true) {
+                if (checkbox) {
                     if (viewModel.checkAllList()) {
                         findNavController().navigate(NavGraphDirections.actionGlobalFinishTaskDialog())
                     }
@@ -45,7 +45,7 @@ class HomeFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         val user = auth.currentUser
 
-        binding.textHelloUser.text = "Hello, ${auth.currentUser?.displayName}" ?: "User"
+        binding.textHelloUser.text = "Hello, ${auth.currentUser?.displayName}"
 
         viewModel.doneList.observe(
             viewLifecycleOwner,
@@ -64,16 +64,16 @@ class HomeFragment : Fragment() {
         viewModel.monthOfList.observe(
             viewLifecycleOwner,
             Observer {
-                Log.d("BBBBB", "${it.size}")
+                Log.d("Cleo", "Hey${it.size}")
                 val list = mutableListOf<Event>()
 
                 for (item in it) {
-                    Log.d("BBBBB", "${item.value}")
-                    if (item.value == true) {
+                    Log.d("Cleo", "Hi${item.value}")
+                    if (item.value) {
                         val ev1 = Event(
                             Color.parseColor("#ABD3D6"),
                             item.key,
-                            "i don't know why"
+                            ""
                         )
                         list.add(ev1)
                     }

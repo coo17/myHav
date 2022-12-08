@@ -12,9 +12,8 @@ import java.util.*
 class GroupViewModel : ViewModel() {
 
     private val db = FirebaseFirestore.getInstance()
-    private lateinit var habits: Habits
 
-    private val _groupHabits = MutableLiveData<List<Habits>>()
+    private var _groupHabits = MutableLiveData<List<Habits>>()
     val groupHabits: LiveData<List<Habits>>
         get() = _groupHabits
 
@@ -44,9 +43,5 @@ class GroupViewModel : ViewModel() {
                     Log.d("Cleooo", "get fail")
                 }
         }
-    }
-
-    fun setHabits(newHabits: Habits) {
-        habits = newHabits
     }
 }

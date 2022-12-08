@@ -40,13 +40,14 @@ class PublishFragment : Fragment() {
     private val storage = Firebase.storage.reference
     private lateinit var photoFileName: String
     private lateinit var viewModel: PublishViewModel
+    private lateinit var binding: FragmentPublishBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentPublishBinding.inflate(inflater, container, false)
+        binding = FragmentPublishBinding.inflate(inflater, container, false)
         auth = FirebaseAuth.getInstance()
         viewModel = ViewModelProvider(this)[PublishViewModel::class.java]
 
@@ -158,7 +159,7 @@ class PublishFragment : Fragment() {
     }
 
     // 詢問user權限
-    fun permissionPhoto() {
+    fun askPermissionPhoto() {
         ActivityCompat.requestPermissions(
             requireActivity(),
             arrayOf(

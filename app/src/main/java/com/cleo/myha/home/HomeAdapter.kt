@@ -10,15 +10,16 @@ import com.cleo.myha.data.Habits
 import com.cleo.myha.databinding.ItemTodayTasksBinding
 import java.util.*
 
-class HomeAdapter(val onClickListener: HomeListener, val viewModel: HomeViewModel) : ListAdapter<Habits, HomeAdapter.TaskViewHolder>(HomeDiffCallBack()) {
+class HomeAdapter(val onClickListener: HomeListener, val viewModel: HomeViewModel) :
+    ListAdapter<Habits, HomeAdapter.TaskViewHolder>(HomeDiffCallBack()) {
 
-    inner class TaskViewHolder(private var binding: ItemTodayTasksBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class TaskViewHolder(private var binding: ItemTodayTasksBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: Habits) {
 
             val time = data.reminder
             Calendar.getInstance().timeInMillis = time
-//            val timer = data.timer
 
             binding.textTask.text = data.task
             binding.textTaskReminder.text = toFormat(time)
@@ -70,7 +71,13 @@ class HomeAdapter(val onClickListener: HomeListener, val viewModel: HomeViewMode
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        return TaskViewHolder(ItemTodayTasksBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return TaskViewHolder(
+            ItemTodayTasksBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {

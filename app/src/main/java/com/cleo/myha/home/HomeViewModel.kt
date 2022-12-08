@@ -23,10 +23,6 @@ class HomeViewModel : ViewModel() {
     val todayTasks: LiveData<List<Habits>>
         get() = _todayTasks
 
-    private var _completedTask = MutableLiveData<List<Habits>>()
-    val completedTask: LiveData<List<Habits>>
-        get() = _completedTask
-
     private var _doneList = MutableLiveData<Map<String, Boolean>>()
     val doneList: LiveData<Map<String, Boolean>>
         get() = _doneList
@@ -47,7 +43,7 @@ class HomeViewModel : ViewModel() {
         getTodayTasks()
     }
 
-    fun queryTest(habitId: String) {
+    private fun queryTest(habitId: String) {
 
         val todayString = Date().time
         val date = convertLongToTime(todayString)
@@ -59,18 +55,18 @@ class HomeViewModel : ViewModel() {
             .get()
             .addOnCompleteListener {
                 if (it.isSuccessful) {
-                    Log.d("Cleoo", "count: ${it.result?.data?.size}")
+                    Log.d("Cleo", "count: ${it.result?.data?.size}")
                     it.result?.data?.let {
                         (it["isDone"] as Boolean?)?.let {
                             completedList.put(habitId, it)
                             _doneList.value = completedList
-                            Log.d("VIC", "isDone: $completedList")
-                            Log.d("VICC", "isDone: $it")
+                            Log.d("Cleo", "isDone: $completedList")
+                            Log.d("Cleo", "isDone: $it")
                         }
-                        Log.d("Cleoo", "isDone: ${it["isDone"]}")
+                        Log.d("Cleo", "isDone: ${it["isDone"]}")
                     }
                 } else {
-                    Log.d("Cleoo", "fail")
+                    Log.d("Cleo", "fail")
                 }
             }
     }
@@ -81,7 +77,7 @@ class HomeViewModel : ViewModel() {
             .whereEqualTo("ownerId", userEmail)
             .get()
             .addOnSuccessListener { result ->
-//                Log.d("Cleooo", "get success ,${result.documents}")
+
                 val list = mutableListOf<Habits>()
                 Log.d("Cleoo", "${result.size()}")
 
@@ -124,24 +120,19 @@ class HomeViewModel : ViewModel() {
                 val toDoList = list.filter {
                     shownDate > it.startedDate && shownDate < it.endDate && it.repeatedDays.get(
                         dayOfWeek - 1
-                    ) == true
+                    )
                 }
-                Log.d("kkk", "${toDoList.size}")
+                Log.d("Cleo", "${toDoList.size}")
 
                 _todayTasks.value = toDoList
             }
             .addOnFailureListener { exception ->
-                Log.d("Cleooo", "get fail")
-                Log.w("Cleooo", "Error getting documents.", exception)
+                Log.w("Cleo", "Error getting documents.", exception)
             }
     }
 
     private fun getMonthDataList(list: MutableList<Habits>) {
 
-        val month = LocalDate.now().month
-        val year = LocalDate.now().year
-//        val firstDateOfMonth = LocalDate.of(year, month, 1)
-//        Log.d("JOMALONE", "$dayOfWeeks")
         val firstDayOfMonth = Calendar.getInstance()
         firstDayOfMonth.set(Calendar.DAY_OF_YEAR, 1)
 
@@ -163,7 +154,7 @@ class HomeViewModel : ViewModel() {
         totalCal.time = firstDayOfMonth.time
 
         val monthList = mutableMapOf<Long, Boolean>()
-        Log.d("X哥", "b${monthList.values}")
+        Log.d("Cleo", "GET ${monthList.values}")
         while (totalCal.toInstant().epochSecond <= lastDayOfMonth.toInstant().epochSecond) {
 
             val dayOfWeek =
@@ -173,7 +164,7 @@ class HomeViewModel : ViewModel() {
             val toDoList = list.filter {
                 totalCal.time.time > it.startedDate && totalCal.time.time <= it.endDate && it.repeatedDays.get(
                     dayOfWeek - 1
-                ) == true
+                )
             }
 
             if (toDoList.isNotEmpty()) {
@@ -186,10 +177,11 @@ class HomeViewModel : ViewModel() {
             totalCal.add(Calendar.DATE, 1)
         }
 
+
         _monthOfList.value = monthList
     }
 
-    fun convertLongToTime(time: Long): String {
+    private fun convertLongToTime(time: Long): String {
         val date = Date(time)
         val format = SimpleDateFormat("yyyy-MM-d", Locale.getDefault())
         return format.format(date)
@@ -219,6 +211,7 @@ class HomeViewModel : ViewModel() {
             .addOnFailureListener {
                 Log.d("Cleooo", "oh, it's fail")
             }
+
 
         completedList.set(data.id, isDone)
     }

@@ -59,12 +59,12 @@ class ChatRoomViewModel : ViewModel() {
                             .addOnSuccessListener {
                                 val uAllData = it.toObject(User::class.java)
 
-                                Log.d("CIV", "get $userLists")
+                                Log.d("Cleo", "get $userLists")
 
                                 uAllData?.let { User ->
                                     userLists.add(User)
 
-                                    Log.d("CIV", "oh $userLists")
+                                    Log.d("Cleo", "oh $userLists")
                                 }
 
                                 _userInfo.value = userLists
@@ -73,7 +73,7 @@ class ChatRoomViewModel : ViewModel() {
                     }
                 }
                 .addOnFailureListener {
-                    Log.d("Cleooo", "get fail")
+                    Log.d("Cleo", "get fail")
                 }
         }
     }
@@ -94,7 +94,7 @@ class ChatRoomViewModel : ViewModel() {
 
                     val myList = mutableListOf<UserType>()
                     for (item in sortList) {
-                        Log.d("MAGIC", "$item")
+                        Log.d("Message", "$item")
 
                         val message = if (item.senderEmail == auth.currentUser?.email) {
                             UserType.Sender(item)

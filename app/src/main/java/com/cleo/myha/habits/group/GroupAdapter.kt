@@ -58,9 +58,6 @@ class GroupAdapter(val onClickListener: OnClickListener, val viewModel: GroupVie
     override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
         val groupTask = getItem(position)
         holder.bind(groupTask)
-//        holder.itemView.setOnClickListener{
-//            Navigation.createNavigateOnClickListener(R.id.action_global_chatRoomsFragment).onClick(holder.itemView)
-//        }
     }
 
     class OnClickListener(val clickListener: (habit: Habits) -> Unit) {
