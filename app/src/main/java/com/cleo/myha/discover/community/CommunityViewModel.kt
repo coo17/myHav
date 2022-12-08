@@ -30,7 +30,7 @@ class CommunityViewModel : ViewModel() {
             .addOnSuccessListener { documents ->
                 val list = documents.toObjects(Habits::class.java)
 
-                Log.d("VIC", "${documents.size()}")
+                Log.d("Cleo", "${documents.size()}")
 
                 val joinHabits = list.filter {
                     it.mode == 1
