@@ -9,10 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.cleo.myha.chatroom.ChatRoomFragmentArgs
 import com.cleo.myha.chatroom.ChatRoomFragmentDirections
 import com.cleo.myha.data.Posts
 import com.cleo.myha.data.User
 import com.cleo.myha.databinding.FragmentCommentBinding
+import com.cleo.myha.util.MESSAGES_SUB_POSTS
+import com.cleo.myha.util.POSTS_PATH
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -21,21 +24,21 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class CommentFragment : Fragment() {
-    private var firebase = FirebaseFirestore.getInstance()
+
     private lateinit var posts: Posts
-    private lateinit var bUser: User
     private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentCommentBinding.inflate(inflater, container, false)
-        auth = FirebaseAuth.getInstance()
         val viewModel = ViewModelProvider(this)[CommentViewModel::class.java]
-        posts = arguments?.getParcelable<Posts>("postsKey")!!
-        Log.d("post", "$posts")
+
+        auth = FirebaseAuth.getInstance()
+        posts = CommentFragmentArgs.fromBundle(requireArguments()).postsKey
+
         viewModel.setPosts(posts)
 
         val adapter = CommentAdapter(
@@ -45,28 +48,20 @@ class CommentFragment : Fragment() {
         )
         binding.commentRecycler.adapter = adapter
 
-        viewModel.blockUserList.observe(
-            viewLifecycleOwner,
-            androidx.lifecycle.Observer {
-                Log.d("ATTO", "123 $it")
-                viewModel.getComments(it)
-            }
-        )
-
-        viewModel.userComments.observe(
-            viewLifecycleOwner,
-            androidx.lifecycle.Observer {
-                adapter.submitList(it)
-            }
-        )
-
-        if (posts != null) {
-            Glide.with(requireContext())
-                .load(posts.photo)
-                .into(binding.postImage)
+        viewModel.blockUserList.observe(viewLifecycleOwner) {
+            viewModel.getComments(it)
         }
-        binding.textTitle.text = posts!!.title
-        binding.textContent.text = posts!!.content
+
+        viewModel.userComments.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
+
+        Glide.with(requireContext())
+            .load(posts.photo)
+            .into(binding.postImage)
+
+        binding.textTitle.text = posts.title
+        binding.textContent.text = posts.content
 
         binding.backBtn.setOnClickListener {
             this.findNavController().navigateUp()
@@ -74,53 +69,12 @@ class CommentFragment : Fragment() {
 
         binding.sendBtn.setOnClickListener {
 
-            binding.editTextComment.text.toString()
-
-            addComment(
-                binding.editTextComment.text.toString(),
-            )
-
+            viewModel.setComment(binding.editTextComment.text.toString())
             binding.editTextComment.setText("")
-
             hideKeyboard(binding.editTextComment)
+
         }
 
         return binding.root
-    }
-
-    fun convertLongToTime(time: Long): String {
-        val date = Date(time)
-        val format = SimpleDateFormat("yyyy-MM-d hh:mm a", Locale.getDefault())
-        return format.format(date)
-    }
-
-    private fun addComment(content: String) {
-
-        val senderId = auth.currentUser?.let {
-            it.email
-        }
-
-        val currentTime = Date().time
-        val createdTime = convertLongToTime(currentTime)
-
-        val data = hashMapOf(
-            "content" to content,
-            "senderId" to senderId,
-            "createdTime" to Timestamp.now(),
-            "userName" to auth.currentUser?.let {
-                it.displayName
-            }!!,
-        )
-
-        firebase.collection("posts")
-            .document(posts.id)
-            .collection("messages")
-            .add(data)
-            .addOnSuccessListener {
-                Log.d("CLEOOO", "Success!!")
-            }
-            .addOnFailureListener { e ->
-                Log.d("CLEOOO", "add fail")
-            }
     }
 }

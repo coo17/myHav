@@ -17,9 +17,4 @@ data class Posts(
     var comments: @RawValue List<CommentsInfo> ? = null
 ) : Parcelable
 
-data class CommentsInfo(
-    var senderId: String = "",
-    var content: String = "",
-    var updatedTime: Timestamp? = null,
-    var userName: String = ""
-)
+

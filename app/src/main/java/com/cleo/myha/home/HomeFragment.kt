@@ -55,11 +55,10 @@ class HomeFragment : Fragment() {
         )
 
         viewModel.todayTasks.observe(
-            viewLifecycleOwner,
-            Observer {
-                adapter.submitList(it)
-            }
-        )
+            viewLifecycleOwner
+        ) {
+            adapter.submitList(it)
+        }
 
         viewModel.monthOfList.observe(
             viewLifecycleOwner,

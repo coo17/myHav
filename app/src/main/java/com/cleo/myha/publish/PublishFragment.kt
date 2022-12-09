@@ -104,10 +104,6 @@ class PublishFragment : Fragment() {
             }
         )
 
-//        val localFile = File.createTempFile("tempImage", "jpg")
-//
-//        val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-
         return binding.root
     }
 

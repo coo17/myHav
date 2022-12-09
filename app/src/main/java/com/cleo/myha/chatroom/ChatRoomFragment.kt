@@ -11,6 +11,7 @@ import com.cleo.myha.chatroom.currentuser.CurrentUserAdapter
 import com.cleo.myha.data.Habits
 import com.cleo.myha.databinding.FragmentChatRoomsBinding
 import com.google.firebase.auth.FirebaseAuth
+import hideKeyboard
 
 class ChatRoomFragment : Fragment() {
 
@@ -25,7 +26,7 @@ class ChatRoomFragment : Fragment() {
         val binding = FragmentChatRoomsBinding.inflate(inflater, container, false)
         val viewModel = ViewModelProvider(this)[ChatRoomViewModel::class.java]
 
-        habit = arguments?.getParcelable("habitsKey")!!
+        habit = ChatRoomFragmentArgs.fromBundle(requireArguments()).habitsKey
         viewModel.setHabits(habit)
 
         auth = FirebaseAuth.getInstance()
@@ -50,6 +51,8 @@ class ChatRoomFragment : Fragment() {
 
         binding.sendBtn.setOnClickListener {
             viewModel.sendTextInput(binding.textInput.text.toString())
+            binding.textInput.setText("")
+            hideKeyboard(binding.textInput)
         }
 
         binding.backBtn.setOnClickListener {

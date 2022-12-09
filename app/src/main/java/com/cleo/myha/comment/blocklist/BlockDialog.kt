@@ -10,36 +10,33 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.cleo.myha.data.User
 import com.cleo.myha.databinding.DialogBlockBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.FirebaseFirestore
+
 
 class BlockDialog : AppCompatDialogFragment() {
 
     private lateinit var binding: DialogBlockBinding
-    private var db = FirebaseFirestore.getInstance()
-    private lateinit var auth: FirebaseAuth
-    private lateinit var user: User
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         binding = DialogBlockBinding.inflate(inflater, container, false)
         val viewModel = ViewModelProvider(this)[BlockViewModel::class.java]
 
+
         val email = BlockDialogArgs.fromBundle(requireArguments()).email
         binding.searchBar.setText(email)
 
-        val adapter = BlockAdapter()
+        viewModel.navigateUp.observe(viewLifecycleOwner) {
+            findNavController().navigateUp()
+        }
 
         binding.blockBtn.setOnClickListener {
             Log.d("Cleo", "Hi")
-            addNewBlockUser()
+            viewModel.setEmail(binding.searchBar.text.toString())
         }
 
         binding.closeBtn.setOnClickListener {
@@ -49,24 +46,4 @@ class BlockDialog : AppCompatDialogFragment() {
         return binding.root
     }
 
-    private fun addNewBlockUser() {
-
-        val senderId = FirebaseAuth.getInstance()
-            .currentUser?.let {
-                it.email
-            }.toString()
-
-        val searchEmail = binding.searchBar.text.toString()
-
-        Log.d("aesop", "$searchEmail")
-
-        db.collection("users")
-            .document(senderId)
-            .update("blockLists", FieldValue.arrayUnion(searchEmail))
-            .addOnSuccessListener {
-                Log.d("Cleo", "You blocked it!")
-            }.addOnFailureListener {
-                Log.d("Cleo", "fail")
-            }
-    }
 }

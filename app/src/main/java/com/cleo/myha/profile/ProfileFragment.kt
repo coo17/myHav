@@ -19,7 +19,7 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
         binding.viewPager.adapter = ProfileViewPagerAdapter(childFragmentManager, lifecycle)
@@ -27,10 +27,6 @@ class ProfileFragment : Fragment() {
         setUpTabLayoutWithViewPager()
 
         binding.userAvatar.setImageResource(R.drawable.woman)
-
-//        binding.createPost.setOnClickListener {
-//            findNavController().navigate(NavGraphDirections.actionGlobalPublishFragment())
-//        }
 
         return binding.root
     }

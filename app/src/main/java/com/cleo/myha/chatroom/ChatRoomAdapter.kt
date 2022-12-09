@@ -52,7 +52,7 @@ class ChatRoomAdapter : ListAdapter<UserType, RecyclerView.ViewHolder>(DiffCallB
                 .into(binding.imageProfile)
 
             // set rounded image
-            val radius = 40.0f
+            val radius = IMAGE_PROFILE_RADIUS
             binding.imageProfile.shapeAppearanceModel = binding.imageProfile.shapeAppearanceModel
                 .toBuilder()
                 .setTopRightCorner(CornerFamily.ROUNDED, radius)
@@ -113,5 +113,9 @@ class ChatRoomAdapter : ListAdapter<UserType, RecyclerView.ViewHolder>(DiffCallB
         override fun areContentsTheSame(oldItem: UserType, newItem: UserType): Boolean {
             return oldItem == newItem
         }
+    }
+
+    companion object{
+        private const val IMAGE_PROFILE_RADIUS = 40f
     }
 }

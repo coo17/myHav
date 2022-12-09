@@ -16,7 +16,7 @@ class CommentAdapter(val onClickListener: OnClickListener) : ListAdapter<Comment
 
         fun bind(item: CommentsInfo) {
 
-            val currentTime = item.updatedTime
+            val currentTime = item.createdTime
             val createdTime = currentTime?.toDate()?.let { (it.time) }
 
             binding.textComment.text = item.content
@@ -32,14 +32,6 @@ class CommentAdapter(val onClickListener: OnClickListener) : ListAdapter<Comment
                 onClickListener.onClick(item.senderId)
             }
 
-//            val radius = 50.0f
-//            binding.avatarUser.shapeAppearanceModel = binding.avatarUser.shapeAppearanceModel
-//                .toBuilder()
-//                .setTopRightCorner(CornerFamily.ROUNDED, radius)
-//                .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
-//                .setTopLeftCorner(CornerFamily.ROUNDED,radius)
-//                .setBottomRightCorner(CornerFamily.ROUNDED,radius)
-//                .build()
         }
     }
 

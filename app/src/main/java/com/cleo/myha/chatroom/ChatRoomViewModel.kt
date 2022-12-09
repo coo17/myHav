@@ -5,6 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cleo.myha.data.*
+import com.cleo.myha.util.HABITS_PATH
+import com.cleo.myha.util.MESSAGES_SUB_HABITS
+import com.cleo.myha.util.USERS_PATH
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -13,11 +16,6 @@ class ChatRoomViewModel : ViewModel() {
 
     private var db = FirebaseFirestore.getInstance()
     private lateinit var habit: Habits
-    private lateinit var users: User
-
-    private var _userData = MutableLiveData<List<Habits>>()
-    val userData: LiveData<List<Habits>>
-        get() = _userData
 
     private var _userInfo = MutableLiveData<List<User>>()
     val userInfo: LiveData<List<User>>
@@ -32,15 +30,12 @@ class ChatRoomViewModel : ViewModel() {
     val auth = FirebaseAuth.getInstance()
     val user = auth.currentUser
 
-    init {
-    }
-
     private fun getUserData() {
 
         val habitID = habit.id
 
-        user?.let { remoteUser ->
-            db.collection("habits").document(habitID)
+        user?.let { _ ->
+            db.collection(HABITS_PATH).document(habitID)
                 .get()
                 .addOnSuccessListener { documents ->
 
@@ -54,7 +49,7 @@ class ChatRoomViewModel : ViewModel() {
 
                     for (email in uList) {
 
-                        db.collection("users").document(email)
+                        db.collection(USERS_PATH).document(email)
                             .get()
                             .addOnSuccessListener {
                                 val uAllData = it.toObject(User::class.java)
@@ -69,6 +64,8 @@ class ChatRoomViewModel : ViewModel() {
 
                                 _userInfo.value = userLists
                             }.addOnFailureListener {
+
+
                             }
                     }
                 }
@@ -82,14 +79,14 @@ class ChatRoomViewModel : ViewModel() {
 
         val habitID = habit.id
 
-        db.collection("habits").document(habitID)
-            .collection("messages")
-            .addSnapshotListener { value, error ->
+        db.collection(HABITS_PATH).document(habitID)
+            .collection(MESSAGES_SUB_HABITS)
+            .addSnapshotListener { value, _ ->
                 value?.let {
 
                     val list = it.toObjects(MessagesInfo::class.java) as List<MessagesInfo>
-                    val sortList = list.sortedBy {
-                        it.textTime
+                    val sortList = list.sortedBy { messageInfo ->
+                        messageInfo.textTime
                     }
 
                     val myList = mutableListOf<UserType>()
@@ -110,15 +107,11 @@ class ChatRoomViewModel : ViewModel() {
 
     private fun addComment() {
 
-        val senderId = auth.currentUser?.let {
-            it.email
-        }
+        val senderId = auth.currentUser?.email
 
         val data = MessagesInfo(
             senderEmail = senderId.toString(),
-            senderName = auth.currentUser?.let {
-                it.displayName
-            }!!,
+            senderName = auth.currentUser?.displayName!!,
             senderImage = auth.currentUser?.photoUrl.toString(),
             message = textInput,
             textTime = Timestamp.now()
@@ -126,9 +119,9 @@ class ChatRoomViewModel : ViewModel() {
 
         Log.d("C", "comment $senderId")
 
-        db.collection("habits")
+        db.collection(HABITS_PATH)
             .document(habit.id)
-            .collection("messages")
+            .collection(MESSAGES_SUB_HABITS)
             .add(data)
             .addOnSuccessListener {
 

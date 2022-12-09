@@ -33,7 +33,7 @@ class GroupViewModel : ViewModel() {
                     val list = documents.toObjects(Habits::class.java)
 
                     val habits = list.filter {
-                        var today = Date().time
+                        val today = Date().time
 
                         (it.mode == 1 && it.members!!.contains(remoteUser.email)) || (it.mode == 1 && it.ownerId == remoteUser.email) && (today < it.endDate)
                     }
