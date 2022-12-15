@@ -1,6 +1,6 @@
 package com.cleo.myha.data
 
 enum class Category(val type: String) {
-    All("all"), Health("health"), Workout("workout"), Learning("learning"),
-    Reading("reading"), General("general")
+    All("All"), Health("Health"), Workout("Workout"), Learning("Learning"),
+    Reading("Reading"), General("General")
 }

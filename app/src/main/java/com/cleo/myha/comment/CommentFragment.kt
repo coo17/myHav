@@ -5,10 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.cleo.myha.R
 import com.cleo.myha.chatroom.ChatRoomFragmentArgs
 import com.cleo.myha.chatroom.ChatRoomFragmentDirections
 import com.cleo.myha.data.Posts
@@ -19,6 +21,7 @@ import com.cleo.myha.util.POSTS_PATH
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import hideKeyboard
 import java.text.SimpleDateFormat
 import java.util.*
@@ -40,7 +43,7 @@ class CommentFragment : Fragment() {
         posts = CommentFragmentArgs.fromBundle(requireArguments()).postsKey
 
         viewModel.setPosts(posts)
-
+        val storageReference = FirebaseStorage.getInstance()
         val adapter = CommentAdapter(
             CommentAdapter.OnClickListener {
                 findNavController().navigate(ChatRoomFragmentDirections.actionGlobalBlockDialog(it))
@@ -48,17 +51,28 @@ class CommentFragment : Fragment() {
         )
         binding.commentRecycler.adapter = adapter
 
+
         viewModel.blockUserList.observe(viewLifecycleOwner) {
             viewModel.getComments(it)
         }
 
         viewModel.userComments.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+//            binding.commentRecycler.scrollToPosition(adapter.currentList.size - 0)
         }
 
-        Glide.with(requireContext())
-            .load(posts.photo)
-            .into(binding.postImage)
+//        Glide.with(requireContext())
+//            .load(posts.photo)
+//            .into(binding.postImage)
+
+        posts.photo?.let { it ->
+            storageReference.getReferenceFromUrl(it).downloadUrl.addOnSuccessListener { imgPhoto ->
+                Glide.with(requireContext())
+                    .load(imgPhoto)
+                    .error(R.drawable.man)
+                    .into(binding.postImage)
+            }
+        }
 
         binding.textTitle.text = posts.title
         binding.textContent.text = posts.content

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cleo.myha.R
+import com.cleo.myha.data.Category
 import com.cleo.myha.data.Habits
 import com.cleo.myha.databinding.ItemDiscoverBinding
 
@@ -20,11 +21,11 @@ class CommunityAdapter(val onClickListener: OnClickListener, val viewModel: Comm
             binding.userTaskTitle.text = data.task
             binding.layoutCommunity.setBackgroundResource(
                 when (data.category) {
-                    "Health" -> R.drawable.cart_rounded_health
-                    "Workout" -> R.drawable.cart_rounded_workout
-                    "Reading" -> R.drawable.cart_rounded_reading
-                    "Learning" -> R.drawable.cart_rounded_learning
-                    "General" -> R.drawable.cart_rounded_general
+                    Category.Health.toString() -> R.drawable.cart_rounded_health
+                    Category.Workout.toString()-> R.drawable.cart_rounded_workout
+                    Category.Reading.toString() -> R.drawable.cart_rounded_reading
+                    Category.Learning.toString() -> R.drawable.cart_rounded_learning
+                    Category.General.toString() -> R.drawable.cart_rounded_general
                     else -> {
                         R.drawable.cart_rounded_other
                     }
