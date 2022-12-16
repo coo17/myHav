@@ -58,12 +58,7 @@ class CommentFragment : Fragment() {
 
         viewModel.userComments.observe(viewLifecycleOwner) {
             adapter.submitList(it)
-//            binding.commentRecycler.scrollToPosition(adapter.currentList.size - 0)
         }
-
-//        Glide.with(requireContext())
-//            .load(posts.photo)
-//            .into(binding.postImage)
 
         posts.photo?.let { it ->
             storageReference.getReferenceFromUrl(it).downloadUrl.addOnSuccessListener { imgPhoto ->

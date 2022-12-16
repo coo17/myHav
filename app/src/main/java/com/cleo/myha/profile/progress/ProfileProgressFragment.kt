@@ -26,51 +26,41 @@ class ProfileProgressFragment : Fragment() {
         val adapter = ProfileProgressAdapter()
         binding.trackerRecyclerView.adapter = adapter
 
-//        viewModel.userGroupHabit.observe(viewLifecycleOwner, Observer {
-//            adapter.submitList(it)
-//        })
-
         viewModel.categoryList.observe(
-            viewLifecycleOwner,
-            Observer {
-                adapter.submitList(it)
-            }
-        )
+            viewLifecycleOwner
+        ) {
+            adapter.submitList(it)
+        }
 
         viewModel.allHabits.observe(
-            viewLifecycleOwner,
-            Observer {
-                binding.totalHabit.text = "${it.size} habits in total"
-            }
-        )
+            viewLifecycleOwner
+        ) {
+            binding.totalHabit.text = "${it.size} habits in total"
+        }
 
         viewModel.allTasks.observe(
-            viewLifecycleOwner,
-            Observer {
-                binding.finishedHabit.text = "${it.toInt()} total tasks"
-            }
-        )
+            viewLifecycleOwner
+        ) {
+            binding.finishedHabit.text = "${it.toInt()} total tasks"
+        }
 
         viewModel.completedTasks.observe(
-            viewLifecycleOwner,
-            Observer {
-                binding.unfinishedTask.text = "${it.toInt()} finished"
-            }
-        )
+            viewLifecycleOwner
+        ) {
+            binding.unfinishedTask.text = "${it.toInt()} finished"
+        }
 
         viewModel.percentTask.observe(
-            viewLifecycleOwner,
-            Observer {
-                binding.textPercent.text = "${it.toInt()}%"
-            }
-        )
+            viewLifecycleOwner
+        ) {
+            binding.textPercent.text = "${it.toInt()}%"
+        }
 
         viewModel.donutSet.observe(
-            viewLifecycleOwner,
-            Observer {
-                binding.donutChart.animate(it)
-            }
-        )
+            viewLifecycleOwner
+        ) {
+            binding.donutChart.animate(it)
+        }
 
         // display donut chart
         binding.donutChart.donutColors = intArrayOf(

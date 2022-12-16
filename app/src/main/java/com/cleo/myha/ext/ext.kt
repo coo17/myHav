@@ -31,3 +31,16 @@ fun Fragment.hideKeyboard(view: View) {
     val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(view.windowToken, 0)
 }
+
+fun Long.toFormat(millis: Long): String {
+    val hours = millis / (1000 * 60 * 60)
+    val minutes = millis / (1000 * 60) - (hours * 60)
+    val newHour = if (hours == -1L) {
+        "00"
+    } else hours
+
+    val newMinutes = if (minutes == -1L || minutes == 0L) {
+        "00"
+    } else minutes
+    return "$newHour:$newMinutes"
+}

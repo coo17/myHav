@@ -43,11 +43,12 @@ class CommentViewModel : ViewModel() {
         articles.document(postId).collection(MESSAGES_SUB_POSTS)
             .addSnapshotListener { value, _ ->
                 value?.let {
-                    val list = it.toObjects(CommentsInfo::class.java)
 
+                    val list = it.toObjects(CommentsInfo::class.java)
                     val commentList = list.sortedBy { ok ->
                         ok.createdTime
                     }
+
                     Log.d("Cleo", "${commentList.size}")
 
                     for(item in commentList){
@@ -55,7 +56,7 @@ class CommentViewModel : ViewModel() {
                             !blockLists.contains(noBlocklist.senderId)
 
                         }
-                        Log.d("VIC", "${blockList.size}")
+                        Log.d("Cleo", "${blockList.size}")
                         _userComments.value = blockList
                     }
                 }
@@ -97,7 +98,7 @@ class CommentViewModel : ViewModel() {
             .collection(MESSAGES_SUB_POSTS)
             .add(data)
             .addOnSuccessListener {
-                Log.d("JOMALONE ", "Add comment success!!")
+                Log.d("Cleo ", "Add comment success!!")
             }
             .addOnFailureListener {
                 Log.d("Cleo", "add fail")

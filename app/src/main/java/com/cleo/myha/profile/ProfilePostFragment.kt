@@ -1,7 +1,6 @@
 package com.cleo.myha.profile
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,8 @@ import com.cleo.myha.data.Posts
 import com.cleo.myha.databinding.FragmentProfilePostBinding
 import com.cleo.myha.discover.DiscoverAdapter
 import com.cleo.myha.discover.DiscoverItemFragmentDirections
+import com.cleo.myha.util.AUTHOR_FILED_POSTS
+import com.cleo.myha.util.POSTS_PATH
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -25,11 +26,9 @@ class ProfilePostFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentProfilePostBinding.inflate(inflater, container, false)
         auth = FirebaseAuth.getInstance()
-
-//        val viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
 
         binding.profilePostRecycler.apply {
             layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
@@ -41,12 +40,10 @@ class ProfilePostFragment : Fragment() {
 
         fun postData() {
 
-            val authorEmail = auth.currentUser?.let {
-                it.email
-            }
+            val authorEmail = auth.currentUser?.email
 
-            FirebaseFirestore.getInstance().collection("posts")
-                .whereEqualTo("author", authorEmail)
+            FirebaseFirestore.getInstance().collection(POSTS_PATH)
+                .whereEqualTo(AUTHOR_FILED_POSTS, authorEmail)
                 .get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
@@ -54,7 +51,6 @@ class ProfilePostFragment : Fragment() {
                         user.sortBy {
                             it.lastUpdatedTime
                         }
-//                        binding.profilePostRecycler.adapter = context?.let { ProfilePostAdapter(it, user) }
                         val adapter = DiscoverAdapter(
                             onClickListener = DiscoverAdapter.OnClickListener { Posts ->
                                 this.findNavController()
@@ -66,7 +62,7 @@ class ProfilePostFragment : Fragment() {
                     }
                 }
                 .addOnFailureListener {
-                    Log.d("Cleooo", "get fail")
+
                 }
         }
 

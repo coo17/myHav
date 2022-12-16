@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cleo.myha.R
+import com.cleo.myha.data.Category
 import com.cleo.myha.data.Habits
 import com.cleo.myha.databinding.ItemTodayTasksBinding
 import java.util.*
@@ -34,11 +35,11 @@ class HomeAdapter(val onClickListener: HomeListener, val viewModel: HomeViewMode
 
             binding.dailyLayout.setBackgroundResource(
                 when (data.category) {
-                    "Health" -> R.drawable.cart_rounded_workout
-                    "Workout" -> R.drawable.cart_rounded_workout
-                    "Reading" -> R.drawable.cart_rounded_reading
-                    "Learning" -> R.drawable.cart_rounded_learning
-                    "General" -> R.drawable.cart_rounded_general
+                    Category.Health.type -> R.drawable.cart_rounded_workout
+                    Category.Workout.type -> R.drawable.cart_rounded_workout
+                    Category.Reading.type -> R.drawable.cart_rounded_reading
+                    Category.Learning.type -> R.drawable.cart_rounded_learning
+                    Category.General.type -> R.drawable.cart_rounded_general
                     else -> {
                         R.drawable.cart_rounded_other
                     }

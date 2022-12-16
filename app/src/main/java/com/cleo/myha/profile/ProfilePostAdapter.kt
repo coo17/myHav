@@ -39,8 +39,4 @@ class ProfilePostAdapter(private val context: Context, private val users: List<P
             .load(user.photo)
             .into(holder.userImage)
     }
-
-//    class CommentListener(val checkListener:(collection: Posts) -> Unit){
-//        fun onClick(collection: Posts) = checkListener(collection)
-//    }
 }

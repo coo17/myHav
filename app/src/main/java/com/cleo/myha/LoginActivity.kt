@@ -13,7 +13,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.lottieAnimationView1.apply {
-            animate().setDuration(6000).alpha(1f).withEndAction {
+            animate().setDuration(ANIMATION_DURATION).alpha(ANIMATION_ALPHA).withEndAction {
 //                val i = Intent(context, MainActivity::class.java)
 //                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
 //                startActivity(i)
@@ -26,4 +26,10 @@ class LoginActivity : AppCompatActivity() {
             startActivity(i)
         }
     }
+
+    companion object{
+        private const val ANIMATION_DURATION = 6000L
+        private const val ANIMATION_ALPHA = 1f
+    }
+
 }

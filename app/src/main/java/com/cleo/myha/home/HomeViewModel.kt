@@ -5,6 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cleo.myha.data.Habits
+import com.cleo.myha.util.HABITS_PATH
+import com.cleo.myha.util.OWNER_ID_FILED_HABITS
+import com.cleo.myha.util.TEST_SUB_HABITS
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import convertDurationToDate
@@ -47,9 +50,9 @@ class HomeViewModel : ViewModel() {
         val todayString = Date().time
         val date = convertLongToTime(todayString)
 
-        db.collection("habits")
+        db.collection(HABITS_PATH)
             .document(habitId)
-            .collection("Test")
+            .collection(TEST_SUB_HABITS)
             .document(date)
             .get()
             .addOnCompleteListener {
@@ -72,8 +75,8 @@ class HomeViewModel : ViewModel() {
 
     private fun getTodayTasks() {
 
-        db.collection("habits")
-            .whereEqualTo("ownerId", userEmail)
+        db.collection(HABITS_PATH)
+            .whereEqualTo(OWNER_ID_FILED_HABITS, userEmail)
             .get()
             .addOnSuccessListener { result ->
 

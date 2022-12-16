@@ -14,13 +14,14 @@ import com.cleo.myha.component.CenterZoomLayoutManager
 import com.cleo.myha.databinding.FragmentDiscoverBinding
 import com.cleo.myha.discover.community.CommunityAdapter
 import com.cleo.myha.discover.community.CommunityViewModel
+import com.cleo.myha.util.*
 import com.google.android.material.tabs.TabLayoutMediator
 
 class DiscoverFragment : Fragment() {
 
     private lateinit var binding: FragmentDiscoverBinding
     private val tabTitles =
-        arrayListOf("all", "health", "workout", "learning", "reading", "general")
+        arrayListOf(CATEGORY_ALL, CATEGORY_HEALTH, CATEGORY_WORKOUT, CATEGORY_LEARNING, CATEGORY_READING, CATEGORY_GENERAL)
 
     override fun onCreateView(
         inflater: LayoutInflater,

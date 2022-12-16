@@ -21,9 +21,9 @@ class CommunityAdapter(val onClickListener: OnClickListener, val viewModel: Comm
             binding.userTaskTitle.text = data.task
             binding.layoutCommunity.setBackgroundResource(
                 when (data.category) {
-                    Category.Health.toString() -> R.drawable.cart_rounded_health
-                    Category.Workout.toString()-> R.drawable.cart_rounded_workout
-                    Category.Reading.toString() -> R.drawable.cart_rounded_reading
+                    Category.Health.type -> R.drawable.cart_rounded_health
+                    Category.Workout.type -> R.drawable.cart_rounded_workout
+                    Category.Reading.type-> R.drawable.cart_rounded_reading
                     Category.Learning.toString() -> R.drawable.cart_rounded_learning
                     Category.General.toString() -> R.drawable.cart_rounded_general
                     else -> {
@@ -34,11 +34,11 @@ class CommunityAdapter(val onClickListener: OnClickListener, val viewModel: Comm
 
             binding.imageView4.setImageResource(
                 when (data.category) {
-                    "Health" -> R.drawable.group_health
-                    "Workout" -> R.drawable.group_workout
-                    "Reading" -> R.drawable.group_reading
-                    "Learning" -> R.drawable.ic_learning
-                    "General" -> R.drawable.group_other
+                    Category.Health.type-> R.drawable.group_health
+                    Category.Workout.type-> R.drawable.group_workout
+                    Category.Reading.type-> R.drawable.group_reading
+                    Category.Learning.type-> R.drawable.ic_learning
+                    Category.General.type -> R.drawable.group_other
                     else -> {
                         R.drawable.group_other
                     }

@@ -13,9 +13,3 @@ data class User(
     var blockLists: @RawValue List<String> = emptyList()
 ) : Parcelable
 
-// data class BlockInfo(
-//    var blockEmail: String ="",
-//    var id: String ="",
-//    var content: String ="",
-//    var userName: String = ""
-// )
