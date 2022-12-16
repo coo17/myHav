@@ -23,11 +23,11 @@
 
 
 &nbsp;
-#### Create Post and add your comment
+#### Create Post and Add Your Comment
 1. After completing the daily task, you can post the article；
 2. On Discover Page, you can browse the posts of other users and interact with them by leaving messages for your opinon.
 
-<img width="24%" src="images/home3.png"/> <img width="24%" src="images/exp1.png"/> <img width="24%" src="images/exp2.png"/>
+<img width="24%" src="images/home3.png"/> <img width="24%" src="images/discover1.png"/> <img width="24%" src="images/discover2.png"/>
 
 
 &nbsp;
