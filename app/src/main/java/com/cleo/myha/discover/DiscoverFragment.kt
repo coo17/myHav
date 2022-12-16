@@ -1,36 +1,31 @@
 package com.cleo.myha.discover
 
-
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
-import com.cleo.myha.R
 import com.cleo.myha.component.CenterZoomLayoutManager
 import com.cleo.myha.databinding.FragmentDiscoverBinding
 import com.cleo.myha.discover.community.CommunityAdapter
 import com.cleo.myha.discover.community.CommunityViewModel
+import com.cleo.myha.util.*
 import com.google.android.material.tabs.TabLayoutMediator
-import java.util.Date.from
-
 
 class DiscoverFragment : Fragment() {
 
     private lateinit var binding: FragmentDiscoverBinding
     private val tabTitles =
-        arrayListOf("all", "health", "workout", "learning", "reading", "general")
-
+        arrayListOf(CATEGORY_ALL, CATEGORY_HEALTH, CATEGORY_WORKOUT, CATEGORY_LEARNING, CATEGORY_READING, CATEGORY_GENERAL)
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDiscoverBinding.inflate(inflater, container, false)
@@ -38,40 +33,32 @@ class DiscoverFragment : Fragment() {
 
         val viewModel = ViewModelProvider(this)[CommunityViewModel::class.java]
 
-        val adapter = CommunityAdapter(onClickListener = CommunityAdapter.OnClickListener { Habits ->
-            this.findNavController()
-                .navigate(DiscoverFragmentDirections.actionGlobalTaskDialog(Habits))
-//                .navigate(DiscoverItemFragmentDirections.actionGlobalTaskDialog(Habits))
-        },viewModel)
-
-
-
+        val adapter =
+            CommunityAdapter(
+                onClickListener = CommunityAdapter.OnClickListener { Habits ->
+                    this.findNavController()
+                        .navigate(DiscoverFragmentDirections.actionGlobalTaskDialog(Habits))
+                },
+                viewModel
+            )
 
         binding.groupTaskRecycler.adapter = adapter
-
-
 
         val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(binding.groupTaskRecycler)
 
-        binding.groupTaskRecycler.layoutManager =
-            CenterZoomLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-//        binding.groupTaskRecycler.scrollToPosition(500)
+        binding.groupTaskRecycler.layoutManager = CenterZoomLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        viewModel.groupTasks.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
-
-
-
-
-
-
-
+        viewModel.groupTasks.observe(
+            viewLifecycleOwner,
+            Observer {
+                adapter.submitList(it)
+            }
+        )
 
         setUpTabLayoutWithViewPager()
-        return binding.root
 
+        return binding.root
     }
 
     private fun setUpTabLayoutWithViewPager() {
@@ -80,4 +67,3 @@ class DiscoverFragment : Fragment() {
         }.attach()
     }
 }
-

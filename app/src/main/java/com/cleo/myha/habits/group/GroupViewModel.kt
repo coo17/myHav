@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cleo.myha.data.Habits
-import com.cleo.myha.data.Posts
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
@@ -13,9 +12,8 @@ import java.util.*
 class GroupViewModel : ViewModel() {
 
     private val db = FirebaseFirestore.getInstance()
-    private lateinit var habits: Habits
 
-    private val _groupHabits = MutableLiveData<List<Habits>>()
+    private var _groupHabits = MutableLiveData<List<Habits>>()
     val groupHabits: LiveData<List<Habits>>
         get() = _groupHabits
 
@@ -34,24 +32,16 @@ class GroupViewModel : ViewModel() {
                 .addOnSuccessListener { documents ->
                     val list = documents.toObjects(Habits::class.java)
 
-                    Log.d("VIC","${documents.size()}")
-
-
                     val habits = list.filter {
-                        var today = Date().time
+                        val today = Date().time
 
-                        (it.mode == 1 && it.members!!.contains(remoteUser.email) ) || (it.mode == 1 &&  it.ownerId == remoteUser.email) && ( today < it.endDate)
-
+                        (it.mode == 1 && it.members!!.contains(remoteUser.email)) || (it.mode == 1 && it.ownerId == remoteUser.email) && (today < it.endDate)
                     }
                     _groupHabits.value = habits
-
                 }
                 .addOnFailureListener {
-                    Log.d("Cleooo", "get fail")}
+                    Log.d("Cleooo", "get fail")
+                }
         }
-    }
-
-    fun setHabits(newHabits: Habits) {
-        habits = newHabits
     }
 }

@@ -10,15 +10,12 @@ import com.cleo.myha.data.Habits
 import com.cleo.myha.databinding.ItemSingleTaskBinding
 import convertDurationToDate
 
-
 class SingleAdapter() : ListAdapter<Habits, SingleAdapter.SingleViewHolder>(SingleDiffCallBack()) {
 
     class SingleViewHolder(private var binding: ItemSingleTaskBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: Habits) {
-
-
 
             binding.userTaskCategory.text = data.category
             binding.userTaskTitle.text = data.task
@@ -37,31 +34,6 @@ class SingleAdapter() : ListAdapter<Habits, SingleAdapter.SingleViewHolder>(Sing
                     }
                 }
             )
-
-//            binding.layoutTask.foreground = ResourcesCompat.getDrawable(itemView.resources,R.drawable.ic_reading, null)
-
-//            val radius = 50.0f
-//            binding.imageView.shapeAppearanceModel = binding.imageView.shapeAppearanceModel
-//                .toBuilder()
-//                .setTopRightCorner(CornerFamily.ROUNDED, radius)
-//                .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
-//                .setTopLeftCorner(CornerFamily.ROUNDED,radius)
-//                .setBottomRightCorner(CornerFamily.ROUNDED,radius)
-//                .build()
-
-//            binding.imageView.setImageResource(
-//                when (data.category) {
-//                    "health" -> R.drawable.lion
-//                    "workout" -> R.drawable.icon_workout
-//                    "reading" -> R.drawable.icon_reading
-//                    "learning" -> R.drawable.icon_learning
-//                    "general" -> R.drawable.icon_smilingface
-//                    else -> {
-//                        R.drawable.icon_heart
-//                    }
-//                }
-//            )
-
         }
     }
 
@@ -73,15 +45,14 @@ class SingleAdapter() : ListAdapter<Habits, SingleAdapter.SingleViewHolder>(Sing
         override fun areContentsTheSame(oldItem: Habits, newItem: Habits): Boolean {
             return oldItem == newItem
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
-       return SingleViewHolder(
-                    ItemSingleTaskBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
+        return SingleViewHolder(
+            ItemSingleTaskBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
             )
         )
     }

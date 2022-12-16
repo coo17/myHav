@@ -1,48 +1,34 @@
 package com.cleo.myha.profile
 
 import android.os.Bundle
-
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.view.get
-import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import com.cleo.myha.NavGraphDirections
+import androidx.fragment.app.Fragment
 import com.cleo.myha.R
 import com.cleo.myha.databinding.FragmentProfileBinding
-import com.cleo.myha.home.HomeAdapter
-import com.cleo.myha.home.HomeViewModel
+import com.cleo.myha.util.PROFILE_POSTS
+import com.cleo.myha.util.PROFILE_PROGRESS
 import com.google.android.material.tabs.TabLayoutMediator
-
 
 class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
-    private val tabTitles = arrayListOf("Post", "Progress")
+    private val tabTitles = arrayListOf(PROFILE_POSTS, PROFILE_PROGRESS)
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
         binding.viewPager.adapter = ProfileViewPagerAdapter(childFragmentManager, lifecycle)
 
         setUpTabLayoutWithViewPager()
 
-
         binding.userAvatar.setImageResource(R.drawable.woman)
-
-
-
-
-//        binding.createPost.setOnClickListener {
-//            findNavController().navigate(NavGraphDirections.actionGlobalPublishFragment())
-//        }
 
         return binding.root
     }

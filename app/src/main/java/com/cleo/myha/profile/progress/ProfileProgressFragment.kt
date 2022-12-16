@@ -2,22 +2,22 @@ package com.cleo.myha.profile.progress
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.cleo.myha.databinding.FragmentProfileProgressBinding
 import com.cleo.myha.profile.ProfileViewModel
-
 
 class ProfileProgressFragment : Fragment() {
 
     private val animationDuration = 1000L
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentProfileProgressBinding.inflate(inflater, container, false)
@@ -26,36 +26,43 @@ class ProfileProgressFragment : Fragment() {
         val adapter = ProfileProgressAdapter()
         binding.trackerRecyclerView.adapter = adapter
 
-//        viewModel.userGroupHabit.observe(viewLifecycleOwner, Observer {
-//            adapter.submitList(it)
-//        })
-
-        viewModel.categoryList.observe(viewLifecycleOwner, Observer {
+        viewModel.categoryList.observe(
+            viewLifecycleOwner
+        ) {
             adapter.submitList(it)
-        })
+        }
 
-
-        viewModel.allHabits.observe(viewLifecycleOwner, Observer {
+        viewModel.allHabits.observe(
+            viewLifecycleOwner
+        ) {
             binding.totalHabit.text = "${it.size} habits in total"
-        })
+        }
 
-        viewModel.allTasks.observe(viewLifecycleOwner, Observer {
+        viewModel.allTasks.observe(
+            viewLifecycleOwner
+        ) {
             binding.finishedHabit.text = "${it.toInt()} total tasks"
-        })
+        }
 
-        viewModel.completedTasks.observe(viewLifecycleOwner, Observer {
+        viewModel.completedTasks.observe(
+            viewLifecycleOwner
+        ) {
             binding.unfinishedTask.text = "${it.toInt()} finished"
-        })
+        }
 
-        viewModel.percentTask.observe(viewLifecycleOwner, Observer {
+        viewModel.percentTask.observe(
+            viewLifecycleOwner
+        ) {
             binding.textPercent.text = "${it.toInt()}%"
-        })
+        }
 
-        viewModel.donutSet.observe(viewLifecycleOwner, Observer {
+        viewModel.donutSet.observe(
+            viewLifecycleOwner
+        ) {
             binding.donutChart.animate(it)
-        })
+        }
 
-        //display donut chart
+        // display donut chart
         binding.donutChart.donutColors = intArrayOf(
             Color.parseColor("#102F55"),
             Color.parseColor("#CCD2CC"),
@@ -69,9 +76,6 @@ class ProfileProgressFragment : Fragment() {
 
         binding.donutChart.animate(donutSet)
 
-
         return binding.root
     }
-
 }
-

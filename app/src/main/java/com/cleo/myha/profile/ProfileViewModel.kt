@@ -1,31 +1,26 @@
 package com.cleo.myha.profile
 
-
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cleo.myha.data.*
+import com.cleo.myha.util.*
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import convertDurationToCertain
-import java.lang.IllegalArgumentException
 import java.util.*
 import kotlin.collections.List
-
 
 class ProfileViewModel : ViewModel() {
 
     private val db = FirebaseFirestore.getInstance()
-    //    private lateinit var auth: FirebaseAuth
 
     val auth = FirebaseAuth.getInstance()
     val user = auth.currentUser
 
-    //    private lateinit var habit: Habits
     private var myHabit: Habits? = null
-    private  var userList : User ? = null
+    private var userList: User ? = null
 
     private var _myPosts = MutableLiveData<List<Posts>>()
     val myPosts: LiveData<List<Posts>>
@@ -52,13 +47,12 @@ class ProfileViewModel : ViewModel() {
         get() = _donutSet
 
     private var _userSingleHabit = MutableLiveData<List<Habits>>()
-    val userSinglerHabit: LiveData<List<Habits>>
+    val userSingleHabit: LiveData<List<Habits>>
         get() = _userSingleHabit
 
     private var _userGroupHabit = MutableLiveData<List<List<Habits>>>()
     val userGroupHabit: LiveData<List<List<Habits>>>
         get() = _userGroupHabit
-
 
     private var _categoryList = MutableLiveData<List<HabitTracker>>()
     val categoryList: LiveData<List<HabitTracker>>
@@ -71,32 +65,29 @@ class ProfileViewModel : ViewModel() {
 
     private fun getAllHabits() {
 
-
         user?.let {
-            db.collection("habits")
+            db.collection(HABITS_PATH)
                 .whereEqualTo("ownerId", it.email)
                 .get()
                 .addOnSuccessListener { documents ->
                     val list = documents.toObjects(Habits::class.java)
 
-
-
-                    //計算所有tasks
-                    var totalTaks = 0
+                    // 計算所有tasks
+                    var totalTask = 0
                     for (result in list) {
 
                         val habitStartedDay = result.startedDate.convertDurationToCertain()
                         val habitEndDay = result.endDate.convertDurationToCertain()
 
-                        totalTaks += calcWeekDay(habitStartedDay, habitEndDay, result.repeatedDays)
+                        totalTask += calWeekDay(habitStartedDay, habitEndDay, result.repeatedDays)
                     }
 
-                    //task isDone == true 總數量
+                    // task isDone == true 總數量
                     var habitCompleted = 0
                     for (hId in list) {
-                        db.collection("habits")
+                        db.collection(HABITS_PATH)
                             .document(hId.id)
-                            .collection("Test")
+                            .collection(TEST_SUB_HABITS)
                             .addSnapshotListener { value, _ ->
 
                                 value?.let { snapshot ->
@@ -109,20 +100,19 @@ class ProfileViewModel : ViewModel() {
                                     habitCompleted += sortList
                                     _completedTasks.value = habitCompleted.toFloat()
                                     val percentage =
-                                        (habitCompleted.toFloat() / totalTaks.toFloat()) * 100
+                                        (habitCompleted.toFloat() / totalTask.toFloat()) * 100
 
                                     _percentTask.value = percentage
 
-                                    val uncompleted = totalTaks.minus(habitCompleted)
-                                    Log.d("MFK", "this is $uncompleted")
+                                    val uncompleted = totalTask.minus(habitCompleted)
+                                    Log.d("Cleo", "this is $uncompleted")
+
                                     val donutList = listOf(
                                         percentage,
                                         100F
 
-
                                     )
-                                    Log.d("MFK", "this is $donutList")
-
+                                    Log.d("Cleo", "this is $donutList")
 
                                     _donutSet.value = donutList
                                 }
@@ -130,8 +120,7 @@ class ProfileViewModel : ViewModel() {
                     }
 
                     _allHabits.value = list
-                    _allTasks.value = totalTaks.toFloat()
-
+                    _allTasks.value = totalTask.toFloat()
                 }
                 .addOnFailureListener {
                     Log.d("Cleooo", "get fail")
@@ -139,7 +128,7 @@ class ProfileViewModel : ViewModel() {
         }
     }
 
-    fun calcWeekDay(startDay: String, endDay: String, repeatedDays: List<Boolean>): Int {
+    fun calWeekDay(startDay: String, endDay: String, repeatedDays: List<Boolean>): Int {
 
         val sDayYear = startDay.split(",")[2].toInt()
         val sDayMonth = startDay.split(",")[0].toInt() - 1
@@ -158,141 +147,115 @@ class ProfileViewModel : ViewModel() {
         val totalCal = Calendar.getInstance()
         totalCal.time = startCal.time
 
-        //計算task==weekdays==true
+        // 計算task==weekdays==true
         var taskDay = 0
         while (totalCal.toInstant().epochSecond <= endCal.toInstant().epochSecond) {
-            if (totalCal.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY && repeatedDays[0] == true) {
+            if (totalCal.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY && repeatedDays[0]) {
                 taskDay += 1
             }
-            if (totalCal.get(Calendar.DAY_OF_WEEK) == Calendar.TUESDAY && repeatedDays[1] == true) {
+            if (totalCal.get(Calendar.DAY_OF_WEEK) == Calendar.TUESDAY && repeatedDays[1]) {
                 taskDay += 1
             }
-            if (totalCal.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY && repeatedDays[2] == true) {
+            if (totalCal.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY && repeatedDays[2]) {
                 taskDay += 1
             }
-            if (totalCal.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY && repeatedDays[3] == true) {
+            if (totalCal.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY && repeatedDays[3]) {
                 taskDay += 1
             }
-            if (totalCal.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY && repeatedDays[4] == true) {
+            if (totalCal.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY && repeatedDays[4]) {
                 taskDay += 1
             }
-            if (totalCal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY && repeatedDays[5] == true) {
+            if (totalCal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY && repeatedDays[5]) {
                 taskDay += 1
             }
-            if (totalCal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY && repeatedDays[6] == true) {
+            if (totalCal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY && repeatedDays[6]) {
                 taskDay += 1
             }
             totalCal.add(Calendar.DATE, 1)
         }
 
         return taskDay
-
     }
 
-    private fun getHabitCategory(list: List<Habits>, email: String){
+    private fun getHabitCategory(list: List<Habits>, email: String) {
 
         val habitTracker = mutableListOf<HabitTracker>()
 
-
-
         val healthList = list.filter {
-            (it.category == "Health") && ((it.mode == 0 && it.ownerId == email) || (it.mode == 1 && it.members!!.contains(
-                email
-            )) || (it.mode == 1 && it.ownerId == email))
+            (it.category == CATEGORY_HEALTH) && (
+                (it.mode == SINGLE_MODE && it.ownerId == email) || (
+                    it.mode == GROUP_MODE && it.members!!.contains(
+                        email
+                    )
+                    ) || (it.mode == GROUP_MODE && it.ownerId == email)
+                )
         }.size
 
         val workoutList = list.filter {
-            (it.category == "Workout") && ((it.mode == 0 && it.ownerId == email) || (it.mode == 1 && it.members!!.contains(
-                email
-            )) || (it.mode == 1 && it.ownerId == email))
+            (it.category == CATEGORY_WORKOUT) && (
+                (it.mode == SINGLE_MODE && it.ownerId == email) || (
+                    it.mode == GROUP_MODE && it.members!!.contains(
+                        email
+                    )
+                    ) || (it.mode == GROUP_MODE && it.ownerId == email)
+                )
         }.size
 
         val readingList = list.filter {
-            (it.category == "Reading") && ((it.mode == 0 && it.ownerId == email) || (it.mode == 1 && it.members!!.contains(
-                email
-            )) || (it.mode == 1 && it.ownerId == email))
+            (it.category == CATEGORY_READING) && (
+                (it.mode == SINGLE_MODE && it.ownerId == email) || (
+                    it.mode == GROUP_MODE && it.members!!.contains(
+                        email
+                    )
+                    ) || (it.mode == GROUP_MODE && it.ownerId == email)
+                )
         }.size
 
         val learningList = list.filter {
-            (it.category == "Learning") && ((it.mode == 0 && it.ownerId == email) || (it.mode == 1 && it.members!!.contains(
-                email
-            )) || (it.mode == 1 && it.ownerId == email))
+            (it.category == CATEGORY_LEARNING) && (
+                (it.mode == SINGLE_MODE && it.ownerId == email) || (
+                    it.mode == GROUP_MODE && it.members!!.contains(
+                        email
+                    )
+                    ) || (it.mode == GROUP_MODE && it.ownerId == email)
+                )
         }.size
 
         val generalList = list.filter {
-            (it.category == "General") && ((it.mode == 0 && it.ownerId == email) || (it.mode == 1 && it.members!!.contains(
-                email
-            )) || (it.mode == 1 && it.ownerId == email))
+            (it.category == CATEGORY_GENERAL) && (
+                (it.mode == SINGLE_MODE && it.ownerId == email) || (
+                    it.mode == GROUP_MODE && it.members!!.contains(
+                        email
+                    )
+                    ) || (it.mode == GROUP_MODE && it.ownerId == email)
+                )
         }.size
 
-        habitTracker.add(HabitTracker("Health", healthList))
-        habitTracker.add(HabitTracker("Workout",workoutList))
-        habitTracker.add(HabitTracker("Reading",readingList))
-        habitTracker.add(HabitTracker("Learning",learningList))
-        habitTracker.add(HabitTracker("General",generalList))
+        habitTracker.add(HabitTracker(CATEGORY_HEALTH, healthList))
+        habitTracker.add(HabitTracker(CATEGORY_WORKOUT, workoutList))
+        habitTracker.add(HabitTracker(CATEGORY_READING, readingList))
+        habitTracker.add(HabitTracker(CATEGORY_LEARNING, learningList))
+        habitTracker.add(HabitTracker(CATEGORY_GENERAL, generalList))
 
         _categoryList.value = habitTracker
-
     }
 
     private fun getUserHabits() {
 
         user?.let { remoteUser ->
-            db.collection("habits")
+            db.collection(HABITS_PATH)
                 .get()
                 .addOnSuccessListener { documents ->
                     val list = documents.toObjects(Habits::class.java)
 
                     remoteUser.email?.let {
-                        getHabitCategory(list,it)
+                        getHabitCategory(list, it)
                     }
-                    Log.d("JOMALONE", "Size: ${documents.size()}")
-
-//                    val healthList = list.filter {
-//                        (it.category == "Health") && ((it.mode == 0 && it.ownerId == remoteUser.email) || (it.mode == 1 && it.members!!.contains(
-//                            remoteUser.email
-//                        )) || (it.mode == 1 && it.ownerId == remoteUser.email))
-//                    }
-//
-//                    Log.d("JOMALONE", "Health: $healthList")
-//
-//                    val workoutList = list.filter {
-//                        (it.category == "Workout") && ((it.mode == 0 && it.ownerId == remoteUser.email) || (it.mode == 1 && it.members!!.contains(
-//                            remoteUser.email
-//                        )) || (it.mode == 1 && it.ownerId == remoteUser.email))
-//                    }
-//
-//                    val readingList = list.filter {
-//                        (it.category == "Reading") && ((it.mode == 0 && it.ownerId == remoteUser.email) || (it.mode == 1 && it.members!!.contains(
-//                            remoteUser.email
-//                        )) || (it.mode == 1 && it.ownerId == remoteUser.email))
-//                    }
-//
-//                    val learningList = list.filter {
-//                        (it.category == "Learning") && ((it.mode == 0 && it.ownerId == remoteUser.email) || (it.mode == 1 && it.members!!.contains(
-//                            remoteUser.email
-//                        )) || (it.mode == 1 && it.ownerId == remoteUser.email))
-//                    }
-//
-//                    val generalList = list.filter {
-//                        (it.category == "General") && ((it.mode == 0 && it.ownerId == remoteUser.email) || (it.mode == 1 && it.members!!.contains(
-//                            remoteUser.email
-//                        )) || (it.mode == 1 && it.ownerId == remoteUser.email))
-//                    }
-//
-//                    val allLists = mutableListOf<List<Habits>>()
-//                    allLists.add(healthList)
-//                    allLists.add(workoutList)
-//                    allLists.add(readingList)
-//                    allLists.add(learningList)
-//                    allLists.add(generalList)
-//
-//                    _userGroupHabit.value = allLists
+                    Log.d("Cleo", "Size: ${documents.size()}")
 
                 }.addOnFailureListener {
-                    Log.d("Cleooo", "get fail")
+                    Log.d("Cleo", "get fail")
                 }
         }
     }
-
 }

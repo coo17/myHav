@@ -2,56 +2,56 @@ package com.cleo.myha.discover.community
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.NavDirections
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cleo.myha.R
+import com.cleo.myha.data.Category
 import com.cleo.myha.data.Habits
-import com.cleo.myha.data.Posts
 import com.cleo.myha.databinding.ItemDiscoverBinding
-import com.cleo.myha.discover.DiscoverAdapter
-import com.cleo.myha.discover.DiscoverViewModel
-import com.google.android.material.shape.CornerFamily
 
-class CommunityAdapter(val onClickListener: OnClickListener, val viewModel: CommunityViewModel): ListAdapter<Habits, CommunityAdapter.GroupViewHolder>(GroupDiffCallBack()) {
+class CommunityAdapter(val onClickListener: OnClickListener, val viewModel: CommunityViewModel) :
+    ListAdapter<Habits, CommunityAdapter.GroupViewHolder>(GroupDiffCallBack()) {
 
+    inner class GroupViewHolder(private var binding: ItemDiscoverBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-   inner class GroupViewHolder(private var binding: ItemDiscoverBinding): RecyclerView.ViewHolder(binding.root){
-
-        fun bind(data: Habits){
+        fun bind(data: Habits) {
 
             binding.userTaskTitle.text = data.task
             binding.layoutCommunity.setBackgroundResource(
-                when(data.category){
-                    "Health" -> R.drawable.cart_rounded_health
-                    "Workout" -> R.drawable.cart_rounded_workout
-                    "Reading" -> R.drawable.cart_rounded_reading
-                    "Learning" -> R.drawable.cart_rounded_learning
-                    "General" -> R.drawable.cart_rounded_general
-                    else -> { R.drawable.cart_rounded_other}
-                })
+                when (data.category) {
+                    Category.Health.type -> R.drawable.cart_rounded_health
+                    Category.Workout.type -> R.drawable.cart_rounded_workout
+                    Category.Reading.type-> R.drawable.cart_rounded_reading
+                    Category.Learning.toString() -> R.drawable.cart_rounded_learning
+                    Category.General.toString() -> R.drawable.cart_rounded_general
+                    else -> {
+                        R.drawable.cart_rounded_other
+                    }
+                }
+            )
 
             binding.imageView4.setImageResource(
-                when(data.category){
-                    "Health" -> R.drawable.group_health
-                    "Workout" -> R.drawable.group_workout
-                    "Reading" -> R.drawable.group_reading
-                    "Learning" -> R.drawable.ic_learning
-                    "General" -> R.drawable.group_other
-                    else -> { R.drawable.group_other}
-                })
+                when (data.category) {
+                    Category.Health.type-> R.drawable.group_health
+                    Category.Workout.type-> R.drawable.group_workout
+                    Category.Reading.type-> R.drawable.group_reading
+                    Category.Learning.type-> R.drawable.ic_learning
+                    Category.General.type -> R.drawable.group_other
+                    else -> {
+                        R.drawable.group_other
+                    }
+                }
+            )
 
             binding.imageView4.setOnClickListener {
                 onClickListener.onClick(data)
             }
-
         }
     }
 
-    class GroupDiffCallBack: DiffUtil.ItemCallback<Habits>() {
+    class GroupDiffCallBack : DiffUtil.ItemCallback<Habits>() {
         override fun areItemsTheSame(oldItem: Habits, newItem: Habits): Boolean {
             return oldItem == newItem
         }
@@ -59,7 +59,6 @@ class CommunityAdapter(val onClickListener: OnClickListener, val viewModel: Comm
         override fun areContentsTheSame(oldItem: Habits, newItem: Habits): Boolean {
             return oldItem == newItem
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
@@ -67,7 +66,8 @@ class CommunityAdapter(val onClickListener: OnClickListener, val viewModel: Comm
             ItemDiscoverBinding.inflate(
                 LayoutInflater.from(
                     parent.context
-                ), parent, false
+                ),
+                parent, false
             )
         )
     }

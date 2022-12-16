@@ -8,43 +8,42 @@ import com.cleo.myha.data.Category
 import com.cleo.myha.data.Posts
 import com.google.firebase.firestore.FirebaseFirestore
 
-
 class DiscoverViewModel : ViewModel() {
 
     private var db = FirebaseFirestore.getInstance()
 
     private var _allPost = MutableLiveData<List<Posts>>()
     val allPost: LiveData<List<Posts>>
-    get() = _allPost
+        get() = _allPost
 
     var category: String? = null
 
-    fun setPost(filterPost: String){
-       category = filterPost
+    fun setPost(filterPost: String) {
+        category = filterPost
     }
-
 
     init {
         addPost()
     }
 
-    private fun addPost(){
+    private fun addPost() {
 
-         db.collection("posts")
+        db.collection("posts")
             .get()
             .addOnSuccessListener { documents ->
                 val list = documents.toObjects(Posts::class.java)
-                Log.d("Cleoo","${documents.size()}")
+                Log.d("Cleoo", "${documents.size()}")
 
-                _allPost.value = if(category == Category.All.type){
+                _allPost.value = if (category == Category.All.type) {
                     list
-                   }else{
+                } else {
                     list.filter {
                         it.tag == category
                     }
                 }
             }
             .addOnFailureListener {
-                Log.d("Cleooo", "get fail")}
+                Log.d("Cleooo", "get fail")
+            }
     }
 }

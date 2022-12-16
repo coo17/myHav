@@ -1,7 +1,6 @@
 package com.cleo.myha.data
 
 import android.os.Parcelable
-import com.google.firebase.Timestamp
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
@@ -12,11 +11,5 @@ data class User(
     var photo: String = "",
     var email: String = "",
     var blockLists: @RawValue List<String> = emptyList()
-): Parcelable
+) : Parcelable
 
-//data class BlockInfo(
-//    var blockEmail: String ="",
-//    var id: String ="",
-//    var content: String ="",
-//    var userName: String = ""
-//)

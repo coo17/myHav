@@ -1,13 +1,11 @@
 package com.cleo.myha.home
 
-
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,67 +15,74 @@ import com.cleo.myha.databinding.FragmentHomeBinding
 import com.github.sundeepk.compactcalendarview.CompactCalendarView.CompactCalendarViewListener
 import com.github.sundeepk.compactcalendarview.domain.Event
 import com.google.firebase.auth.FirebaseAuth
-import convertToTime
 import java.util.*
-import kotlin.time.Duration.Companion.seconds
-
 
 class HomeFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
         val viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
-        val adapter = HomeAdapter(HomeAdapter.HomeListener { checkbox: Boolean ->
+        val adapter = HomeAdapter(
+            HomeAdapter.HomeListener { checkbox: Boolean ->
 
-            if (checkbox == true) {
-                if (viewModel.checkAllList()) {
-                    findNavController().navigate(NavGraphDirections.actionGlobalFinishTaskDialog())
+                if (checkbox) {
+                    if (viewModel.checkAllList()) {
+                        findNavController().navigate(NavGraphDirections.actionGlobalFinishTaskDialog())
+                    }
                 }
-            }
-        }, viewModel)
+            },
+            viewModel
+        )
 
         binding.taskRecyclerView.adapter = adapter
         auth = FirebaseAuth.getInstance()
         val user = auth.currentUser
 
-        binding.textHelloUser.text = "Hello, ${auth.currentUser?.displayName}" ?: "User"
+        binding.textHelloUser.text = "Hello, ${auth.currentUser?.displayName}"
 
-        viewModel.doneList.observe(viewLifecycleOwner, Observer {
-            adapter.notifyDataSetChanged()
-        })
+        viewModel.doneList.observe(
+            viewLifecycleOwner,
+            Observer {
+                adapter.notifyDataSetChanged()
+            }
+        )
 
-        viewModel.todayTasks.observe(viewLifecycleOwner, Observer {
+        viewModel.todayTasks.observe(
+            viewLifecycleOwner
+        ) {
             adapter.submitList(it)
-        })
+        }
 
-        viewModel.monthOfList.observe(viewLifecycleOwner, Observer {
-            Log.d("BBBBB", "${it.size}")
-            val list = mutableListOf<Event>()
+        viewModel.monthOfList.observe(
+            viewLifecycleOwner,
+            Observer {
+                Log.d("Cleo", "Hey${it.size}")
+                val list = mutableListOf<Event>()
 
-            for(item in it){
-                Log.d("BBBBB", "${item.value}")
-                if(item.value == true){
-                val ev1 = Event(
-                    Color.parseColor("#ABD3D6"),
-                    item.key,
-                    "i don't know why"
-                )
-                list.add(ev1)
+                for (item in it) {
+                    Log.d("Cleo", "Hi${item.value}")
+                    if (item.value) {
+                        val ev1 = Event(
+                            Color.parseColor("#ABD3D6"),
+                            item.key,
+                            ""
+                        )
+                        list.add(ev1)
+                    }
+                }
 
-            }}
-
-            binding.compactcalendarView.addEvents(list)
-        })
-
+                binding.compactcalendarView.addEvents(list)
+            }
+        )
 
         binding.compactcalendarView.setEventIndicatorStyle(1)
-
 
         // display certain daily tasks
         binding.compactcalendarView.setListener(object : CompactCalendarViewListener {
@@ -94,6 +99,4 @@ class HomeFragment : Fragment() {
 
         return binding.root
     }
-
-
 }

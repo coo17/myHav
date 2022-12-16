@@ -7,11 +7,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cleo.myha.R
-import com.cleo.myha.data.MessagesInfo
 import com.cleo.myha.data.User
 import com.cleo.myha.databinding.ItemCurrentUserBinding
 import com.google.android.material.shape.CornerFamily
-
 
 class CurrentUserAdapter() :
     ListAdapter<User, CurrentUserAdapter.CurrentUserViewHolder>(UserDiffCallBack()) {
@@ -19,15 +17,16 @@ class CurrentUserAdapter() :
     class CurrentUserViewHolder(private var binding: ItemCurrentUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: User){
+        fun bind(item: User) {
 
-            val radius = 50.0f
+            val radius = USER_PHOTO_RADIUS
+
             binding.userPhoto.shapeAppearanceModel = binding.userPhoto.shapeAppearanceModel
                 .toBuilder()
                 .setTopRightCorner(CornerFamily.ROUNDED, radius)
                 .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
-                .setTopLeftCorner(CornerFamily.ROUNDED,radius)
-                .setBottomRightCorner(CornerFamily.ROUNDED,radius)
+                .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                .setBottomRightCorner(CornerFamily.ROUNDED, radius)
                 .build()
 
             binding.userName.text = item.name
@@ -37,7 +36,6 @@ class CurrentUserAdapter() :
                 .placeholder(R.drawable.lion)
                 .into(binding.userPhoto)
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrentUserViewHolder {
@@ -63,6 +61,9 @@ class CurrentUserAdapter() :
         override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
             return oldItem == newItem
         }
+    }
 
+    companion object{
+        private const val USER_PHOTO_RADIUS = 50f
     }
 }
